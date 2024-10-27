@@ -6,6 +6,10 @@ export class DepartmentMaintenanceTypeAssignmentUseCase implements IDepartmentMa
   constructor(private readonly departmentMaintenanceTypeAssignmentService: DepartmentMaintenanceTypeAssignmentService ) {}
 
   async createDepartmentMaintenanceTypeAssignment(departmentMaintenanceTypeAssignment: ICreateDepartmentMaintenanceTypeAssignment): Promise<void> {
-    this.departmentMaintenanceTypeAssignmentService.createDepartmentMaintenanceTypeAssignment(departmentMaintenanceTypeAssignment);
+    try {
+      await this.departmentMaintenanceTypeAssignmentService.createDepartmentMaintenanceTypeAssignment(departmentMaintenanceTypeAssignment);
+    } catch (error) {
+      throw error;
+    }
   }
 }

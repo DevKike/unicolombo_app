@@ -17,13 +17,13 @@ export class DepartmentMaintenanceTypeAssignment implements IDepartmentMaintenan
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
 
-  @Column({ type: "enum", enum: DepartmentMaintenanceTypeAssignmentStatus })
+  @Column({ type: "enum", enum: DepartmentMaintenanceTypeAssignmentStatus, default: DepartmentMaintenanceTypeAssignmentStatus.ACTIVE })
   status: DepartmentMaintenanceTypeAssignmentStatus;
 
-  @Column()
+  @Column({ nullable: true })
   priority: number;
 
-  @Column("text")
+  @Column("text", { nullable: true })
   comments: string;
 
   @ManyToOne(() => Department, (department) => department.departmentMaintenanceTypeAssignments)

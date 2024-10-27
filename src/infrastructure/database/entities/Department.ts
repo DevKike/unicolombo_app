@@ -12,10 +12,10 @@ export class Department implements IDepartment {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
-  @Column({ name: "phone_number", unique: true })
+  @Column({ name: "phone_number", unique: true, nullable: true })
   phoneNumber: string;
 
   @CreateDateColumn({ name: "created_at" })
@@ -24,7 +24,7 @@ export class Department implements IDepartment {
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
 
-  @Column({ type:"enum", enum: DepartmentStatus })
+  @Column({ type:"enum", enum: DepartmentStatus, default: DepartmentStatus.ACTIVE })
   status: DepartmentStatus;
   
   @OneToOne(() => Actor)

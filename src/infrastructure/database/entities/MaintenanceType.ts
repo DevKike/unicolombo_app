@@ -10,7 +10,7 @@ export class MaintenanceType implements IMaintenanceType {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
   @CreateDateColumn({ name: "created_at" })

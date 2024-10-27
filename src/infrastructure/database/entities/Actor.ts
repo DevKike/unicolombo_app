@@ -16,7 +16,7 @@ export class Actor implements IActor {
   @Column({ name: "last_name" }) 
   lastName: string;
 
-  @Column({ name: "phone_number", unique: true })
+  @Column({ name: "phone_number", unique: true, nullable: true })
   phoneNumber: string;
 
   @Column({ unique: true })
@@ -34,7 +34,7 @@ export class Actor implements IActor {
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
 
-  @Column({ type: "enum", enum: ActorStatus })
+  @Column({ type: "enum", enum: ActorStatus, default: ActorStatus.ACTIVE })
   status: ActorStatus;
 
   @ManyToOne(() => Department, (department) => department.actors)

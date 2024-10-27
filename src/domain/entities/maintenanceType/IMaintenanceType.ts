@@ -3,7 +3,7 @@ import { IDepartmentMaintenanceTypeAssignment } from "../departmentMaintenanceTy
 export interface IMaintenanceType {
   id: number;
   name: string;
-  description: string;
+  description?: string;
   createdAt: Date;
   updatedAt: Date;
   departmentMaintenanceTypeAssignments: IDepartmentMaintenanceTypeAssignment[];

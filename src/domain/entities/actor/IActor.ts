@@ -7,13 +7,13 @@ export interface IActor {
   id: number;
   name: string;
   lastName: string;
-  phoneNumber: string;
+  phoneNumber?: string;
   email: string;
   documentNumber: number;
   documentType: DocumentType;
   createdAt: Date;
   updatedAt: Date;
-  status: ActorStatus;
+  status?: ActorStatus;
   department: IDepartment;
   role: IRole;
 }

@@ -11,7 +11,7 @@ export class Maintenance implements IMaintenance {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
   @CreateDateColumn({ name: "created_at" })
@@ -20,7 +20,7 @@ export class Maintenance implements IMaintenance {
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
 
-  @Column({ type: "enum", enum: MaintenanceStatus })
+  @Column({ type: "enum", enum: MaintenanceStatus, default: MaintenanceStatus.REQUESTED })
   status: MaintenanceStatus;
 
   @ManyToOne(() => DepartmentMaintenanceTypeAssignment, (departmentMaintenanceTypeAssignment) => departmentMaintenanceTypeAssignment.maintenances)

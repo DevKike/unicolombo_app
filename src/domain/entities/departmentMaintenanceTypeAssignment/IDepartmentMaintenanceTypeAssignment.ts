@@ -8,9 +8,9 @@ export interface IDepartmentMaintenanceTypeAssignment {
   id: number;
   assignedAt: Date;
   updatedAt: Date;
-  status: DepartmentMaintenanceTypeAssignmentStatus;
-  priority: number;
-  comments: string;
+  status?: DepartmentMaintenanceTypeAssignmentStatus;
+  priority?: number;
+  comments?: string;
   department: IDepartment;
   maintenanceType: IMaintenanceType;
   maintenances: IMaintenance[];

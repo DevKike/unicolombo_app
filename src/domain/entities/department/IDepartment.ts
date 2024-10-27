@@ -5,11 +5,11 @@ import { IDepartmentMaintenanceTypeAssignment } from "../departmentMaintenanceTy
 export interface IDepartment {
   id: number;
   name: string;
-  description: string;
-  phoneNumber: string;
+  description?: string;
+  phoneNumber?: string;
   createdAt: Date;
   updatedAt: Date;
-  status: DepartmentStatus;
+  status?: DepartmentStatus;
   coordinator: IActor;
   actors: IActor[];
   departmentMaintenanceTypeAssignments: IDepartmentMaintenanceTypeAssignment[];

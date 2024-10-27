@@ -4,10 +4,10 @@ import { IDepartmentMaintenanceTypeAssignment } from "../departmentMaintenanceTy
 export interface IMaintenance {
   id: number;
   name: string;
-  description: string;
+  description?: string;
   createdAt: Date;
   updatedAt: Date;
-  status: MaintenanceStatus;
+  status?: MaintenanceStatus;
   departmentMaintenanceTypeAssignment: IDepartmentMaintenanceTypeAssignment;
 }
 

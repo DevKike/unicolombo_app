@@ -14,7 +14,7 @@ const departmentId = Joi.number();
 const maintenanceTypeId = Joi.number();
 
 export const createDepartmentMaintenanceTypeAssignmentSchema = Joi.object({
-  status: status.required(),
+  status: status,
   priority: priority,
   comments: comments,
   department: departmentId.required(),
