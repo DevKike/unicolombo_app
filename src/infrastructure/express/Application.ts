@@ -28,6 +28,10 @@ import { DeptMaintTypeAssignmentUseCase } from "../../application/usecases/deptM
 import { DeptMaintTypeAssignmentRouter } from "./driving/deptMaintTypeAssignment/DeptMaintTypeAssignmentRouter";
 import { DeptMaintTypeAssignmentRepository } from "../repositories/deptMaintTypeAssignment/deptMaintTypeAssignmentRepository";
 import { DeptMaintTypeAssignmentService } from "../services/deptMaintTypeAssignment/deptMaintTypeAssignmentService";
+import { StageRepository } from "../repositories/stage/StageRepository";
+import { StageService } from "../services/stage/StageService";
+import { StageUseCase } from "../../application/usecases/stage/StageUseCase";
+import { StageRouter } from "./driving/stage/StageRouter";
 
 
 export class Application {
@@ -76,6 +80,11 @@ export class Application {
     const maintenanceUseCase = new MaintenanceUseCase(maintenanceService);
     const maintenanceRouter = new MaintenanceRouter(maintenanceUseCase);
 
+    const stageRepository = new StageRepository(AppDataSource);
+    const stageService = new StageService(stageRepository);
+    const stageUseCase = new StageUseCase(stageService);
+    const stageRouter = new StageRouter(stageUseCase);
+
     this.routerManager = new RouterManager(
       this.app,
       roleRouter,
@@ -83,7 +92,8 @@ export class Application {
       departmentRouter,
       maintenanceTypeRouter,
       deptMaintTypeAssignmentRouter,
-      maintenanceRouter
+      maintenanceRouter,
+      stageRouter
     );
     this.routerManager.manageRoutes();
   }
