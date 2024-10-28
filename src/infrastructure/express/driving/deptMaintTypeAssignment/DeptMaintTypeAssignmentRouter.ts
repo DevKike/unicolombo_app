@@ -5,7 +5,7 @@ import { DeptMaintTypeAssignmentUseCase } from "../../../../application/usecases
 import { HttpStatusCode } from "../../../../domain/enums/http/HttpStatusCode";
 import { Message } from "../../../../domain/enums/message/Message";
 import { schemaValidator } from "../../middlewares/schemaValidator";
-import { createDeptMaintTypeAssignmentSchema } from "../../../schemas/deptMaintTypeAssignment/deptMaintTypeAssignmentSchema";
+import { createDeptMaintTypeAssignmentSchema, updateDeptMaintTypeAssignmentSchema } from "../../../schemas/deptMaintTypeAssignment/deptMaintTypeAssignmentSchema";
 
 export class DeptMaintTypeAssignmentRouter implements IRouterModule {
   private readonly deptMaintTypeAssignmentRouter: Router;
@@ -27,6 +27,10 @@ export class DeptMaintTypeAssignmentRouter implements IRouterModule {
     this.deptMaintTypeAssignmentRouter.get("/:id", async (req, res) => {
       await ResponseModel.manageResponse(this.deptMaintTypeAssignmentUseCase.getDeptMaintTypeAssignmentById(Number(req.params.id)), res, HttpStatusCode.OK, Message.DEPT_MAINT_TYPE_ASSIGNMENT_OBTAINED_SUCCESSFULLY)
     });
+
+    this.deptMaintTypeAssignmentRouter.patch("/:id", schemaValidator(updateDeptMaintTypeAssignmentSchema), async (req, res) => {
+      await ResponseModel.manageResponse(this.deptMaintTypeAssignmentUseCase.updateDeptMaintTypeAssignmentById(Number(req.params.id), req.body), res, HttpStatusCode.OK, Message.DEPT_MAINT_TYPE_ASSIGNMENT_UPDATED_SUCCESSFULLY);
+    })
   }
 
   getRouter(): Router {

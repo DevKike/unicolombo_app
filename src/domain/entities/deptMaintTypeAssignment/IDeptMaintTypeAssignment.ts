@@ -17,3 +17,5 @@ export interface IDeptMaintTypeAssignment {
 }
 
 export interface ICreateDeptMaintTypeAssignment extends Omit<IDeptMaintTypeAssignment, "id" | "assignedAt" | "updatedAt" | "maintenances"> {}
+
+export interface IUpdateDeptMaintTypeAssignment extends Partial<Omit<IDeptMaintTypeAssignment, "id" | "assignedAt" | "updatedAt" | "maintenances">> {}

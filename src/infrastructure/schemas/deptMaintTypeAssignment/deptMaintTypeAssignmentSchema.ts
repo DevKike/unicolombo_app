@@ -21,3 +21,11 @@ export const createDeptMaintTypeAssignmentSchema = Joi.object({
   department: departmentId.required(),
   maintenanceType: maintenanceTypeId.required(),
 });
+
+export const updateDeptMaintTypeAssignmentSchema = Joi.object({
+  status: status,
+  priority: priority,
+  comments: comments,
+  department: departmentId,
+  maintenanceType: maintenanceTypeId,
+});
