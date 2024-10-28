@@ -21,7 +21,18 @@ export class StageRepository implements IStageRepository {
   async getAll(): Promise<IStage[]> {
     try {
       return await this.stageRepository.find({
-        relations: ["deptMaintTypeAssignment"]
+        relations: ["deptMaintTypeAssignment"],
+      });
+    } catch (error) {
+      throw error;
+    } 
+  }
+
+  async getOneById(id: number): Promise<IStage | null> {
+    try {
+      return await this.stageRepository.findOne({ 
+        where: { id: id },
+        relations: ["deptMaintTypeAssignment"],
       });
     } catch (error) {
       throw error;

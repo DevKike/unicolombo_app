@@ -16,4 +16,12 @@ export class StageService implements IStageService {
       throw error;
     }
   }
+
+  async getStageById(id: number): Promise<IStage | null> {
+    try {
+      return await this.stageRepository.getOneById(id);
+    } catch (error) {
+      throw error;
+    }
+  }
 }

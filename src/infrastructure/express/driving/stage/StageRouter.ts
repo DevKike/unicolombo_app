@@ -23,6 +23,10 @@ export class StageRouter implements IRouterModule {
     this.stageRouter.get("/", async (req, res) => {
       await ResponseModel.manageResponse(this.stageUseCase.getStages(), res, HttpStatusCode.OK, Message.STAGES_OBTAINED_SUCCESSFULLY);
     });
+
+    this.stageRouter.get("/:id", async (req, res) => {
+      await ResponseModel.manageResponse(this.stageUseCase.getStageById(Number(req.params.id)), res, HttpStatusCode.OK, Message.STAGE_OBTAINED_SUCCESSFULLY);
+    });
   }
 
   getRouter(): Router {
