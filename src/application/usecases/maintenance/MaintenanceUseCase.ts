@@ -1,13 +1,13 @@
-import { IMaintenance } from "../../../domain/entities/maintenance/IMaintenance";
+import { ICreateMaintenance, IMaintenance } from "../../../domain/entities/maintenance/IMaintenance";
 import { IMaintenanceService } from "../../../domain/entities/maintenance/IMaintenanceService";
 import { IMaintenanceUseCase } from "../../../domain/entities/maintenance/IMaintenanceUseCase";
 
 export class MaintenanceUseCase implements IMaintenanceUseCase {
   constructor(private readonly maintenanceService: IMaintenanceService) {}
 
-  async createMaintenance(maintenance: IMaintenance, departmentId: number): Promise<void> {
+  async createMaintenance(maintenance: ICreateMaintenance): Promise<void> {
     try {
-      await this.maintenanceService.createMaintenance(maintenance, departmentId);
+      await this.maintenanceService.createMaintenance(maintenance);
     } catch (error) {
       throw error;
     }
