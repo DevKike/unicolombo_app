@@ -1,4 +1,4 @@
-export enum DepartmentMaintenanceTypeAssignmentStatus {
+export enum DeptMaintTypeAssignmentStatus {
   ACTIVE = "active",
   INACTIVE = "inactive",
   EXPIRED = "expired",

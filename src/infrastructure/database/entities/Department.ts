@@ -2,7 +2,7 @@ import { IDepartment } from "../../../domain/entities/department/IDepartment";
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Actor } from "./Actor";
 import { DepartmentStatus } from "../../../domain/enums/department/DepartmentStatus";
-import { DepartmentMaintenanceTypeAssignment } from "./DepartmentMaintenanceTypeAssignment";
+import { DeptMaintTypeAssignment } from "./DeptMaintTypeAssignment";
 
 @Entity()
 export class Department implements IDepartment {
@@ -34,6 +34,6 @@ export class Department implements IDepartment {
   @OneToMany(() => Actor, (actor) => actor.department)
   actors: Actor[];
   
-  @OneToMany(() => DepartmentMaintenanceTypeAssignment, (departmentMaintenanceTypeAssignment) => departmentMaintenanceTypeAssignment.department)
-  departmentMaintenanceTypeAssignments: DepartmentMaintenanceTypeAssignment[];
+  @OneToMany(() => DeptMaintTypeAssignment, (deptMaintTypeAssignment) => deptMaintTypeAssignment.department)
+  deptMaintTypeAssignments: DeptMaintTypeAssignment[];
 }

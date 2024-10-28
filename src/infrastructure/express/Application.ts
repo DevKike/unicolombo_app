@@ -24,10 +24,11 @@ import { MaintenanceTypeRouter } from "./driving/maintenanceType/MaintenanceType
 import { MaintenanceTypeUseCase } from "../../application/usecases/maintenanceType/MaintenanceTypeUseCase";
 import { MaintenanceTypeRepository } from "../repositories/maintenanceType/MaintenanceTypeRepository";
 import { MaintenanceTypeService } from "../services/maintenanceType/MaintenanceTypeService";
-import { DepartmentMaintenanceTypeAssignmentRepository } from "../repositories/departmentMaintenanceTypeAssignment/DepartmentMaintenanceTypeAssignmentRepository";
-import { DepartmentMaintenanceTypeAssignmentService } from "../services/departmentMaintenanceTypeAssignment/DepartmentMaintenanceTypeAssignmentService";
-import { DepartmentMaintenanceTypeAssignmentUseCase } from "../../application/usecases/departmentMaintenanceTypeAssignment/DepartmentMaintenanceTypeAssignmentUseCase";
-import { DepartmentMaintenanceTypeAssignmentRouter } from "./driving/departmentMaintenanceTypeAssignment/DepartmentMaintenanceTypeAssignmentRouter";
+import { DeptMaintTypeAssignmentRepository } from "../repositories/deptMaintTypeAssignment/deptMaintTypeAssignmentRepository";
+import { DeptMaintTypeAssignmentService } from "../services/deptMaintTypeAssignment/deptMaintTypeAssignmentService";
+import { DeptMaintTypeAssignmentUseCase } from "../../application/usecases/deptMaintTypeAssignment/DeptMaintTypeAssignmentUseCase";
+import { DeptMaintTypeAssignmentRouter } from "./driving/deptMaintTypeAssignment/DeptMaintTypeAssignmentRouter";
+
 
 export class Application {
   public app: App;
@@ -65,10 +66,10 @@ export class Application {
     const maintenanceTypeUseCase = new MaintenanceTypeUseCase(maintenanceTypeService);
     const maintenanceTypeRouter = new MaintenanceTypeRouter(maintenanceTypeUseCase);
 
-    const departmentMaintenanceTypeAssignmentRepository = new DepartmentMaintenanceTypeAssignmentRepository(AppDataSource);
-    const departmentMaintenanceTypeAssignmentService = new DepartmentMaintenanceTypeAssignmentService(departmentMaintenanceTypeAssignmentRepository);
-    const departmentMaintenanceTypeAssignmentUseCase = new DepartmentMaintenanceTypeAssignmentUseCase(departmentMaintenanceTypeAssignmentService);
-    const departmentMaintenanceTypeAssignmentRouter = new DepartmentMaintenanceTypeAssignmentRouter(departmentMaintenanceTypeAssignmentUseCase);
+    const deptMaintTypeAssignmentRepository = new DeptMaintTypeAssignmentRepository(AppDataSource);
+    const deptMaintTypeAssignmentService = new DeptMaintTypeAssignmentService(deptMaintTypeAssignmentRepository);
+    const deptMaintTypeAssignmentUseCase = new DeptMaintTypeAssignmentUseCase(deptMaintTypeAssignmentService);
+    const deptMaintTypeAssignmentRouter = new DeptMaintTypeAssignmentRouter(deptMaintTypeAssignmentUseCase);
 
     const maintenanceRepository = new MaintenanceRepository(AppDataSource);
     const maintenanceService = new MaintenanceService(maintenanceRepository);
@@ -81,7 +82,7 @@ export class Application {
       actorRouter,
       departmentRouter,
       maintenanceTypeRouter,
-      departmentMaintenanceTypeAssignmentRouter,
+      deptMaintTypeAssignmentRouter,
       maintenanceRouter
     );
     this.routerManager.manageRoutes();
