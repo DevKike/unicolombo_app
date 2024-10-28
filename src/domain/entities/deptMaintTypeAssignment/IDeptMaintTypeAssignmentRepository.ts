@@ -3,4 +3,5 @@ import { ICreateDeptMaintTypeAssignment, IDeptMaintTypeAssignment } from "./IDep
 export interface IDeptMaintTypeAssignmentRepository {
   save(deptMaintTypeAssignment: ICreateDeptMaintTypeAssignment): Promise<void>;
   getAll(): Promise<IDeptMaintTypeAssignment[]>;
+  getOneById(id: number): Promise<IDeptMaintTypeAssignment | null>;
 }

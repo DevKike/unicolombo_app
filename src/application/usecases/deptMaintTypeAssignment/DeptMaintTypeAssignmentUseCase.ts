@@ -20,4 +20,12 @@ export class DeptMaintTypeAssignmentUseCase implements IDeptMaintTypeAssignmentU
       throw error;
     }
   }
+
+  async getDeptMaintTypeAssignmentById(id: number): Promise<IDeptMaintTypeAssignment | null> {
+    try {
+      return await this.deptMaintTypeAssignment.getDeptMaintTypeAssignmentById(id);
+    } catch (error) {
+      throw error;
+    }
+  }
 }

@@ -21,10 +21,18 @@ export class DeptMaintTypeAssignmentRepository implements IDeptMaintTypeAssignme
   async getAll(): Promise<IDeptMaintTypeAssignment[]> {
     try {
       return await this.deptMaintTypeAssignmentRepository.find({
-        relations: [
-          "department", 
-          "maintenanceType"
-        ],
+        relations: ["department",  "maintenanceType"],
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getOneById(id: number): Promise<IDeptMaintTypeAssignment | null> {
+    try {
+      return await this.deptMaintTypeAssignmentRepository.findOne({
+        where: { id: id },
+        relations: ["department", "maintenanceType"],
       });
     } catch (error) {
       throw error;

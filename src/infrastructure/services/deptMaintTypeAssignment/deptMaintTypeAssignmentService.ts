@@ -21,5 +21,13 @@ export class DeptMaintTypeAssignmentService implements IDeptMaintTypeAssignmentS
       throw error;
     }
   }
+
+  async getDeptMaintTypeAssignmentById(id: number): Promise<IDeptMaintTypeAssignment | null> {
+    try {
+      return await this.deptMaintTypeAssignmentRepository.getOneById(id);
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
