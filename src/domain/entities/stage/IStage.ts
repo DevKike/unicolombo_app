@@ -9,3 +9,5 @@ export interface IStage {
   updatedAt: Date;
   deptMaintTypeAssignment: IDeptMaintTypeAssignment;
 }
+
+export interface ICreateStage extends Omit<IStage, "id" | "createdAt" | "updatedAt"> {}
