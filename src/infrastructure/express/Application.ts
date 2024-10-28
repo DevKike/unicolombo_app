@@ -24,10 +24,10 @@ import { MaintenanceTypeRouter } from "./driving/maintenanceType/MaintenanceType
 import { MaintenanceTypeUseCase } from "../../application/usecases/maintenanceType/MaintenanceTypeUseCase";
 import { MaintenanceTypeRepository } from "../repositories/maintenanceType/MaintenanceTypeRepository";
 import { MaintenanceTypeService } from "../services/maintenanceType/MaintenanceTypeService";
-import { DeptMaintTypeAssignmentRepository } from "../repositories/deptMaintTypeAssignment/DeptMaintTypeAssignmentRepository";
-import { DeptMaintTypeAssignmentService } from "../services/deptMaintTypeAssignment/DeptMaintTypeAssignmentService";
 import { DeptMaintTypeAssignmentUseCase } from "../../application/usecases/deptMaintTypeAssignment/DeptMaintTypeAssignmentUseCase";
 import { DeptMaintTypeAssignmentRouter } from "./driving/deptMaintTypeAssignment/DeptMaintTypeAssignmentRouter";
+import { DeptMaintTypeAssignmentRepository } from "../repositories/deptMaintTypeAssignment/deptMaintTypeAssignmentRepository";
+import { DeptMaintTypeAssignmentService } from "../services/deptMaintTypeAssignment/deptMaintTypeAssignmentService";
 
 
 export class Application {
