@@ -1,4 +1,4 @@
-import { ICreateMaintenance, IMaintenance } from "../../../domain/entities/maintenance/IMaintenance";
+import { ICreateMaintenance, IMaintenance, IUpdateMaintenance } from "../../../domain/entities/maintenance/IMaintenance";
 import { IMaintenanceService } from "../../../domain/entities/maintenance/IMaintenanceService";
 import { IMaintenanceUseCase } from "../../../domain/entities/maintenance/IMaintenanceUseCase";
 
@@ -29,7 +29,7 @@ export class MaintenanceUseCase implements IMaintenanceUseCase {
     }
   }
 
-  async updateMaintenanceById(id: number, maintenance: IMaintenance): Promise<void> {
+  async updateMaintenanceById(id: number, maintenance: IUpdateMaintenance): Promise<void> {
     try {
       await this.maintenanceService.updateMaintenanceById(id, maintenance);
     } catch (error) {
