@@ -4,6 +4,7 @@ import { MaintenanceType } from "./MaintenanceType";
 import { Maintenance } from "./Maintenance";
 import { IDeptMaintTypeAssignment } from "../../../domain/entities/deptMaintTypeAssignment/IDeptMaintTypeAssignment";
 import { DeptMaintTypeAssignmentStatus } from "../../../domain/enums/DeptMaintTypeAssignmentStatus/DeptMaintTypeAssignmentStatus";
+import { Stage } from "./Stage";
 
 @Entity()
 export class DeptMaintTypeAssignment implements IDeptMaintTypeAssignment
@@ -36,4 +37,7 @@ export class DeptMaintTypeAssignment implements IDeptMaintTypeAssignment
 
   @OneToMany(() => Maintenance, (maintenance) => maintenance.deptMaintTypeAssignment)
   maintenances: Maintenance[];
+
+  @OneToMany(() => Stage, (stage) => stage.deptMaintTypeAssignment)
+  stages: Stage[];
 }
