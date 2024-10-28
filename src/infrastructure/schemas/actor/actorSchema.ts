@@ -30,6 +30,7 @@ export const updateActorSchema =  Joi.object({
   lastName: lastName,
   phoneNumber: phoneNumber,
   email: email,
+  department: departmentId,
   status: status,
   role: roleId,
 })

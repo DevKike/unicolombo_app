@@ -4,7 +4,7 @@ import { ResponseModel } from "../../response/ResponseModel";
 import { DeptMaintTypeAssignmentUseCase } from "../../../../application/usecases/deptMaintTypeAssignment/DeptMaintTypeAssignmentUseCase";
 import { HttpStatusCode } from "../../../../domain/enums/http/HttpStatusCode";
 import { Message } from "../../../../domain/enums/message/Message";
-import { schemaValidator } from "../../middlewares/schemaValidator";
+import { schemaValidator } from "../../../schemas/middleware/schemaValidator";
 import { createDeptMaintTypeAssignmentSchema, updateDeptMaintTypeAssignmentSchema } from "../../../schemas/deptMaintTypeAssignment/deptMaintTypeAssignmentSchema";
 
 export class DeptMaintTypeAssignmentRouter implements IRouterModule {
