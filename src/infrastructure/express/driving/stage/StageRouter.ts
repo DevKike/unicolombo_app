@@ -17,7 +17,11 @@ export class StageRouter implements IRouterModule {
 
   initRoutes(): void {
     this.stageRouter.post("/", schemaValidator(createStageSchema), async (req, res) => {
-        await ResponseModel.manageResponse(this.stageUseCase.createStage(req.body), res, HttpStatusCode.CREATED, Message.STAGE_CREATED_SUCCESSFULLY);
+      await ResponseModel.manageResponse(this.stageUseCase.createStage(req.body), res, HttpStatusCode.CREATED, Message.STAGE_CREATED_SUCCESSFULLY);
+    });
+
+    this.stageRouter.get("/", async (req, res) => {
+      await ResponseModel.manageResponse(this.stageUseCase.getStages(), res, HttpStatusCode.OK, Message.STAGES_OBTAINED_SUCCESSFULLY);
     });
   }
 

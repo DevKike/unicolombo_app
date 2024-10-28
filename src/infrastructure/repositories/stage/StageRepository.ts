@@ -1,5 +1,5 @@
 import { DataSource, Repository } from "typeorm";
-import { ICreateStage } from "../../../domain/entities/stage/IStage";
+import { ICreateStage, IStage } from "../../../domain/entities/stage/IStage";
 import { IStageRepository } from "../../../domain/entities/stage/IStageRepository";
 import { Stage } from "../../database/entities/Stage";
 
@@ -13,6 +13,16 @@ export class StageRepository implements IStageRepository {
   async save(stage: ICreateStage): Promise<void> {
     try {
       await this.stageRepository.save(stage);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getAll(): Promise<IStage[]> {
+    try {
+      return await this.stageRepository.find({
+        relations: ["deptMaintTypeAssignment"]
+      });
     } catch (error) {
       throw error;
     }
