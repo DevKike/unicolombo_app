@@ -29,5 +29,5 @@ export const updateDepartmentSchema = Joi.object({
   description: description,
   phoneNumber: phoneNumber,
   coordinator: coordinatorId,
-  status: status
+  status: status,
 });

@@ -3,7 +3,7 @@ import { HttpStatusCode } from "../../../../domain/enums/http/HttpStatusCode";
 import { IActorUseCase } from "../../../../domain/entities/actor/IActorUseCase";
 import { Router } from "express";
 import { Message } from "../../../../domain/enums/message/Message";
-import { schemaValidator } from "../../middlewares/schemaValidator";
+import { schemaValidator } from "../../../schemas/middleware/schemaValidator";
 import { createActorSchema, updateActorSchema } from "../../../schemas/actor/actorSchema";
 import { ResponseModel } from "../../response/ResponseModel";
 
