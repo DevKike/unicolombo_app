@@ -1,4 +1,4 @@
-import { ICreateDeptMaintTypeAssignment } from "../../../domain/entities/deptMaintTypeAssignment/IDeptMaintTypeAssignment";
+import { ICreateDeptMaintTypeAssignment, IDeptMaintTypeAssignment } from "../../../domain/entities/deptMaintTypeAssignment/IDeptMaintTypeAssignment";
 import { IDeptMaintTypeAssignmentService } from "../../../domain/entities/deptMaintTypeAssignment/IDeptMaintTypeAssignmentService";
 import { IDeptMaintTypeAssignmentUseCase } from "../../../domain/entities/deptMaintTypeAssignment/IDeptMaintTypeAssignmentUseCase";
 
@@ -8,6 +8,14 @@ export class DeptMaintTypeAssignmentUseCase implements IDeptMaintTypeAssignmentU
   async createDeptMaintTypeAssignment(deptMaintTypeAssignment: ICreateDeptMaintTypeAssignment): Promise<void> {
     try {
       await this.deptMaintTypeAssignment.createDeptMaintTypeAssignment(deptMaintTypeAssignment);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getAllDeptMaintTypeAssignment(): Promise<IDeptMaintTypeAssignment[]> {
+    try {
+      return await this.deptMaintTypeAssignment.getAllDeptMaintTypeAssignment();
     } catch (error) {
       throw error;
     }

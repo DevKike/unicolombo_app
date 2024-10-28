@@ -20,6 +20,7 @@ export class ResponseModel {
       } else if (error instanceof AlreadyExistsException) {
         res.status(HttpStatusCode.CONFLICT).json({ error: error.message });
       } else {
+        console.log(error);
         res
           .status(HttpStatusCode.INTERNAL_SERVER_ERROR)
           .json({ error: Message.INTERNAL_SERVER_ERROR });
