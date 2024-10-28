@@ -20,6 +20,15 @@ import { MaintenanceRouter } from "./driving/maintenance/MaintenanceRouter";
 import { MaintenanceUseCase } from "../../application/usecases/maintenance/MaintenanceUseCase";
 import { MaintenanceService } from "../services/maintenance/MaintenanceService";
 import { MaintenanceRepository } from "../repositories/maintenance/MaintenanceRepository";
+import { MaintenanceTypeRouter } from "./driving/maintenanceType/MaintenanceTypeRouter";
+import { MaintenanceTypeUseCase } from "../../application/usecases/maintenanceType/MaintenanceTypeUseCase";
+import { MaintenanceTypeRepository } from "../repositories/maintenanceType/MaintenanceTypeRepository";
+import { MaintenanceTypeService } from "../services/maintenanceType/MaintenanceTypeService";
+import { DeptMaintTypeAssignmentRepository } from "../repositories/deptMaintTypeAssignment/DeptMaintTypeAssignmentRepository";
+import { DeptMaintTypeAssignmentService } from "../services/deptMaintTypeAssignment/DeptMaintTypeAssignmentService";
+import { DeptMaintTypeAssignmentUseCase } from "../../application/usecases/deptMaintTypeAssignment/DeptMaintTypeAssignmentUseCase";
+import { DeptMaintTypeAssignmentRouter } from "./driving/deptMaintTypeAssignment/DeptMaintTypeAssignmentRouter";
+
 
 export class Application {
   public app: App;
@@ -32,10 +41,8 @@ export class Application {
   }
 
   private initMiddlewares(): void {
-    this.app.use(express.json());
     this.app.use(cors());
-    this.app.use(cors({ origin: "http://localhost:4200/" }));
-    
+    this.app.use(express.json());
   }
 
   private initRoutes(): void {
@@ -48,18 +55,36 @@ export class Application {
     const actorService = new ActorService(actorRepository);
     const actorUseCase = new ActorUseCase(actorService, roleService);
     const actorRouter = new ActorRouter(actorUseCase);
-    
+
     const departmentRepository = new DepartmentRepository(AppDataSource);
     const departmentService = new DepartmentService(departmentRepository);
     const departmentUseCase = new DepartmentUseCase(departmentService);
     const departmentRouter = new DepartmentRouter(departmentUseCase);
+    
+    const maintenanceTypeRepository = new MaintenanceTypeRepository(AppDataSource);
+    const maintenanceTypeService = new MaintenanceTypeService(maintenanceTypeRepository)
+    const maintenanceTypeUseCase = new MaintenanceTypeUseCase(maintenanceTypeService);
+    const maintenanceTypeRouter = new MaintenanceTypeRouter(maintenanceTypeUseCase);
 
-    const maintenanceRepository = new MaintenanceRepository(AppDataSource)
-    const maintenanceService = new MaintenanceService(maintenanceRepository)
+    const deptMaintTypeAssignmentRepository = new DeptMaintTypeAssignmentRepository(AppDataSource);
+    const deptMaintTypeAssignmentService = new DeptMaintTypeAssignmentService(deptMaintTypeAssignmentRepository);
+    const deptMaintTypeAssignmentUseCase = new DeptMaintTypeAssignmentUseCase(deptMaintTypeAssignmentService);
+    const deptMaintTypeAssignmentRouter = new DeptMaintTypeAssignmentRouter(deptMaintTypeAssignmentUseCase);
+
+    const maintenanceRepository = new MaintenanceRepository(AppDataSource);
+    const maintenanceService = new MaintenanceService(maintenanceRepository);
     const maintenanceUseCase = new MaintenanceUseCase(maintenanceService);
     const maintenanceRouter = new MaintenanceRouter(maintenanceUseCase);
 
-    this.routerManager = new RouterManager(this.app, roleRouter, actorRouter, departmentRouter, maintenanceRouter);
+    this.routerManager = new RouterManager(
+      this.app,
+      roleRouter,
+      actorRouter,
+      departmentRouter,
+      maintenanceTypeRouter,
+      deptMaintTypeAssignmentRouter,
+      maintenanceRouter
+    );
     this.routerManager.manageRoutes();
   }
 

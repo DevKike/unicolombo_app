@@ -1,8 +1,7 @@
-import { IDepartment } from "./IDepartment";
+import { ICreateDepartment, IDepartment, IUpdateDepartment } from "./IDepartment";
 
 export interface IDepartmentService {
-  createDepartment(department: IDepartment): Promise<void>;
+  createDepartment(department: ICreateDepartment): Promise<void>;
   getDepartments(): Promise<IDepartment[]>;
-  updateDepartment(id: number, department: IDepartment): Promise<void>;
-  deleteDepartment(id: number): Promise<void>;
+  updateDepartment(id: number, department: IUpdateDepartment): Promise<void>;
 }

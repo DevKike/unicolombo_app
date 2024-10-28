@@ -1,8 +1,8 @@
 import { IDepartment } from "../../../domain/entities/department/IDepartment";
 import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Actor } from "./Actor";
-import { Maintenance } from "./Maintenance";
 import { DepartmentStatus } from "../../../domain/enums/department/DepartmentStatus";
+import { DeptMaintTypeAssignment } from "./DeptMaintTypeAssignment";
 
 @Entity()
 export class Department implements IDepartment {
@@ -12,29 +12,28 @@ export class Department implements IDepartment {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
-  @Column()
-  phone_number: string;
+  @Column({ name: "phone_number", unique: true, nullable: true })
+  phoneNumber: string;
 
   @CreateDateColumn({ name: "created_at" })
-  created_at: Date;
-  
+  createdAt: Date;
+
   @UpdateDateColumn({ name: "updated_at" })
-  updated_at: Date;
+  updatedAt: Date;
 
-  @Column({ default: DepartmentStatus.ACTIVE })
+  @Column({ type:"enum", enum: DepartmentStatus, default: DepartmentStatus.ACTIVE })
   status: DepartmentStatus;
-
+  
   @OneToOne(() => Actor)
   @JoinColumn({ name: "coordinator_id" })
   coordinator: Actor;
-
+  
   @OneToMany(() => Actor, (actor) => actor.department)
   actors: Actor[];
-
-  @OneToMany(() => Maintenance, (maintenance) => maintenance.department)
-  maintenances: Maintenance[];
+  
+  @OneToMany(() => DeptMaintTypeAssignment, (deptMaintTypeAssignment) => deptMaintTypeAssignment.department)
+  deptMaintTypeAssignments: DeptMaintTypeAssignment[];
 }
-

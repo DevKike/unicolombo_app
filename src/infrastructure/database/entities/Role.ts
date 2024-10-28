@@ -10,7 +10,7 @@ export class Role implements IRole {
   @Column()
   name: string;
 
-  @Column("text")
+  @Column("text", { nullable: true })
   description: string;
 
   @OneToMany(() => Actor, (actor) => actor.role)

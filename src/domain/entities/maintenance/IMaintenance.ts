@@ -1,14 +1,16 @@
 import { MaintenanceStatus } from "../../enums/maintenance/MaintenanceStatus";
-import { MaintenanceType } from "../../enums/maintenance/MaintenanceType";
-import { IDepartment } from "../department/IDepartment";
+import { IDeptMaintTypeAssignment } from "../deptMaintTypeAssignment/IDeptMaintTypeAssignment";
 
 export interface IMaintenance {
   id: number;
   name: string;
-  description: string;
-  created_at: Date;
-  updated_at: Date;
+  description?: string;
+  createdAt: Date;
+  updatedAt: Date;
   status?: MaintenanceStatus;
-  type: MaintenanceType;
-  department: IDepartment;
+  deptMaintTypeAssignment: IDeptMaintTypeAssignment;
 }
+
+export interface ICreateMaintenance extends Omit<IMaintenance, "id" | "createdAt" | "updatedAt"> {}
+
+export interface IUpdateMaintenance extends Partial<Omit<IMaintenance, "id" | "createdAt" | "updatedAt">> {}

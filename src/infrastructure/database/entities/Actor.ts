@@ -1,9 +1,9 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { IActor } from "../../../domain/entities/actor/IActor";
-import { Status } from "../../../domain/enums/actor/Status";
 import { DocumentType } from "../../../domain/enums/actor/DocumentType";
 import { Role } from "./Role";
 import { Department } from "./Department";
+import { ActorStatus } from "../../../domain/enums/actor/ActorStatus";
 
 @Entity()
 export class Actor implements IActor {
@@ -13,36 +13,36 @@ export class Actor implements IActor {
   @Column()
   name: string;
 
-  @Column()
-  last_name: string;
+  @Column({ name: "last_name" }) 
+  lastName: string;
 
-  @Column({ unique: true })
-  phone_number: string;
+  @Column({ name: "phone_number", unique: true, nullable: true })
+  phoneNumber: string;
 
   @Column({ unique: true })
   email: string;
 
-  @Column({ unique: true })
-  document_number: number;
+  @Column({ name: "document_number", unique: true })
+  documentNumber: number;
 
-  @Column()
-  document_type: DocumentType;
+  @Column({ name: "document_type", type: "enum", enum: DocumentType })
+  documentType: DocumentType;
 
   @CreateDateColumn({ name: "created_at" })
-  created_at: Date;
+  createdAt: Date;
 
   @UpdateDateColumn({ name: "updated_at" })
-  updated_at: Date;
+  updatedAt: Date;
 
-  @Column({ default: Status.ACTIVE })
-  status: Status;
-
-  @ManyToOne(() => Role, (role) => role.actors)
-  @JoinColumn({ name: "role_id" })
-  role: Role;
+  @Column({ type: "enum", enum: ActorStatus, default: ActorStatus.ACTIVE })
+  status: ActorStatus;
 
   @ManyToOne(() => Department, (department) => department.actors)
   @JoinColumn({ name: "department_id" })
   department: Department;
+
+  @ManyToOne(() => Role, (role) => role.actors)
+  @JoinColumn({ name: "role_id" })
+  role: Role;
 }
 

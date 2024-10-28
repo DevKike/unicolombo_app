@@ -1,33 +1,29 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { IMaintenance } from "../../../domain/entities/maintenance/IMaintenance";
 import { MaintenanceStatus } from "../../../domain/enums/maintenance/MaintenanceStatus";
-import { MaintenanceType } from "../../../domain/enums/maintenance/MaintenanceType";
-import { Department } from "./Department";
+import { IMaintenance } from "../../../domain/entities/maintenance/IMaintenance";
+import { DeptMaintTypeAssignment } from "./DeptMaintTypeAssignment";
 
 @Entity()
 export class Maintenance implements IMaintenance {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ unique: true })
+  @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
   @CreateDateColumn({ name: "created_at" })
-  created_at: Date;
-  
+  createdAt: Date;
+
   @UpdateDateColumn({ name: "updated_at" })
-  updated_at: Date;
+  updatedAt: Date;
 
-  @Column()
-  type: MaintenanceType;
+  @Column({ type: "enum", enum: MaintenanceStatus, default: MaintenanceStatus.REQUESTED })
+  status: MaintenanceStatus;
 
-  @Column({ default: MaintenanceStatus.REQUESTED })
-  status?: MaintenanceStatus;
-
-  @ManyToOne(() => Department, (department) => department.maintenances)
-  @JoinColumn({ name: "department_id" })
-  department: Department;
+  @ManyToOne(() => DeptMaintTypeAssignment, (deptMaintTypeAssignment) => deptMaintTypeAssignment.maintenances)
+  @JoinColumn({ name: "dept_maint_type_assignment" })
+  deptMaintTypeAssignment: DeptMaintTypeAssignment;
 }

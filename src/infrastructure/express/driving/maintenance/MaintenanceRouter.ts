@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { IRouterModule } from "../../interfaces/IRouterModule";
 import { ResponseModel } from "../../response/ResponseModel";
-import { HttpStatusCode } from "../../../../domain/enums/httpStatusCode/HttpStatusCode";
+import { HttpStatusCode } from "../../../../domain/enums/http/HttpStatusCode";
 import { Message } from "../../../../domain/enums/message/Message";
 import { schemaValidator } from "../../middlewares/schemaValidator";
 import { createMaintenanceSchema, updateMaintenanceSchema } from "../../../schemas/maintenance/maintenanceSchema";
@@ -16,8 +16,9 @@ export class MaintenanceRouter implements IRouterModule {
   }
 
   initRoutes(): void {
-    this.maintenanceRouter.post("/", schemaValidator(createMaintenanceSchema), async (req, res) => {
-        await ResponseModel.manageResponse(this.maintenanceUseCase.createMaintenance(req.body), res, HttpStatusCode.CREATED, Message.MAINTENANCE_CREATED_SUCCESSFULLY);
+    this.maintenanceRouter.post("/", /* schemaValidator(createMaintenanceSchema), */ async (req, res) => {
+      console.log(req.body);
+      /* await ResponseModel.manageResponse(this.maintenanceUseCase.createMaintenance(req.body, Number(req.params.id)), res, HttpStatusCode.CREATED, Message.MAINTENANCE_CREATED_SUCCESSFULLY); */
     });
 
     this.maintenanceRouter.get("/", async (req, res) => {

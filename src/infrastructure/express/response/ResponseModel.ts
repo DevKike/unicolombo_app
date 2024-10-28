@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { HttpStatusCode } from "../../../domain/enums/httpStatusCode/HttpStatusCode";
+import { HttpStatusCode } from "../../../domain/enums/http/HttpStatusCode";
 import { Message } from "../../../domain/enums/message/Message";
 import { NotFoundException } from "../../../domain/exceptions/NotFoundException";
 import { AlreadyExistsException } from "../../../domain/exceptions/AlreadyExistsException";
@@ -20,6 +20,7 @@ export class ResponseModel {
       } else if (error instanceof AlreadyExistsException) {
         res.status(HttpStatusCode.CONFLICT).json({ error: error.message });
       } else {
+        console.log(error);
         res
           .status(HttpStatusCode.INTERNAL_SERVER_ERROR)
           .json({ error: Message.INTERNAL_SERVER_ERROR });

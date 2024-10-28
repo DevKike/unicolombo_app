@@ -1,5 +1,5 @@
 import { DataSource, Repository } from "typeorm";
-import { IMaintenance } from "../../../domain/entities/maintenance/IMaintenance";
+import { ICreateMaintenance, IMaintenance, IUpdateMaintenance } from "../../../domain/entities/maintenance/IMaintenance";
 import { IMaintenanceRepository } from "../../../domain/entities/maintenance/IMaintenanceRepository";
 import { Maintenance } from "../../database/entities/Maintenance";
 
@@ -10,7 +10,7 @@ export class MaintenanceRepository implements IMaintenanceRepository {
     this.maintenanceRepository = this.dataSource.getRepository(Maintenance);
   }
 
-  async create(maintenance: IMaintenance): Promise<void> {
+  async save(maintenance: ICreateMaintenance): Promise<void> {
     try {
       await this.maintenanceRepository.save(maintenance);
     } catch (error) {
@@ -39,7 +39,7 @@ export class MaintenanceRepository implements IMaintenanceRepository {
     }
   }
 
-  async updateById(id: number, maintenance: IMaintenance): Promise<void> {
+  async updateById(id: number, maintenance: IUpdateMaintenance): Promise<void> {
     try {
       await this.maintenanceRepository.update(id, maintenance);
     } catch (error) {

@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { IRouterModule } from "../../interfaces/IRouterModule";
 import { ResponseModel } from "../../response/ResponseModel";
-import { HttpStatusCode } from "../../../../domain/enums/httpStatusCode/HttpStatusCode";
+import { HttpStatusCode } from "../../../../domain/enums/http/HttpStatusCode";
 import { Message } from "../../../../domain/enums/message/Message";
 import { IDepartmentUseCase } from "../../../../domain/entities/department/IDepartmentUseCase";
 import { schemaValidator } from "../../middlewares/schemaValidator";
@@ -27,10 +27,6 @@ export class DepartmentRouter implements IRouterModule {
     this.departmentRouter.patch("/:id", schemaValidator(updateDepartmentSchema), async (req, res) => {
        await ResponseModel.manageResponse(this.departmentUseCase.updateDepartment(Number(req.params.id), req.body), res, HttpStatusCode.OK, Message.DEPARTMENT_UPDATED_SUCCESSFULLY);
     });
-
-    this.departmentRouter.delete("/:id", async (req, res) => {
-      await ResponseModel.manageResponse(this.departmentUseCase.deleteDepartment(Number(req.params.id)), res, HttpStatusCode.OK, Message.DEPARTMENT_DELETED_SUCCESSFULLY);
-    })
   }
   
   getRouter(): Router {

@@ -1,4 +1,4 @@
-export enum Status {
+export enum ActorStatus {
   ACTIVE = "active",
   INACTIVE = "inactive",
   SUSPENDED = "suspended",

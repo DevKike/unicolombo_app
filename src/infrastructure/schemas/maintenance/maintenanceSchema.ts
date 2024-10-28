@@ -1,6 +1,6 @@
 import Joi from "joi";
 import { MaintenanceStatus } from "../../../domain/enums/maintenance/MaintenanceStatus";
-import { MaintenanceType } from "../../../domain/enums/maintenance/MaintenanceType";
+import { MaintenanceType } from "../../../domain/enums/maintenanceType/MaintenanceType";
 
 const name = Joi.string();
 const description = Joi.string();
@@ -21,21 +21,20 @@ const status = Joi.string()
   .empty("")
   .default(null);
 
-const type = Joi.string().valid(MaintenanceType.CORRECTIVE, MaintenanceType.PREVENTIVE);
-const department_id = Joi.number();
+const maintenanceType = Joi.string().valid(MaintenanceType.CORRECTIVE, MaintenanceType.PREVENTIVE);
+const departmentId = Joi.number();
 
 export const createMaintenanceSchema = Joi.object({
   name: name.required(),
   description: description.required(),
   status: status,
-  type: type.required(),
-  department: department_id.required(),
+  maintenanceType: maintenanceType.required(),
 });
 
 export const updateMaintenanceSchema = Joi.object({
   name: name,
   description: description,
   status: status,
-  type: type,
-  department: department_id,
+  maintenanceType: maintenanceType,
+  department: departmentId,
 });

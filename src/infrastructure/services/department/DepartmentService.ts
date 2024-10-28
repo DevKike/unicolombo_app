@@ -1,16 +1,13 @@
-import { IDepartment } from "../../../domain/entities/department/IDepartment";
+import { ICreateDepartment, IDepartment, IUpdateDepartment } from "../../../domain/entities/department/IDepartment";
 import { IDepartmentRepository } from "../../../domain/entities/department/IDepartmentRepository";
 import { IDepartmentService } from "../../../domain/entities/department/IDepartmentService";
 
 export class DepartmentService implements IDepartmentService {
   constructor(private readonly departmentRepository: IDepartmentRepository) {}
 
-  async createDepartment(department: IDepartment): Promise<void> {
+  async createDepartment(department: ICreateDepartment): Promise<void> {
     try {
-      if (!department.status) {
-        delete department.status;
-      }
-      await this.departmentRepository.create(department);
+      await this.departmentRepository.save(department);
     } catch (error) {
       throw error;
     }
@@ -24,17 +21,9 @@ export class DepartmentService implements IDepartmentService {
     }
   }
 
-  async updateDepartment(id: number, department: IDepartment): Promise<void> {
+  async updateDepartment(id: number, department: IUpdateDepartment): Promise<void> {
     try {
       await this.departmentRepository.update(id, department);
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async deleteDepartment(id: number): Promise<void> {
-    try {
-      await this.departmentRepository.delete(id);
     } catch (error) {
       throw error;
     }

@@ -5,9 +5,9 @@ import { IMaintenanceUseCase } from "../../../domain/entities/maintenance/IMaint
 export class MaintenanceUseCase implements IMaintenanceUseCase {
   constructor(private readonly maintenanceService: IMaintenanceService) {}
 
-  async createMaintenance(maintenance: IMaintenance): Promise<void> {
+  async createMaintenance(maintenance: IMaintenance, departmentId: number): Promise<void> {
     try {
-      await this.maintenanceService.createMaintenance(maintenance);
+      await this.maintenanceService.createMaintenance(maintenance, departmentId);
     } catch (error) {
       throw error;
     }

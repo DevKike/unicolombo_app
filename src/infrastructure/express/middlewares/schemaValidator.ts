@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { HttpStatusCode } from "../../../domain/enums/httpStatusCode/HttpStatusCode";
+import { HttpStatusCode } from "../../../domain/enums/http/HttpStatusCode";
 import Joi from "joi";
 
 export const schemaValidator =

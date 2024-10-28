@@ -1,8 +1,8 @@
-import { IActor } from "./IActor";
+import { IActor, ICreateActor, IUpdateActor } from "./IActor";
 
 export interface IActorService {
-  createActor(actor: IActor): Promise<void>;
+  createActor(actor: ICreateActor): Promise<void>;
   getActors(page: number, limit: number): Promise<IActor[]>;
   getActorsByQueryParams(params: Partial<IActor>): Promise<IActor[]>;
-  updateActorById(id: number, actor: IActor): Promise<void>;
+  updateActorById(id: number, actor: IUpdateActor): Promise<void>;
 }

@@ -1,8 +1,8 @@
-import { IMaintenance } from "./IMaintenance";
+import { ICreateMaintenance, IMaintenance, IUpdateMaintenance } from "./IMaintenance";
 
 export interface IMaintenanceService {
-  createMaintenance(maintenance: IMaintenance): Promise<void>;
+  createMaintenance(maintenance: ICreateMaintenance, departmentId: number): Promise<void>;
   getAllMaintenances(): Promise<IMaintenance[]>;
   getMaintenanceById(id: number): Promise<IMaintenance | null>;
-  updateMaintenanceById(id: number, maintenance: IMaintenance): Promise<void>;
+  updateMaintenanceById(id: number, maintenance: IUpdateMaintenance): Promise<void>;
 }

@@ -1,5 +1,5 @@
 import { IRouterModule } from "../../interfaces/IRouterModule";
-import { HttpStatusCode } from "../../../../domain/enums/httpStatusCode/HttpStatusCode";
+import { HttpStatusCode } from "../../../../domain/enums/http/HttpStatusCode";
 import { IActorUseCase } from "../../../../domain/entities/actor/IActorUseCase";
 import { Router } from "express";
 import { Message } from "../../../../domain/enums/message/Message";

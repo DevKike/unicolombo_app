@@ -3,8 +3,8 @@ import { DepartmentStatus } from "../../../domain/enums/department/DepartmentSta
 
 const name = Joi.string().max(40);
 const description = Joi.string().max(40);
-const phone_number = Joi.string().optional().max(15).pattern(/^[0-9+()-\s]+$/);
-const coordinator_id = Joi.number();
+const phoneNumber = Joi.string().optional().max(15).pattern(/^[0-9+()-\s]+$/);
+const coordinatorId = Joi.number();
 const status = Joi.string().valid(
   DepartmentStatus.ACTIVE,
   DepartmentStatus.CLOSED,
@@ -19,14 +19,15 @@ const status = Joi.string().valid(
 export const createDepartmentSchema = Joi.object({
   name: name.required(),
   description: description.required(),
-  phone_number: phone_number.required(),
+  phoneNumber: phoneNumber.required(),
   status: status,
-  coordinator: coordinator_id.required(),
+  coordinator: coordinatorId,
 });
 
 export const updateDepartmentSchema = Joi.object({
   name: name,
   description: description,
-  phone_number: phone_number,
-  coordinator: coordinator_id,
+  phoneNumber: phoneNumber,
+  coordinator: coordinatorId,
+  status: status
 });

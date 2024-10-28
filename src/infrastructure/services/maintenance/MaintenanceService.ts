@@ -1,16 +1,14 @@
-import { IMaintenance } from "../../../domain/entities/maintenance/IMaintenance";
+import { ICreateMaintenance, IMaintenance, IUpdateMaintenance } from "../../../domain/entities/maintenance/IMaintenance";
 import { IMaintenanceRepository } from "../../../domain/entities/maintenance/IMaintenanceRepository";
 import { IMaintenanceService } from "../../../domain/entities/maintenance/IMaintenanceService";
 
 export class MaintenanceService implements IMaintenanceService {
   constructor(private readonly maintenanceRepository: IMaintenanceRepository) {}
 
-  async createMaintenance(maintenance: IMaintenance): Promise<void> {
+  async createMaintenance(maintenance: ICreateMaintenance, department_id: number): Promise<void> {
     try {
-      if (!maintenance.status) {
-        delete maintenance.status;
-      }
-      await this.maintenanceRepository.create(maintenance);
+      const newMaintenance = { ...maintenance, department_id };
+      await this.maintenanceRepository.save(newMaintenance);
     } catch (error) {
       throw error;
     }
@@ -32,7 +30,7 @@ export class MaintenanceService implements IMaintenanceService {
     }
   }
 
-  async updateMaintenanceById(id: number, maintenance: IMaintenance): Promise<void> {
+  async updateMaintenanceById(id: number, maintenance: IUpdateMaintenance): Promise<void> {
     try {
       await this.maintenanceRepository.updateById(id, maintenance);
     } catch (error) {
