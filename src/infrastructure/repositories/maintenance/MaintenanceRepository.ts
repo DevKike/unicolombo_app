@@ -21,7 +21,7 @@ export class MaintenanceRepository implements IMaintenanceRepository {
   async getAll(): Promise<IMaintenance[]> {
     try {
       return await this.maintenanceRepository.find({
-        relations: ["department"],
+        relations: ["deptMaintTypeAssignment"],
       });
     } catch (error) {
       throw error;
@@ -32,7 +32,7 @@ export class MaintenanceRepository implements IMaintenanceRepository {
     try {
       return await this.maintenanceRepository.findOne({
         where: { id: id },
-        relations: ["department"],
+        relations: ["deptMaintTypeAssignment"],
       });
     } catch (error) {
       throw error;

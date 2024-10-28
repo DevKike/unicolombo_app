@@ -5,10 +5,9 @@ import { IMaintenanceService } from "../../../domain/entities/maintenance/IMaint
 export class MaintenanceService implements IMaintenanceService {
   constructor(private readonly maintenanceRepository: IMaintenanceRepository) {}
 
-  async createMaintenance(maintenance: ICreateMaintenance, department_id: number): Promise<void> {
+  async createMaintenance(maintenance: ICreateMaintenance): Promise<void> {
     try {
-      const newMaintenance = { ...maintenance, department_id };
-      await this.maintenanceRepository.save(newMaintenance);
+      await this.maintenanceRepository.save(maintenance);
     } catch (error) {
       throw error;
     }
