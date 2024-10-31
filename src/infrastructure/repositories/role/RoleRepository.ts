@@ -12,7 +12,7 @@ export class RoleRepository implements IRoleRepository {
 
   async getAll(): Promise<IRole[]> {
     try {
-      return await this.roleRepository.find();
+      return await this.roleRepository.find();  
     } catch (error) {
       throw error;
     } 

@@ -3,6 +3,7 @@ import { DeptMaintTypeAssignmentStatus } from "../../enums/DeptMaintTypeAssignme
 import { IDepartment } from "../department/IDepartment";
 import { IMaintenance } from "../maintenance/IMaintenance";
 import { IMaintenanceType } from "../maintenanceType/IMaintenanceType";
+import { IStage } from "../stage/IStage";
 
 export interface IDeptMaintTypeAssignment {
   id: number;
@@ -14,6 +15,7 @@ export interface IDeptMaintTypeAssignment {
   department: IDepartment;
   maintenanceType: IMaintenanceType;
   maintenances: IMaintenance[];
+  stages: IStage[];
 }
 
 export interface ICreateDeptMaintTypeAssignment extends Omit<IDeptMaintTypeAssignment, "id" | "assignedAt" | "updatedAt" | "maintenances"> {}
