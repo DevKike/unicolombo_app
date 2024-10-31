@@ -1,5 +1,5 @@
 import { SortDirection } from "../../enums/sortOrder/SortOrder";
-import { ICreateStage, IStage } from "./IStage";
+import { ICreateStage, IStage, IUpdateStage } from "./IStage";
 
 export interface IStageService {
   createStage(stage: ICreateStage): Promise<void>;
@@ -7,4 +7,5 @@ export interface IStageService {
   getStages(): Promise<IStage[]>;
   getStagesByOrder(direction: SortDirection): Promise<IStage[]>;
   getStagesByAssignment(id: number, direction: SortDirection): Promise<IStage[]>;
+  updateStageById(id: number, stage: IUpdateStage): Promise<void>;
 }

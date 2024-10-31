@@ -5,7 +5,7 @@ import { schemaValidator } from "../../../schemas/middleware/schemaValidator";
 import { ResponseModel } from "../../response/ResponseModel";
 import { HttpStatusCode } from "../../../../domain/enums/http/HttpStatusCode";
 import { Message } from "../../../../domain/enums/message/Message";
-import { createStageSchema } from "../../../schemas/stage/stageSchema";
+import { createStageSchema, updateStageSchema } from "../../../schemas/stage/stageSchema";
 import { SortDirection } from "../../../../domain/enums/sortOrder/SortOrder";
 
 export class StageRouter implements IRouterModule {
@@ -37,6 +37,10 @@ export class StageRouter implements IRouterModule {
     this.stageRouter.get("/by-assignment/:id", async (req, res) => {
       const direction = req.query.direction as SortDirection;
       await ResponseModel.manageResponse(this.stageUseCase.getStagesByAssignment(Number(req.params.id), direction), res, HttpStatusCode.OK, Message.STAGES_OBTAINED_SUCCESSFULLY);
+    });
+
+    this.stageRouter.patch("/:id", schemaValidator(updateStageSchema), async (req, res) => {
+      await ResponseModel.manageResponse(this.stageUseCase.updateStageById(Number(req.params.id), req.body), res, HttpStatusCode.OK, Message.STAGE_UPDATED_SUCCESSFULLY);
     });
   }
 

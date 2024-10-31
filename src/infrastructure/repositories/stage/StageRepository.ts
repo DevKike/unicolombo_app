@@ -1,5 +1,5 @@
 import { DataSource, Repository } from "typeorm";
-import { ICreateStage, IStage } from "../../../domain/entities/stage/IStage";
+import { ICreateStage, IStage, IUpdateStage } from "../../../domain/entities/stage/IStage";
 import { IStageRepository } from "../../../domain/entities/stage/IStageRepository";
 import { Stage } from "../../database/entities/Stage";
 import { SortDirection } from "../../../domain/enums/sortOrder/SortOrder";
@@ -19,7 +19,6 @@ export class StageRepository implements IStageRepository {
     }
   }
 
-  
   async getOneById(id: number): Promise<IStage | null> {
     try {
       return await this.stageRepository.findOne({
@@ -54,18 +53,28 @@ export class StageRepository implements IStageRepository {
     }
   }
 
-  async getAllByAssignment(id: number, direction: SortDirection): Promise<IStage[]> {
+  async getAllByAssignment(
+    id: number,
+    direction: SortDirection
+  ): Promise<IStage[]> {
     try {
       return await this.stageRepository.find({
         where: { deptMaintTypeAssignment: { id: id } },
         relations: ["deptMaintTypeAssignment"],
         order: {
           order: direction,
-        }
-      })
+        },
+      });
     } catch (error) {
       throw error;
     }
   }
 
+  async updateById(id: number, stage: IUpdateStage): Promise<void> {
+    try {
+      await this.stageRepository.update(id, stage);
+    } catch (error) {
+      throw error;
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import { ICreateStage, IStage } from "../../../domain/entities/stage/IStage";
+import { ICreateStage, IStage, IUpdateStage } from "../../../domain/entities/stage/IStage";
 import { IStageService } from "../../../domain/entities/stage/IStageService";
 import { IStageUseCase } from "../../../domain/entities/stage/IStageUseCase";
 import { NotFoundException } from "../../../domain/exceptions/NotFoundException";
@@ -67,6 +67,14 @@ export class StageUseCase implements IStageUseCase {
       }
 
       return stagesByAssignment;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateStageById(id: number, stage: IUpdateStage): Promise<void> {
+    try {
+      await this.stageService.updateStageById(id, stage);
     } catch (error) {
       throw error;
     }

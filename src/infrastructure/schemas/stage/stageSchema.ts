@@ -11,3 +11,10 @@ export const createStageSchema = Joi.object({
   order: order.required(),
   deptMaintTypeAssignment: deptMaintTypeAssignmentId.required(),
 });
+
+export const updateStageSchema = Joi.object({
+  name: name,
+  description: description,
+  order: order,
+  deptMaintTypeAssignment: deptMaintTypeAssignmentId,
+});

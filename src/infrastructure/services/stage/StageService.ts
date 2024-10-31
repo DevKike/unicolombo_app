@@ -1,4 +1,4 @@
-import { ICreateStage, IStage } from "../../../domain/entities/stage/IStage";
+import { ICreateStage, IStage, IUpdateStage } from "../../../domain/entities/stage/IStage";
 import { IStageRepository } from "../../../domain/entities/stage/IStageRepository";
 import { IStageService } from "../../../domain/entities/stage/IStageService";
 import { SortDirection } from "../../../domain/enums/sortOrder/SortOrder";
@@ -37,6 +37,14 @@ export class StageService implements IStageService {
   async getStagesByAssignment(id: number, direction: SortDirection): Promise<IStage[]> {
     try {
       return await this.stageRepository.getAllByAssignment(id, direction);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateStageById(id: number, stage: IUpdateStage): Promise<void> {
+    try {
+      await this.stageRepository.updateById(id, stage);
     } catch (error) {
       throw error;
     }
