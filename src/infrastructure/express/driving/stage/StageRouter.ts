@@ -21,17 +21,17 @@ export class StageRouter implements IRouterModule {
       await ResponseModel.manageResponse(this.stageUseCase.createStage(req.body), res, HttpStatusCode.CREATED, Message.STAGE_CREATED_SUCCESSFULLY);
     });
 
+    this.stageRouter.get("/ordered", async (req, res) => {
+      const direction = req.query.direction as SortDirection;
+      await ResponseModel.manageResponse(this.stageUseCase.getStagesByOrder(direction), res, HttpStatusCode.OK, Message.STAGES_OBTAINED_SUCCESSFULLY);
+    });
+
     this.stageRouter.get("/:id", async (req, res) => {
       await ResponseModel.manageResponse(this.stageUseCase.getStageById(Number(req.params.id)), res, HttpStatusCode.OK, Message.STAGE_OBTAINED_SUCCESSFULLY);
     });
 
     this.stageRouter.get("/", async (req, res) => {
       await ResponseModel.manageResponse(this.stageUseCase.getStages(), res, HttpStatusCode.OK, Message.STAGES_OBTAINED_SUCCESSFULLY);
-    });
-
-    this.stageRouter.get("/ordered", async (req, res) => {
-      const direction = req.query.direction as SortDirection;
-      await ResponseModel.manageResponse(this.stageUseCase.getStagesByOrder(direction), res, HttpStatusCode.OK, Message.STAGES_OBTAINED_SUCCESSFULLY);
     });
 
     this.stageRouter.get("/by-assignment/:id", async (req, res) => {
