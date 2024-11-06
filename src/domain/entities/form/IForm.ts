@@ -4,10 +4,12 @@ export interface IForm {
   id: number;
   code: number;
   name: string;
-  description: string;
+  description?: string;
   path: string;
   extension: string;
   registeredAt: Date;
   updatedAt: Date;
   stage: IStage;
 }
+
+export interface ISaveForm extends Omit<IForm, "id" | "registeredAt" | "updatedAt"> {}

@@ -32,6 +32,15 @@ import { StageRepository } from "../repositories/stage/StageRepository";
 import { StageService } from "../services/stage/StageService";
 import { StageUseCase } from "../../application/usecases/stage/StageUseCase";
 import { StageRouter } from "./driving/stage/StageRouter";
+import { FormRepository } from "../repositories/form/FormRepository";
+import { FormService } from "../services/form/FormService";
+import { FormUseCase } from "../../application/usecases/form/FormUseCase";
+import { FormRouter } from "./driving/form/FormRouter";
+import fileUpload from "express-fileupload";
+import { FileUploadService } from "../services/file/FileUploadService";
+import { FileUploadUseCase } from "../../application/usecases/file/FileUploadUseCase";
+import { FileUploadRouter } from "./driving/file/FileUploadRouter";
+import path from "path";
 
 
 export class Application {
@@ -47,6 +56,8 @@ export class Application {
   private initMiddlewares(): void {
     this.app.use(cors());
     this.app.use(express.json());
+    this.app.use(fileUpload());
+    this.app.use("/public/uploads", express.static(path.join(__dirname, "../uploads")));
   }
 
   private initRoutes(): void {
@@ -85,6 +96,15 @@ export class Application {
     const stageUseCase = new StageUseCase(stageService);
     const stageRouter = new StageRouter(stageUseCase);
 
+    const fileService = new FileUploadService();
+    const fileUseCase = new FileUploadUseCase(fileService);
+    const fileRouter = new FileUploadRouter(fileUseCase);
+
+    const formRepository = new FormRepository(AppDataSource);
+    const formService = new FormService(formRepository);
+    const formUseCase = new FormUseCase(formService);
+    const formRouter = new FormRouter(formUseCase);
+    
     this.routerManager = new RouterManager(
       this.app,
       roleRouter,
@@ -93,7 +113,9 @@ export class Application {
       maintenanceTypeRouter,
       deptMaintTypeAssignmentRouter,
       maintenanceRouter,
-      stageRouter
+      stageRouter,
+      fileRouter,
+      formRouter,
     );
     this.routerManager.manageRoutes();
   }
