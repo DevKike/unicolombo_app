@@ -13,7 +13,7 @@ export class TemplateForm implements ITemplateForm {
   @Column()
   name: string;
 
-  @Column()
+  @Column({ nullable: true })
   description: string;
 
   @Column()

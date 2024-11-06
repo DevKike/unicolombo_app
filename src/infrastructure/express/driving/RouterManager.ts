@@ -33,6 +33,6 @@ export class RouterManager implements IRouterManager {
     this.app.use("/api/maintenances", this.maintenanceRouter.getRouter());
     this.app.use("/api/stage", this.stageRouter.getRouter());
     this.app.use("/api/file", this.fileUploadRouter.getRouter());
-    this.app.use("/api/form", this.templateFormRouter.getRouter());
+    this.app.use("/api/template-form", this.templateFormRouter.getRouter());
   }
 }

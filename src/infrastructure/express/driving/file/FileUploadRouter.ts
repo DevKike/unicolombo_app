@@ -5,7 +5,7 @@ import { HttpStatusCode } from "../../../../domain/enums/http/HttpStatusCode";
 import { Message } from "../../../../domain/enums/message/Message";
 import { UploadedFile } from "express-fileupload";
 import { IFileUploadUseCase } from "../../../../domain/entities/file/IFileUploadUseCase";
-import { FileUploadHandler } from "../../handlers/FileUploadHandler";
+import { buildFileUrl } from "../../handlers/buildFileUrl";
 
 export class FileUploadRouter implements IRouterModule {
   private readonly fileUploadRouter: Router;
@@ -20,12 +20,10 @@ export class FileUploadRouter implements IRouterModule {
       await ResponseModel.manageResponse(
         this.fileUploadedUseCase
           .uploadFile(req.files?.file as UploadedFile, "template")
-          .then((responsePath) =>
-            FileUploadHandler.buildFileUrl(responsePath, req)
-          ),
+          .then((responsePath) => buildFileUrl(responsePath, req)),
         res,
         HttpStatusCode.CREATED,
-        Message.FILE_UPLOADED_SUCCESSFULLY
+        Message.TEMPLATE_FILE_UPLOADED_SUCCESSFULLY
       );
     });
   }
