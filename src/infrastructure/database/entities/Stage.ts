@@ -1,7 +1,7 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { IStage } from "../../../domain/entities/stage/IStage";
 import { DeptMaintTypeAssignment } from "./DeptMaintTypeAssignment";
-import { Form } from "./Form";
+import { TemplateForm } from "./TemplateForm";
 
 @Entity()
 export class Stage implements IStage {
@@ -27,6 +27,6 @@ export class Stage implements IStage {
   @JoinColumn({ name: "dept_maint_type_assignment_id" })
   deptMaintTypeAssignment: DeptMaintTypeAssignment;
 
-  @OneToMany(() => Form, (form) => form.stage)
-  forms: Form[]
+  @OneToMany(() => TemplateForm, (templateForm) => templateForm.stage)
+  templateForms: TemplateForm[];
 }

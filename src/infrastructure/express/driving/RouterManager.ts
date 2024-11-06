@@ -7,8 +7,8 @@ import { MaintenanceRouter } from "./maintenance/MaintenanceRouter";
 import { MaintenanceTypeRouter } from "./maintenanceType/MaintenanceTypeRouter";
 import { DeptMaintTypeAssignmentRouter } from "./deptMaintTypeAssignment/DeptMaintTypeAssignmentRouter";
 import { StageRouter } from "./stage/StageRouter";
-import { FormRouter } from "./form/FormRouter";
 import { FileUploadRouter } from "./file/FileUploadRouter";
+import { TemplateFormRouter } from "./form/TemplateFormRouter";
 
 export class RouterManager implements IRouterManager {
   constructor(
@@ -21,7 +21,7 @@ export class RouterManager implements IRouterManager {
     private readonly maintenanceRouter: MaintenanceRouter,
     private readonly stageRouter: StageRouter,
     private readonly fileUploadRouter: FileUploadRouter,
-    private readonly formRouter: FormRouter,
+    private readonly templateFormRouter: TemplateFormRouter,
   ) {}
 
   manageRoutes(): void {
@@ -33,6 +33,6 @@ export class RouterManager implements IRouterManager {
     this.app.use("/api/maintenances", this.maintenanceRouter.getRouter());
     this.app.use("/api/stage", this.stageRouter.getRouter());
     this.app.use("/api/file", this.fileUploadRouter.getRouter());
-    this.app.use("/api/form", this.formRouter.getRouter());
+    this.app.use("/api/form", this.templateFormRouter.getRouter());
   }
 }

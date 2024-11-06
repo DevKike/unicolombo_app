@@ -32,16 +32,15 @@ import { StageRepository } from "../repositories/stage/StageRepository";
 import { StageService } from "../services/stage/StageService";
 import { StageUseCase } from "../../application/usecases/stage/StageUseCase";
 import { StageRouter } from "./driving/stage/StageRouter";
-import { FormRepository } from "../repositories/form/FormRepository";
-import { FormService } from "../services/form/FormService";
-import { FormUseCase } from "../../application/usecases/form/FormUseCase";
-import { FormRouter } from "./driving/form/FormRouter";
+import { TemplateFormRepository } from "../repositories/templateForm/TemplateFormRepository";
+import { TemplateFormService } from "../services/templateForm/TemplateFormService";
+import { TemplateFormUseCase } from "../../application/usecases/form/FormUseCase";
+import { TemplateFormRouter } from "./driving/form/TemplateFormRouter";
 import fileUpload from "express-fileupload";
 import { FileUploadService } from "../services/file/FileUploadService";
 import { FileUploadUseCase } from "../../application/usecases/file/FileUploadUseCase";
 import { FileUploadRouter } from "./driving/file/FileUploadRouter";
 import path from "path";
-
 
 export class Application {
   public app: App;
@@ -100,10 +99,10 @@ export class Application {
     const fileUseCase = new FileUploadUseCase(fileService);
     const fileRouter = new FileUploadRouter(fileUseCase);
 
-    const formRepository = new FormRepository(AppDataSource);
-    const formService = new FormService(formRepository);
-    const formUseCase = new FormUseCase(formService);
-    const formRouter = new FormRouter(formUseCase);
+    const templateFormRepository = new TemplateFormRepository(AppDataSource);
+    const templateFormService = new TemplateFormService(templateFormRepository);
+    const templateFormUseCase = new TemplateFormUseCase(templateFormService);
+    const templateFormRouter = new TemplateFormRouter(templateFormUseCase);
     
     this.routerManager = new RouterManager(
       this.app,
@@ -115,7 +114,7 @@ export class Application {
       maintenanceRouter,
       stageRouter,
       fileRouter,
-      formRouter,
+      templateFormRouter,
     );
     this.routerManager.manageRoutes();
   }

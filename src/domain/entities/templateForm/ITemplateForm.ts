@@ -1,6 +1,6 @@
 import { IStage } from "../stage/IStage";
 
-export interface IForm {
+export interface ITemplateForm {
   id: number;
   code: number;
   name: string;
@@ -12,4 +12,4 @@ export interface IForm {
   stage: IStage;
 }
 
-export interface ISaveForm extends Omit<IForm, "id" | "registeredAt" | "updatedAt"> {}
+export interface ISaveTemplateForm extends Omit<ITemplateForm, "id" | "registeredAt" | "updatedAt"> {}

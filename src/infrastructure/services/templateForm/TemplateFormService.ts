@@ -1,13 +1,14 @@
 import { ISaveTemplateForm } from "../../../domain/entities/templateForm/ITemplateForm";
+import { ITemplateFormRepository } from "../../../domain/entities/templateForm/ITemplateFormRepository";
 import { ITemplateFormService } from "../../../domain/entities/templateForm/ITemplateFormService";
-import { ITemplateFormUseCase } from "../../../domain/entities/templateForm/ITemplateFormUseCase";
 
-export class TemplateFormUseCase implements ITemplateFormUseCase {
-  constructor(private readonly templateFormService: ITemplateFormService) {}
+
+export class TemplateFormService implements ITemplateFormService {
+  constructor(private readonly templateFormRepository: ITemplateFormRepository) {}
 
   async saveForm(form: ISaveTemplateForm): Promise<void> {
     try {
-      await this.templateFormService.saveForm(form);
+      await this.templateFormRepository.save(form);
     } catch (error) {
       throw error;
     }

@@ -1,9 +1,9 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { IForm } from "../../../domain/entities/form/IForm";
+import { ITemplateForm } from "../../../domain/entities/templateForm/ITemplateForm";
 import { Stage } from "./Stage";
 
 @Entity()
-export class Form implements IForm {
+export class TemplateForm implements ITemplateForm {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -28,7 +28,7 @@ export class Form implements IForm {
   @UpdateDateColumn({ name: "updated_at" })
   updatedAt: Date;
 
-  @ManyToOne(() => Stage, (stage) => stage.forms)
+  @ManyToOne(() => Stage, (stage) => stage.templateForms)
   @JoinColumn({ name: "stage_id" })
   stage: Stage;
 }

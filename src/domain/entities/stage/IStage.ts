@@ -1,5 +1,5 @@
 import { IDeptMaintTypeAssignment } from "../deptMaintTypeAssignment/IDeptMaintTypeAssignment";
-import { IForm } from "../form/IForm";
+import { ITemplateForm } from "../templateForm/ITemplateForm";
 
 export interface IStage {
   id: number;
@@ -9,9 +9,9 @@ export interface IStage {
   createdAt: Date;
   updatedAt: Date;
   deptMaintTypeAssignment: IDeptMaintTypeAssignment;
-  forms: IForm[];
+  templateForms: ITemplateForm[];
 }
 
-export interface ICreateStage extends Omit<IStage, "id" | "createdAt" | "updatedAt" | "forms"> {}
+export interface ICreateStage extends Omit<IStage, "id" | "createdAt" | "updatedAt" | "templateForms"> {}
 
-export interface IUpdateStage extends Partial<Omit<IStage, "id" | "createdAt" | "updatedAt" | "forms">> {}
+export interface IUpdateStage extends Partial<Omit<IStage, "id" | "createdAt" | "updatedAt" | "templateForms">> {}
