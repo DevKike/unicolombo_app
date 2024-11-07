@@ -5,7 +5,11 @@ export const parseFileName = (filePath: string) => {
 
   const fileName = decodeURIComponent(encodedFileName);
   const regex = /^([\w-]+)\s(.+)(\.\w+)$/;
-  const match = fileName.match(regex);
 
+  if (!regex.test(fileName)) {
+    throw null;
+  }
+
+  const match = fileName.match(regex);
   return match ? { code: match[1], name: match[2], extension: match[3] } : null;
 };

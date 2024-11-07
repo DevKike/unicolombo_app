@@ -4,6 +4,8 @@ import { Message } from "../../../domain/enums/message/Message";
 import { NotFoundException } from "../../../domain/exceptions/NotFoundException";
 import { AlreadyExistsException } from "../../../domain/exceptions/AlreadyExistsException";
 import { InvalidFileFormatException } from "../../../domain/exceptions/InvalidFileFormatException";
+import { InvalidFileTypeException } from "../../../domain/exceptions/InvalidFileTypeException";
+import { FileType } from "../../../domain/enums/file/FileType";
 
 export class ResponseModel {
   static async manageResponse(
@@ -22,6 +24,8 @@ export class ResponseModel {
         res.status(HttpStatusCode.CONFLICT).json({ error: error.message });
       } else if (error instanceof InvalidFileFormatException) {
         res.status(HttpStatusCode.BAD_REQUEST).json({ error: error.message });
+      } else if (error instanceof InvalidFileTypeException) {
+        res.status(HttpStatusCode.BAD_REQUEST).json({ error: error.message, message: `Valid formats: ['${FileType.TEMPLATE}' and '${FileType.COMPLETED}']` });
       } else {
         console.log(error);
         res

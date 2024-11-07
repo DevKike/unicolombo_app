@@ -1,10 +1,10 @@
-import { Request, Router } from "express";
+import { Router } from "express";
 import { IRouterModule } from "../../interfaces/IRouterModule";
 import { ResponseModel } from "../../response/ResponseModel";
 import { HttpStatusCode } from "../../../../domain/enums/http/HttpStatusCode";
 import { Message } from "../../../../domain/enums/message/Message";
 import { UploadedFile } from "express-fileupload";
-import { IFileUploadUseCase } from "../../../../domain/entities/file/IFileUploadUseCase";
+import { IFileUploadUseCase } from "../../../../domain/entities/fileUpload/IFileUploadUseCase";
 import { buildFileUrl } from "../../handlers/buildFileUrl";
 import { FileType } from "../../../../domain/enums/file/FileType";
 
@@ -17,10 +17,10 @@ export class FileUploadRouter implements IRouterModule {
   }
 
   initRoutes(): void {
-    this.fileUploadRouter.post("/upload-template", async (req, res) => {
+    this.fileUploadRouter.post("/upload", async (req, res) => {
       await ResponseModel.manageResponse(
         this.fileUploadedUseCase
-          .uploadFile(req.files?.file as UploadedFile, FileType.TEMPLATE)
+          .uploadFile(req.files?.file as UploadedFile, req.body.fileType as FileType)
           .then((responsePath) => buildFileUrl(responsePath, req)),
         res,
         HttpStatusCode.CREATED,
