@@ -1,4 +1,4 @@
-export interface IFile {
+export interface IFileUpload {
   name: string;
   data: Buffer;
   mimetype: string;
