@@ -8,7 +8,7 @@ export class TemplateForm implements ITemplateForm {
   id: number;
 
   @Column({ unique: true })
-  code: number;
+  code: string;
 
   @Column()
   name: string;
@@ -20,7 +20,7 @@ export class TemplateForm implements ITemplateForm {
   filePath: string;
 
   @Column()
-  extension: string;
+  fileExtension: string;
 
   @CreateDateColumn({ name: "registered_at" })
   registeredAt: Date;

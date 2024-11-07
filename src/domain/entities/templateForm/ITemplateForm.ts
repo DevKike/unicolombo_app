@@ -2,11 +2,11 @@ import { IStage } from "../stage/IStage";
 
 export interface ITemplateForm {
   id: number;
-  code: number;
+  code: string;
   name: string;
   description?: string;
   filePath: string;
-  extension: string;
+  fileExtension: string;
   registeredAt: Date;
   updatedAt: Date;
   stage: IStage;
