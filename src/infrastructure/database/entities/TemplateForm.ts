@@ -10,7 +10,7 @@ export class TemplateForm implements ITemplateForm {
   @Column({ unique: true })
   code: string;
 
-  @Column()
+  @Column({ unique: true })
   name: string;
 
   @Column({ nullable: true })
