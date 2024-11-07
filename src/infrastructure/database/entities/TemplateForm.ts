@@ -17,7 +17,7 @@ export class TemplateForm implements ITemplateForm {
   description: string;
 
   @Column()
-  path: string;
+  filePath: string;
 
   @Column()
   extension: string;

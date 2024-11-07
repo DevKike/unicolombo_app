@@ -5,7 +5,7 @@ export interface ITemplateForm {
   code: number;
   name: string;
   description?: string;
-  path: string;
+  filePath: string;
   extension: string;
   registeredAt: Date;
   updatedAt: Date;
