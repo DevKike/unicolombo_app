@@ -37,8 +37,8 @@ import { TemplateFormService } from "../services/templateForm/TemplateFormServic
 import { TemplateFormUseCase } from "../../application/usecases/templateForm/TemplateFormUseCase";
 import { TemplateFormRouter } from "./driving/form/TemplateFormRouter";
 import fileUpload from "express-fileupload";
-import { FileUploadService } from "../services/file/FileUploadService";
-import { FileUploadUseCase } from "../../application/usecases/file/FileUploadUseCase";
+import { FileUploadService } from "../services/fileUpload/FileUploadService";
+import { FileUploadUseCase } from "../../application/usecases/fileUpload/FileUploadUseCase";
 import { FileUploadRouter } from "./driving/file/FileUploadRouter";
 import path from "path";
 
