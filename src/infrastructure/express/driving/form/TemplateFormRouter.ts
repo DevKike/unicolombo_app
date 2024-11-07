@@ -16,7 +16,7 @@ export class TemplateFormRouter implements IRouterModule {
   }
 
   initRoutes(): void {
-    this.templateFormRouter.post("/", schemaValidator(saveTemplateFormSchema), async (req, res) => {
+    this.templateFormRouter.post("/", /* schemaValidator(saveTemplateFormSchema), */ async (req, res) => {
       ResponseModel.manageResponse(this.templateFormUseCase.saveForm(req.body), res, HttpStatusCode.CREATED, Message.TEMPLATE_FORM_SAVED_SUCCESSFULLY);
     });
     try {

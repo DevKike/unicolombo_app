@@ -34,7 +34,7 @@ import { StageUseCase } from "../../application/usecases/stage/StageUseCase";
 import { StageRouter } from "./driving/stage/StageRouter";
 import { TemplateFormRepository } from "../repositories/templateForm/TemplateFormRepository";
 import { TemplateFormService } from "../services/templateForm/TemplateFormService";
-import { TemplateFormUseCase } from "../../application/usecases/form/FormUseCase";
+import { TemplateFormUseCase } from "../../application/usecases/templateForm/TemplateFormUseCase";
 import { TemplateFormRouter } from "./driving/form/TemplateFormRouter";
 import fileUpload from "express-fileupload";
 import { FileUploadService } from "../services/file/FileUploadService";
