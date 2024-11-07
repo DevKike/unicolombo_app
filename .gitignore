@@ -1,3 +1,4 @@
 mysql-data
 node_modules
 .env
+src/infrastructure/uploads
