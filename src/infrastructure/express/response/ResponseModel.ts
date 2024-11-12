@@ -6,6 +6,8 @@ import { AlreadyExistsException } from "../../../domain/exceptions/AlreadyExists
 import { InvalidFileFormatException } from "../../../domain/exceptions/InvalidFileFormatException";
 import { InvalidFileTypeException } from "../../../domain/exceptions/InvalidFileTypeException";
 import { FileType } from "../../../domain/enums/file/FileType";
+import { NotFileExtensionAllowed } from "../../../domain/exceptions/NotFileExtensionAllowed";
+import { AllowedFileExtensions } from "../../../domain/enums/file/AllowedFileExtensions";
 
 export class ResponseModel {
   static async manageResponse(
@@ -25,7 +27,15 @@ export class ResponseModel {
       } else if (error instanceof InvalidFileFormatException) {
         res.status(HttpStatusCode.BAD_REQUEST).json({ error: error.message });
       } else if (error instanceof InvalidFileTypeException) {
-        res.status(HttpStatusCode.BAD_REQUEST).json({ error: error.message, message: `Valid formats: ['${FileType.TEMPLATE}' and '${FileType.COMPLETED}']` });
+        res.status(HttpStatusCode.BAD_REQUEST).json({
+          error: error.message,
+          message: `Valid formats: ['${FileType.TEMPLATE}' and '${FileType.COMPLETED}']`,
+        });
+      } else if (error instanceof NotFileExtensionAllowed) {
+        res.status(HttpStatusCode.BAD_REQUEST).json({
+          error: error.message,
+          message: `Valid extensions: ['${AllowedFileExtensions.PDF}', '${AllowedFileExtensions.DOC}' and '${AllowedFileExtensions.DOCX}']`,
+        });
       } else {
         console.log(error);
         res
