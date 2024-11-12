@@ -15,3 +15,5 @@ export interface ITemplateForm {
 }
 
 export interface ISaveTemplateForm extends Omit< ITemplateForm, "id" | "registeredAt" | "updatedAt" | "completedForms" > {}
+
+export interface IUpdateTemplateForm extends Partial<Omit<ITemplateForm, "id" | "registeredAt" | "updatedAt" | "completedForms">> {}

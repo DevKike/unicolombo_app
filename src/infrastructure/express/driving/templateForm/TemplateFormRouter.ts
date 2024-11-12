@@ -5,7 +5,7 @@ import { ResponseModel } from "../../response/ResponseModel";
 import { HttpStatusCode } from "../../../../domain/enums/http/HttpStatusCode";
 import { Message } from "../../../../domain/enums/message/Message";
 import { schemaValidator } from "../../../schemas/middleware/schemaValidator";
-import { saveTemplateFormSchema } from "../../../schemas/templateForm/templateFormSchema";
+import { saveTemplateFormSchema, updateTemplateFormSchema } from "../../../schemas/templateForm/templateFormSchema";
 
 export class TemplateFormRouter implements IRouterModule {
   private readonly templateFormRouter: Router;
@@ -30,6 +30,10 @@ export class TemplateFormRouter implements IRouterModule {
 
     this.templateFormRouter.get("/:stageId", async (req, res) => {
       ResponseModel.manageResponse(this.templateFormUseCase.getTemplateFormByStage(Number(req.params.stageId)), res, HttpStatusCode.OK, Message.TEMPLATES_FORM_OBTAINED_SUCCESSFULLY);
+    });
+
+    this.templateFormRouter.patch("/:id", schemaValidator(updateTemplateFormSchema), async (req, res) => {
+      ResponseModel.manageResponse(this.templateFormUseCase.updateTemplateFormById(Number(req.params.id), req.body), res, HttpStatusCode.OK, Message.TEMPLATE_UPDATED_SUCCESSFULLY);
     });
   }
 

@@ -1,6 +1,6 @@
 import { DataSource, Repository } from "typeorm";
 import { TemplateForm } from "../../database/entities/TemplateForm";
-import { ISaveTemplateForm, ITemplateForm } from "../../../domain/entities/templateForm/ITemplateForm";
+import { ISaveTemplateForm, ITemplateForm, IUpdateTemplateForm } from "../../../domain/entities/templateForm/ITemplateForm";
 import { ITemplateFormRepository } from "../../../domain/entities/templateForm/ITemplateFormRepository";
 
 export class TemplateFormRepository implements ITemplateFormRepository {
@@ -44,6 +44,14 @@ export class TemplateFormRepository implements ITemplateFormRepository {
       return await this.templateFormRepository.find({
         where: { stage: { id: stageId } },
       });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateById(id: number, updateTemplateForm: IUpdateTemplateForm): Promise<void> {
+    try {
+      await this.templateFormRepository.update(id, updateTemplateForm);
     } catch (error) {
       throw error;
     }

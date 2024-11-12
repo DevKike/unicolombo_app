@@ -1,4 +1,4 @@
-import { ISaveTemplateForm, ITemplateForm } from "../../../domain/entities/templateForm/ITemplateForm";
+import { ISaveTemplateForm, ITemplateForm, IUpdateTemplateForm } from "../../../domain/entities/templateForm/ITemplateForm";
 import { ITemplateFormRepository } from "../../../domain/entities/templateForm/ITemplateFormRepository";
 import { ITemplateFormService } from "../../../domain/entities/templateForm/ITemplateFormService";
 import { parseFileName } from "../../helpers/parseFileName";
@@ -43,6 +43,14 @@ export class TemplateFormService implements ITemplateFormService {
   async getTemplateFormByStage(stageId: number): Promise<ITemplateForm[]> {
     try {
       return await this.templateFormRepository.getByStage(stageId);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateTemplateFormById(id: number, updateTemplateForm: IUpdateTemplateForm): Promise<void> {
+    try {
+      await this.templateFormRepository.updateById(id, updateTemplateForm);
     } catch (error) {
       throw error;
     }
