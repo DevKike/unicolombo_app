@@ -9,3 +9,9 @@ export const saveTemplateFormSchema = Joi.object({
   filePath: filePath.required(),
   stage: stageId.required(),
 });
+
+export const updateTemplateFormSchema = Joi.object({
+  description: description,
+  filePath: filePath,
+  stage: stageId,
+});

@@ -1,6 +1,6 @@
 import { DataSource, Repository } from "typeorm";
 import { TemplateForm } from "../../database/entities/TemplateForm";
-import { ISaveTemplateForm } from "../../../domain/entities/templateForm/ITemplateForm";
+import { ISaveTemplateForm, ITemplateForm, IUpdateTemplateForm } from "../../../domain/entities/templateForm/ITemplateForm";
 import { ITemplateFormRepository } from "../../../domain/entities/templateForm/ITemplateFormRepository";
 
 export class TemplateFormRepository implements ITemplateFormRepository {
@@ -10,9 +10,48 @@ export class TemplateFormRepository implements ITemplateFormRepository {
     this.templateFormRepository = this.dataSource.getRepository(TemplateForm);
   }
 
-  async save(form: ISaveTemplateForm): Promise<void> {
+  async save(templateForm: ISaveTemplateForm): Promise<void> {
     try {
-      await this.templateFormRepository.save(form);
+      await this.templateFormRepository.save(templateForm);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getAll(): Promise<ITemplateForm[]> {
+    try {
+      return await this.templateFormRepository.find({
+        relations: ["stage"],
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getOneById(id: number): Promise<ITemplateForm | null> {
+    try {
+      return await this.templateFormRepository.findOne({
+        where: { id: id },
+        relations: ["stage"],
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getByStage(stageId: number): Promise<ITemplateForm[]> {
+    try {
+      return await this.templateFormRepository.find({
+        where: { stage: { id: stageId } },
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateById(id: number, updateTemplateForm: IUpdateTemplateForm): Promise<void> {
+    try {
+      await this.templateFormRepository.update(id, updateTemplateForm);
     } catch (error) {
       throw error;
     }
