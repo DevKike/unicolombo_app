@@ -2,10 +2,10 @@ import Joi from "joi";
 
 const description = Joi.string();
 const filePath = Joi.string();
-const stageId = Joi.number();
+const templateFormId = Joi.number();
 
-export const saveTemplateFormSchema = Joi.object({
+export const createCompletedFormSchema = Joi.object({
   description: description,
   filePath: filePath.required(),
-  stage: stageId.required(),
+  templateForm: templateFormId.required(),
 });

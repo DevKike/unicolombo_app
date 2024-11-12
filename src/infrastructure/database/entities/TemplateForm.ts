@@ -1,6 +1,7 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { ITemplateForm } from "../../../domain/entities/templateForm/ITemplateForm";
 import { Stage } from "./Stage";
+import { CompletedForm } from "./CompletedForm";
 
 @Entity()
 export class TemplateForm implements ITemplateForm {
@@ -16,10 +17,10 @@ export class TemplateForm implements ITemplateForm {
   @Column({ nullable: true })
   description: string;
 
-  @Column()
+  @Column({ name: "file_path" })
   filePath: string;
 
-  @Column()
+  @Column({ name: "file_extension" })
   fileExtension: string;
 
   @CreateDateColumn({ name: "registered_at" })
@@ -31,4 +32,7 @@ export class TemplateForm implements ITemplateForm {
   @ManyToOne(() => Stage, (stage) => stage.templateForms)
   @JoinColumn({ name: "stage_id" })
   stage: Stage;
+
+  @OneToMany(() => CompletedForm, (completedForm) => completedForm.templateForm)
+  completedForms: CompletedForm[];
 }
