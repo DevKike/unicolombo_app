@@ -14,4 +14,4 @@ export interface ITemplateForm {
   completedForms: ICompletedForm[];
 }
 
-export interface ISaveTemplateForm extends Omit< ITemplateForm, "id" | "registeredAt" | "updatedAt" | "stage" | "completedForms" > {}
+export interface ISaveTemplateForm extends Omit< ITemplateForm, "id" | "registeredAt" | "updatedAt" | "completedForms" > {}

@@ -14,7 +14,6 @@ export class MaintenanceTypeRepository implements IMaintenanceTypeRepository {
     try {
       await this.maintenanceTypeRepository.save(maintenanceType);
     } catch (error) {
-        console.error(error)
       throw error;
     }
   }
