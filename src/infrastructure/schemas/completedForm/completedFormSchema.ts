@@ -9,3 +9,9 @@ export const createCompletedFormSchema = Joi.object({
   filePath: filePath.required(),
   templateForm: templateFormId.required(),
 });
+
+export const updateCompletedFormSchema = Joi.object({
+  description: description,
+  filePath: filePath,
+  templateForm: templateFormId,
+});
