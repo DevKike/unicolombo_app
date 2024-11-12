@@ -1,3 +1,6 @@
+import { Message } from "../../domain/enums/message/Message";
+import { InvalidFileFormatException } from "../../domain/exceptions/InvalidFileFormatException";
+
 export const parseFileName = (filePath: string) => {
   const encodedFileName = filePath.split("/").pop();
 
@@ -7,7 +10,7 @@ export const parseFileName = (filePath: string) => {
   const regex = /^([\w-]+)\s(.+)(\.\w+)$/;
 
   if (!regex.test(fileName)) {
-    throw null;
+    throw new InvalidFileFormatException(Message.INVALID_FILE_FORMAT);
   }
 
   const match = fileName.match(regex);
