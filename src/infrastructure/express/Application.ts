@@ -35,12 +35,16 @@ import { StageRouter } from "./driving/stage/StageRouter";
 import { TemplateFormRepository } from "../repositories/templateForm/TemplateFormRepository";
 import { TemplateFormService } from "../services/templateForm/TemplateFormService";
 import { TemplateFormUseCase } from "../../application/usecases/templateForm/TemplateFormUseCase";
-import { TemplateFormRouter } from "./driving/form/TemplateFormRouter";
+import { TemplateFormRouter } from "./driving/templateForm/TemplateFormRouter";
 import fileUpload from "express-fileupload";
 import { FileUploadService } from "../services/fileUpload/FileUploadService";
 import { FileUploadUseCase } from "../../application/usecases/fileUpload/FileUploadUseCase";
 import { FileUploadRouter } from "./driving/file/FileUploadRouter";
 import path from "path";
+import { CompletedFormRepository } from "../repositories/completedForm/CompletedFormRepository";
+import { CompletedFormService } from "../services/completedForm/CompletedFormService";
+import { CompletedFormUseCase } from "../../application/usecases/completedForm/CompletedFormUseCase";
+import { CompletedFormRouter } from "./driving/completedForm/CompletedFormRouter";
 
 export class Application {
   public app: App;
@@ -104,6 +108,11 @@ export class Application {
     const templateFormUseCase = new TemplateFormUseCase(templateFormService);
     const templateFormRouter = new TemplateFormRouter(templateFormUseCase);
     
+    const completedFormRepository = new CompletedFormRepository(AppDataSource);
+    const completedFormService = new CompletedFormService(completedFormRepository);
+    const completedFormUseCase = new CompletedFormUseCase(completedFormService);
+    const completedFormRouter = new CompletedFormRouter(completedFormUseCase);
+
     this.routerManager = new RouterManager(
       this.app,
       roleRouter,
@@ -115,6 +124,7 @@ export class Application {
       stageRouter,
       fileRouter,
       templateFormRouter,
+      completedFormRouter,
     );
     this.routerManager.manageRoutes();
   }

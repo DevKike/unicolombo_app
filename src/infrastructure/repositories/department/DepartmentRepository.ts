@@ -14,7 +14,6 @@ export class DepartmentRepository implements IDepartmentRepository {
     try {
       await this.departmentRepository.save(department);
     } catch (error) {
-      console.error(error);
       throw error;
     }
   }

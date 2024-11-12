@@ -8,20 +8,23 @@ import { MaintenanceTypeRouter } from "./maintenanceType/MaintenanceTypeRouter";
 import { DeptMaintTypeAssignmentRouter } from "./deptMaintTypeAssignment/DeptMaintTypeAssignmentRouter";
 import { StageRouter } from "./stage/StageRouter";
 import { FileUploadRouter } from "./file/FileUploadRouter";
-import { TemplateFormRouter } from "./form/TemplateFormRouter";
+import { TemplateFormRouter } from "./templateForm/TemplateFormRouter";
+import { CompletedFormRouter } from "./completedForm/CompletedFormRouter";
+import { IRouterModule } from "../interfaces/IRouterModule";
 
 export class RouterManager implements IRouterManager {
   constructor(
     private readonly app: Application,
-    private readonly roleRouter: RoleRouter,
-    private readonly actorRouter: ActorRouter,
-    private readonly departmentRouter: DepartmentRouter,
-    private readonly maintenanceTypeRouter: MaintenanceTypeRouter,
-    private readonly deptMaintTypeAssignmentRouter: DeptMaintTypeAssignmentRouter,
-    private readonly maintenanceRouter: MaintenanceRouter,
-    private readonly stageRouter: StageRouter,
-    private readonly fileUploadRouter: FileUploadRouter,
-    private readonly templateFormRouter: TemplateFormRouter,
+    private readonly roleRouter: IRouterModule,
+    private readonly actorRouter: IRouterModule,
+    private readonly departmentRouter: IRouterModule,
+    private readonly maintenanceTypeRouter: IRouterModule,
+    private readonly deptMaintTypeAssignmentRouter: IRouterModule,
+    private readonly maintenanceRouter: IRouterModule,
+    private readonly stageRouter: IRouterModule,
+    private readonly fileUploadRouter: IRouterModule,
+    private readonly templateFormRouter: IRouterModule,
+    private readonly completedFormRouter: IRouterModule,
   ) {}
 
   manageRoutes(): void {
@@ -34,5 +37,6 @@ export class RouterManager implements IRouterManager {
     this.app.use("/api/stage", this.stageRouter.getRouter());
     this.app.use("/api/file", this.fileUploadRouter.getRouter());
     this.app.use("/api/template-form", this.templateFormRouter.getRouter());
+    this.app.use("/api/completed-form", this.completedFormRouter.getRouter())
   }
 }
