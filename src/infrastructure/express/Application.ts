@@ -32,7 +32,15 @@ import { StageRepository } from "../repositories/stage/StageRepository";
 import { StageService } from "../services/stage/StageService";
 import { StageUseCase } from "../../application/usecases/stage/StageUseCase";
 import { StageRouter } from "./driving/stage/StageRouter";
-
+import { TemplateFormRepository } from "../repositories/templateForm/TemplateFormRepository";
+import { TemplateFormService } from "../services/templateForm/TemplateFormService";
+import { TemplateFormUseCase } from "../../application/usecases/templateForm/TemplateFormUseCase";
+import { TemplateFormRouter } from "./driving/form/TemplateFormRouter";
+import fileUpload from "express-fileupload";
+import { FileUploadService } from "../services/fileUpload/FileUploadService";
+import { FileUploadUseCase } from "../../application/usecases/fileUpload/FileUploadUseCase";
+import { FileUploadRouter } from "./driving/file/FileUploadRouter";
+import path from "path";
 
 export class Application {
   public app: App;
@@ -47,6 +55,8 @@ export class Application {
   private initMiddlewares(): void {
     this.app.use(cors());
     this.app.use(express.json());
+    this.app.use(fileUpload());
+    this.app.use("/public/uploads", express.static(path.join(__dirname, "../uploads")));
   }
 
   private initRoutes(): void {
@@ -85,6 +95,15 @@ export class Application {
     const stageUseCase = new StageUseCase(stageService);
     const stageRouter = new StageRouter(stageUseCase);
 
+    const fileService = new FileUploadService();
+    const fileUseCase = new FileUploadUseCase(fileService);
+    const fileRouter = new FileUploadRouter(fileUseCase);
+
+    const templateFormRepository = new TemplateFormRepository(AppDataSource);
+    const templateFormService = new TemplateFormService(templateFormRepository);
+    const templateFormUseCase = new TemplateFormUseCase(templateFormService);
+    const templateFormRouter = new TemplateFormRouter(templateFormUseCase);
+    
     this.routerManager = new RouterManager(
       this.app,
       roleRouter,
@@ -93,7 +112,9 @@ export class Application {
       maintenanceTypeRouter,
       deptMaintTypeAssignmentRouter,
       maintenanceRouter,
-      stageRouter
+      stageRouter,
+      fileRouter,
+      templateFormRouter,
     );
     this.routerManager.manageRoutes();
   }
