@@ -43,6 +43,7 @@ export class TemplateFormRepository implements ITemplateFormRepository {
     try {
       return await this.templateFormRepository.find({
         where: { stage: { id: stageId } },
+        relations: ["stage"],
       });
     } catch (error) {
       throw error;

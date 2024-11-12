@@ -17,23 +17,23 @@ export class TemplateFormRouter implements IRouterModule {
 
   initRoutes(): void {
     this.templateFormRouter.post("/", schemaValidator(saveTemplateFormSchema), async (req, res) => {
-      ResponseModel.manageResponse(this.templateFormUseCase.saveForm(req.body), res, HttpStatusCode.CREATED, Message.TEMPLATE_FORM_SAVED_SUCCESSFULLY);
+      await ResponseModel.manageResponse(this.templateFormUseCase.saveForm(req.body), res, HttpStatusCode.CREATED, Message.TEMPLATE_FORM_SAVED_SUCCESSFULLY);
     });
     
     this.templateFormRouter.get("/", async (req, res) => {
-      ResponseModel.manageResponse(this.templateFormUseCase.getTemplateForms(), res, HttpStatusCode.OK, Message.TEMPLATES_FORM_OBTAINED_SUCCESSFULLY);
+      await ResponseModel.manageResponse(this.templateFormUseCase.getTemplateForms(), res, HttpStatusCode.OK, Message.TEMPLATES_FORM_OBTAINED_SUCCESSFULLY);
     });
 
     this.templateFormRouter.get("/:id", async (req, res) => {
-      ResponseModel.manageResponse(this.templateFormUseCase.getTemplateFormById(Number(req.params.id)), res, HttpStatusCode.OK, Message.TEMPLATE_FORM_OBTAINED_SUCCESSFULLY)
+      await ResponseModel.manageResponse(this.templateFormUseCase.getTemplateFormById(Number(req.params.id)), res, HttpStatusCode.OK, Message.TEMPLATE_FORM_OBTAINED_SUCCESSFULLY)
     });
 
-    this.templateFormRouter.get("/:stageId", async (req, res) => {
-      ResponseModel.manageResponse(this.templateFormUseCase.getTemplateFormByStage(Number(req.params.stageId)), res, HttpStatusCode.OK, Message.TEMPLATES_FORM_OBTAINED_SUCCESSFULLY);
+    this.templateFormRouter.get("/by-stage/:stageId", async (req, res) => {
+      await ResponseModel.manageResponse(this.templateFormUseCase.getTemplateFormByStage(Number(req.params.stageId)), res, HttpStatusCode.OK, Message.TEMPLATES_FORM_OBTAINED_SUCCESSFULLY);
     });
 
     this.templateFormRouter.patch("/:id", schemaValidator(updateTemplateFormSchema), async (req, res) => {
-      ResponseModel.manageResponse(this.templateFormUseCase.updateTemplateFormById(Number(req.params.id), req.body), res, HttpStatusCode.OK, Message.TEMPLATE_UPDATED_SUCCESSFULLY);
+      await ResponseModel.manageResponse(this.templateFormUseCase.updateTemplateFormById(Number(req.params.id), req.body), res, HttpStatusCode.OK, Message.TEMPLATE_UPDATED_SUCCESSFULLY);
     });
   }
 
