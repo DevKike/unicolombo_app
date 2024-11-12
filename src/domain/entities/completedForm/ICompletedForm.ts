@@ -12,3 +12,5 @@ export interface ICompletedForm {
 }
 
 export interface ICreateCompletedForm extends Omit<ICompletedForm, "id" | "uploadAt"> {}
+
+export interface IUpdateCompletedForm extends Partial<Omit<ICompletedForm, "id" | "uploadAt">> {}
