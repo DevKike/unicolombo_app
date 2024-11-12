@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { DeptMaintTypeAssignmentStatus } from "../../../domain/enums/DeptMaintTypeAssignmentStatus/DeptMaintTypeAssignmentStatus";
+import { DeptMaintTypeAssignmentStatus } from "../../../domain/enums/DeptMaintTypeAssignment/DeptMaintTypeAssignmentStatus";
 
 
 const status = Joi.string().valid(
