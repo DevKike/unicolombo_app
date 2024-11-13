@@ -2,6 +2,7 @@ import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, Pri
 import { IStage } from "../../../domain/entities/stage/IStage";
 import { DeptMaintTypeAssignment } from "./DeptMaintTypeAssignment";
 import { TemplateForm } from "./TemplateForm";
+import { Execution } from "./Execution";
 
 @Entity()
 export class Stage implements IStage {
@@ -29,4 +30,7 @@ export class Stage implements IStage {
 
   @OneToMany(() => TemplateForm, (templateForm) => templateForm.stage)
   templateForms: TemplateForm[];
+
+  @OneToMany(() => Execution, (execution) => execution.stage)
+  executions: Execution[];
 }

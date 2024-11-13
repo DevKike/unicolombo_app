@@ -1,5 +1,6 @@
 import { MaintenanceStatus } from "../../enums/maintenance/MaintenanceStatus";
 import { IDeptMaintTypeAssignment } from "../deptMaintTypeAssignment/IDeptMaintTypeAssignment";
+import { IExecution } from "../execution/IExecution";
 
 export interface IMaintenance {
   id: number;
@@ -9,6 +10,7 @@ export interface IMaintenance {
   updatedAt: Date;
   status?: MaintenanceStatus;
   deptMaintTypeAssignment: IDeptMaintTypeAssignment;
+  executions: IExecution[];
 }
 
 export interface ICreateMaintenance extends Omit<IMaintenance, "id" | "createdAt" | "updatedAt"> {}

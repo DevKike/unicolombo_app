@@ -1,7 +1,8 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { MaintenanceStatus } from "../../../domain/enums/maintenance/MaintenanceStatus";
 import { IMaintenance } from "../../../domain/entities/maintenance/IMaintenance";
 import { DeptMaintTypeAssignment } from "./DeptMaintTypeAssignment";
+import { Execution } from "./Execution";
 
 @Entity()
 export class Maintenance implements IMaintenance {
@@ -26,4 +27,7 @@ export class Maintenance implements IMaintenance {
   @ManyToOne(() => DeptMaintTypeAssignment, (deptMaintTypeAssignment) => deptMaintTypeAssignment.maintenances)
   @JoinColumn({ name: "dept_maint_type_assignment" })
   deptMaintTypeAssignment: DeptMaintTypeAssignment;
+
+  @OneToMany(() => Execution, (execution) => execution.maintenance)
+  executions: Execution[];
 }
