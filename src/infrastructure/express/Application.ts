@@ -45,6 +45,10 @@ import { CompletedFormRepository } from "../repositories/completedForm/Completed
 import { CompletedFormService } from "../services/completedForm/CompletedFormService";
 import { CompletedFormUseCase } from "../../application/usecases/completedForm/CompletedFormUseCase";
 import { CompletedFormRouter } from "./driving/completedForm/CompletedFormRouter";
+import { ExecutionRepository } from "../repositories/execution/ExecutionRepository";
+import { ExecutionService } from "../services/execution/ExecutionService";
+import { ExecutionUseCase } from "../../application/usecases/execution/ExecutionUseCase";
+import { ExecutionRouter } from "./driving/execution/ExecutionRouter";
 
 export class Application {
   public app: App;
@@ -113,6 +117,11 @@ export class Application {
     const completedFormUseCase = new CompletedFormUseCase(completedFormService);
     const completedFormRouter = new CompletedFormRouter(completedFormUseCase);
 
+    const executionRepository = new ExecutionRepository(AppDataSource);
+    const executionService = new ExecutionService(executionRepository);
+    const executionUseCase = new ExecutionUseCase(executionService);
+    const executionRouter = new ExecutionRouter(executionUseCase);
+
     this.routerManager = new RouterManager(
       this.app,
       roleRouter,
@@ -125,6 +134,7 @@ export class Application {
       fileRouter,
       templateFormRouter,
       completedFormRouter,
+      executionRouter,
     );
     this.routerManager.manageRoutes();
   }

@@ -14,3 +14,5 @@ export interface IExecution {
   stage: IStage;
   completedForms: ICompletedForm[];
 }
+
+export interface ICreateExecution extends Omit<IExecution, "id" | "startedAt" | "endedAt" | "completedForms">  {};

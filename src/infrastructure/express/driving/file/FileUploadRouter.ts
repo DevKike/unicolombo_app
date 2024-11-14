@@ -20,7 +20,10 @@ export class FileUploadRouter implements IRouterModule {
     this.fileUploadRouter.post("/upload", async (req, res) => {
       await ResponseModel.manageResponse(
         this.fileUploadedUseCase
-          .uploadFile(req.files?.file as UploadedFile, req.body.fileType as FileType)
+          .uploadFile(
+            req.files?.file as UploadedFile,
+            req.body.fileType as FileType
+          )
           .then((responsePath) => buildFileUrl(responsePath, req)),
         res,
         HttpStatusCode.CREATED,

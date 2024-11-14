@@ -1,8 +1,8 @@
 export enum ExecutionStatus {
-  PENDING = "PENDING",
-  IN_PROGRESS = "IN_PROGRESS",
-  COMPLETED = "COMPLETED",
-  CANCELED = "CANCELED",
-  ON_HOLD = "ON_HOLD",
-  FAILED = "FAILED",
+  PENDING = "pending",
+  IN_PROGRESS = "in_progress",
+  COMPLETED = "completed",
+  CANCELED = "canceled",
+  ON_HOLD = "on_hold",
+  FAILED = "failed",
 }

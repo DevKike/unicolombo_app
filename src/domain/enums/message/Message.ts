@@ -65,7 +65,10 @@ export enum Message {
   // Codes for File Errors (1200 - 1299)
   INVALID_FILE_FORMAT = "COD1200",
   INVALID_FILE_TYPE = "COD1201",
-  NOT_FILE_EXTENSION_ALLOWED = "COD2102",
+  NOT_FILE_EXTENSION_ALLOWED = "COD1202",
+
+  //Codes for execution (1300 - 1399)
+  EXECUTION_CREATED_SUCCESSFULLY = "COD1300",
 
   // General Codes
   BAD_REQUEST = "COD2000",

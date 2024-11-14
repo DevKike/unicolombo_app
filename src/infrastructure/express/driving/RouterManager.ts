@@ -1,15 +1,5 @@
 import { Application } from "express";
 import { IRouterManager } from "../interfaces/IRouterManager";
-import { ActorRouter } from "./actor/ActorRouter";
-import { RoleRouter } from "./role/RoleRouter";
-import { DepartmentRouter } from "./department/DepartmentRouter";
-import { MaintenanceRouter } from "./maintenance/MaintenanceRouter";
-import { MaintenanceTypeRouter } from "./maintenanceType/MaintenanceTypeRouter";
-import { DeptMaintTypeAssignmentRouter } from "./deptMaintTypeAssignment/DeptMaintTypeAssignmentRouter";
-import { StageRouter } from "./stage/StageRouter";
-import { FileUploadRouter } from "./file/FileUploadRouter";
-import { TemplateFormRouter } from "./templateForm/TemplateFormRouter";
-import { CompletedFormRouter } from "./completedForm/CompletedFormRouter";
 import { IRouterModule } from "../interfaces/IRouterModule";
 
 export class RouterManager implements IRouterManager {
@@ -25,6 +15,7 @@ export class RouterManager implements IRouterManager {
     private readonly fileUploadRouter: IRouterModule,
     private readonly templateFormRouter: IRouterModule,
     private readonly completedFormRouter: IRouterModule,
+    private readonly executionFormRouter: IRouterModule,
   ) {}
 
   manageRoutes(): void {
@@ -37,6 +28,7 @@ export class RouterManager implements IRouterManager {
     this.app.use("/api/stage", this.stageRouter.getRouter());
     this.app.use("/api/file", this.fileUploadRouter.getRouter());
     this.app.use("/api/template-form", this.templateFormRouter.getRouter());
-    this.app.use("/api/completed-form", this.completedFormRouter.getRouter())
+    this.app.use("/api/completed-form", this.completedFormRouter.getRouter());
+    this.app.use("/api/execution", this.executionFormRouter.getRouter());
   }
 }
