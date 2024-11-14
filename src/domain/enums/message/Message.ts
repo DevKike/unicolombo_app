@@ -69,6 +69,7 @@ export enum Message {
 
   //Codes for execution (1300 - 1399)
   EXECUTION_CREATED_SUCCESSFULLY = "COD1300",
+  EXECUTIONS_OBTAINED_SUCCESSFULLY = "COD1301",
 
   // General Codes
   BAD_REQUEST = "COD2000",

@@ -17,7 +17,11 @@ export class ExecutionRouter implements IRouterModule {
 
   initRoutes(): void {
     this.executionRouter.post("/", schemaValidator(createExecutionSchema), async (req, res) => {
-      await ResponseModel.manageResponse(this.executionUseCase.createExecution(req.body), res, HttpStatusCode.OK, Message.EXECUTION_CREATED_SUCCESSFULLY);
+      await ResponseModel.manageResponse(this.executionUseCase.createExecution(req.body), res, HttpStatusCode.CREATED, Message.EXECUTION_CREATED_SUCCESSFULLY);
+    });
+
+    this.executionRouter.get("/", async (req, res) => {
+      await ResponseModel.manageResponse(this.executionUseCase.getExecutions(), res, HttpStatusCode.OK, Message.EXECUTIONS_OBTAINED_SUCCESSFULLY);
     });
   }
 
