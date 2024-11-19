@@ -15,4 +15,6 @@ export interface IExecution {
   completedForms: ICompletedForm[];
 }
 
-export interface ICreateExecution extends Omit<IExecution, "id" | "startedAt" | "endedAt" | "completedForms">  {};
+export interface ICreateExecution extends Omit<IExecution, "id" | "startedAt" | "updatedAt" | "endedAt" | "completedForms">  {};
+
+export interface IUpdateExecution extends Partial<Omit<IExecution, "id" | "startedAt" | "updatedAt" | "completedForms">> {};

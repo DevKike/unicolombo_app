@@ -1,7 +1,7 @@
 import { DataSource, Repository } from "typeorm";
 import { IExecutionRepository } from "../../../domain/entities/execution/IExecutionRepository";
 import { Execution } from "../../database/entities/Execution";
-import { ICreateExecution, IExecution } from "../../../domain/entities/execution/IExecution";
+import { ICreateExecution, IExecution, IUpdateExecution } from "../../../domain/entities/execution/IExecution";
 
 export class ExecutionRepository implements IExecutionRepository {
   private readonly executionRepository: Repository<Execution>;
@@ -34,6 +34,14 @@ export class ExecutionRepository implements IExecutionRepository {
         where: { id: id },
         relations: ["maintenance", "stage"],
       });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateById(id: number, execution: IUpdateExecution): Promise<void> {
+    try {
+      await this.executionRepository.update(id, execution);
     } catch (error) {
       throw error;
     }

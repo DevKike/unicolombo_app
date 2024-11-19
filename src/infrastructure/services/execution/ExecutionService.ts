@@ -1,4 +1,4 @@
-import { ICreateExecution, IExecution } from "../../../domain/entities/execution/IExecution";
+import { ICreateExecution, IExecution, IUpdateExecution } from "../../../domain/entities/execution/IExecution";
 import { IExecutionRepository } from "../../../domain/entities/execution/IExecutionRepository";
 import { IExecutionService } from "../../../domain/entities/execution/IExecutionService";
 
@@ -24,6 +24,14 @@ export class ExecutionService implements IExecutionService {
   async getExecution(id: number): Promise<IExecution | null> {
     try {
       return await this.executionRepository.getOneById(id);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateExecution(id: number, execution: IUpdateExecution): Promise<void> {
+    try {
+      await this.executionRepository.updateById(id, execution);
     } catch (error) {
       throw error;
     }

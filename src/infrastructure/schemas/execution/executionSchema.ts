@@ -11,12 +11,21 @@ const status = Joi.valid(
 );
 
 const description = Joi.string();
+const endedAt = Joi.date();
 const maintenanceId = Joi.number();
 const stageId = Joi.number();
-  
+
 export const createExecutionSchema = Joi.object({
   status: status,
   description: description,
   maintenance: maintenanceId.required(),
   stage: stageId.required(),
+});
+
+export const updateExecutionSchema = Joi.object({
+  status: status,
+  description: description,
+  endedAt: endedAt,
+  maintenance: maintenanceId,
+  stage: stageId,
 });
