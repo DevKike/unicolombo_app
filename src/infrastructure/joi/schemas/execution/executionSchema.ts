@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { ExecutionStatus } from "../../../domain/enums/execution/ExecutionStatus";
+import { ExecutionStatus } from "../../../../domain/enums/execution/ExecutionStatus";
 
 const status = Joi.valid(
   ExecutionStatus.CANCELED,

@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { MaintenanceStatus } from "../../../domain/enums/maintenance/MaintenanceStatus";
+import { MaintenanceStatus } from "../../../../domain/enums/maintenance/MaintenanceStatus";
 
 const name = Joi.string();
 const description = Joi.string();

@@ -3,9 +3,9 @@ import { IRouterModule } from "../../interfaces/IRouterModule";
 import { ResponseModel } from "../../response/ResponseModel";
 import { HttpStatusCode } from "../../../../domain/enums/http/HttpStatusCode";
 import { Message } from "../../../../domain/enums/message/Message";
-import { schemaValidator } from "../../../schemas/middleware/schemaValidator";
-import { createMaintenanceTypeSchema, updateMaintenanceTypeSchema } from "../../../schemas/maintenanceType/maintenanceTypeSchema";
 import { IMaintenanceTypeUseCase } from "../../../../domain/entities/maintenanceType/IMaintenanceTypeUseCase";
+import { schemaValidator } from "../../../joi/middleware/schemaValidator";
+import { createMaintenanceTypeSchema, updateMaintenanceTypeSchema } from "../../../joi/schemas/maintenanceType/maintenanceTypeSchema";
 
 export class MaintenanceTypeRouter implements IRouterModule {
   private readonly maintenanceTypeRouter: Router;
