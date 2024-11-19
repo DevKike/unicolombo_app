@@ -2,6 +2,7 @@ import { DocumentType } from "../../enums/actor/DocumentType";
 import { ActorStatus } from "../../enums/actor/ActorStatus";
 import { IDepartment } from "../department/IDepartment";
 import { IRole } from "../role/IRole";
+import { IExecutor } from "../executor/IExecutor";
 
 export interface IActor {
   id: number;
@@ -16,6 +17,7 @@ export interface IActor {
   status?: ActorStatus;
   department: IDepartment;
   role: IRole;
+  executors: IExecutor[];
 }
 
 export interface ICreateActor extends Omit<IActor, "id" | "createdAt" | "updatedAt"> {}

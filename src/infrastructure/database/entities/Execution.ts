@@ -4,6 +4,7 @@ import { Maintenance } from "./Maintenance";
 import { Stage } from "./Stage";
 import { CompletedForm } from "./CompletedForm";
 import { ExecutionStatus } from "../../../domain/enums/execution/ExecutionStatus";
+import { Executor } from "./Executor";
 
 @Entity()
 export class Execution implements IExecution {
@@ -35,4 +36,7 @@ export class Execution implements IExecution {
 
   @OneToMany(() => CompletedForm, (completedForm) => completedForm.templateForm)
   completedForms: CompletedForm[];
+
+  @OneToMany(() => Executor, (executor) => executor.execution)
+  executors: Executor[];
 }
