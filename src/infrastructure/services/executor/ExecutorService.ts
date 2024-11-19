@@ -1,4 +1,4 @@
-import { ICreateExecutor } from "../../../domain/entities/executor/IExecutor";
+import { ICreateExecutor, IExecutor } from "../../../domain/entities/executor/IExecutor";
 import { IExecutorRepository } from "../../../domain/entities/executor/IExecutorRepository";
 import { IExecutorService } from "../../../domain/entities/executor/IExecutorService";
 
@@ -7,7 +7,15 @@ export class ExecutorService implements IExecutorService {
 
   async createExecutor(executor: ICreateExecutor): Promise<void> {
     try {
-      this.executorRepository.save(executor);
+      await this.executorRepository.save(executor);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getExecutors(): Promise<IExecutor[]> {
+    try {
+      return await this.executorRepository.getAll();
     } catch (error) {
       throw error;
     }
