@@ -39,7 +39,7 @@ export class CompletedFormRepository implements ICompletedFormRepository {
     }
   }
 
-  async getByTemplateForm(templateFormId: number): Promise<ICompletedForm[]> {
+  async getAllByTemplateForm(templateFormId: number): Promise<ICompletedForm[]> {
     try {
       return await this.completedFormRepository.find({
         where: { templateForm: { id: templateFormId } },
