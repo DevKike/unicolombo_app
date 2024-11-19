@@ -43,7 +43,15 @@ export class CompletedFormService implements ICompletedFormService {
 
   async getCompletedFormsByTemplateForm(templateForm: number): Promise<ICompletedForm[]> {
     try {
-      return await this.completedFormRepository.getByTemplateForm(templateForm);
+      return await this.completedFormRepository.getAllByTemplateForm(templateForm);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getCompletedFormsByExecution(executionId: number): Promise<ICompletedForm[]> {
+    try {
+      return await this.completedFormRepository.getAllByExecution(executionId);
     } catch (error) {
       throw error;
     }

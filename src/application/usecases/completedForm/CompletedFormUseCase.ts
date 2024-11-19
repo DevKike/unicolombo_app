@@ -37,6 +37,14 @@ export class CompletedFormUseCase implements ICompletedFormUseCase {
     }
   }
 
+  async getCompletedFormsByExecution(executionId: number): Promise<ICompletedForm[]> {
+    try {
+      return await this.completedFormService.getCompletedFormsByExecution(executionId);
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async updateCompletedFormById(id: number, updateTemplateForm: IUpdateCompletedForm): Promise<void> {
     try {
       await this.completedFormService.updateCompletedFormById(id, updateTemplateForm);

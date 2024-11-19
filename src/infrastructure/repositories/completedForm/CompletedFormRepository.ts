@@ -21,7 +21,7 @@ export class CompletedFormRepository implements ICompletedFormRepository {
   async getAll(): Promise<ICompletedForm[]> {
     try {
       return await this.completedFormRepository.find({
-        relations: ["templateForm"],
+        relations: ["templateForm", "execution"],
       });
     } catch (error) {
       throw error;
@@ -32,18 +32,29 @@ export class CompletedFormRepository implements ICompletedFormRepository {
     try {
       return await this.completedFormRepository.findOne({
         where: { id: id },
-        relations: ["templateForm"],
+        relations: ["templateForm", "execution"],
       });
     } catch (error) {
       throw error;
     }
   }
 
-  async getByTemplateForm(templateFormId: number): Promise<ICompletedForm[]> {
+  async getAllByTemplateForm(templateFormId: number): Promise<ICompletedForm[]> {
     try {
       return await this.completedFormRepository.find({
         where: { templateForm: { id: templateFormId } },
-        relations: ["templateForm"],
+        relations: ["templateForm", "execution"],
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getAllByExecution(executionId: number): Promise<ICompletedForm[]> {
+    try {
+      return await this.completedFormRepository.find({
+        where: { execution: { id: executionId } },
+        relations: ["templateForm", "execution"],
       });
     } catch (error) {
       throw error;
