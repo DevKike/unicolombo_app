@@ -20,4 +20,28 @@ export class ExecutorService implements IExecutorService {
       throw error;
     }
   }
+
+  async getExecutorById(id: number): Promise<IExecutor | null> {
+    try {
+      return await this.executorRepository.getOneById(id);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getExecutorsByActor(actorId: number): Promise<IExecutor[]> {
+    try {
+      return await this.executorRepository.getAllByActor(actorId);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getExecutorsByExecution(executionId: number): Promise<IExecutor[]> {
+    try {
+      return await this.executorRepository.getAllByExecution(executionId);
+    } catch (error) {
+      throw error;
+    }
+  }
 }

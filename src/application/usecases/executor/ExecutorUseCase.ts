@@ -20,4 +20,28 @@ export class ExecutorUseCase implements IExecutorUseCase {
       throw error;
     }
   }
+
+  async getExecutorById(id: number): Promise<IExecutor | null> {
+    try {
+      return await this.executorService.getExecutorById(id);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getExecutorsByActor(actorId: number): Promise<IExecutor[]> {
+    try {
+      return await this.executorService.getExecutorsByActor(actorId);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getExecutorsByExecution(executionId: number): Promise<IExecutor[]> {
+    try {
+      return await this.executorService.getExecutorsByExecution(executionId);
+    } catch (error) {
+      throw error;
+    }
+  }
 }

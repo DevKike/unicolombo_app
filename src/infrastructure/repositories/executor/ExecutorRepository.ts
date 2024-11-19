@@ -27,4 +27,37 @@ export class ExecutorRepository implements IExecutorRepository {
       throw error;
     }
   }
+  
+  async getOneById(id: number): Promise<IExecutor | null> {
+    try {
+      return await this.executorRepository.findOne({
+        where: { id: id },
+        relations: ["actor", "execution"],
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getAllByActor(actorId: number): Promise<IExecutor[]> {
+    try {
+      return await this.executorRepository.find({
+        where: { actor: { id: actorId } },
+        relations: ["actor", "execution"],
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getAllByExecution(executionId: number): Promise<IExecutor[]> {
+    try {
+      return await this.executorRepository.find({
+        where: { execution: { id: executionId } },
+        relations: ["actor", "execution"],
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
 }
