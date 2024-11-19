@@ -20,4 +20,12 @@ export class ExecutionService implements IExecutionService {
       throw error;
     }
   }
+
+  async getExecution(id: number): Promise<IExecution | null> {
+    try {
+      return await this.executionRepository.getOneById(id);
+    } catch (error) {
+      throw error;
+    }
+  }
 }

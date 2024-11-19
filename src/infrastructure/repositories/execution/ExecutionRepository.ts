@@ -27,4 +27,15 @@ export class ExecutionRepository implements IExecutionRepository {
       throw error;
     }
   }
+
+  async getOneById(id: number): Promise<IExecution | null> {
+    try {
+      return await this.executionRepository.findOne({
+        where: { id: id },
+        relations: ["maintenance", "stage"],
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
 }

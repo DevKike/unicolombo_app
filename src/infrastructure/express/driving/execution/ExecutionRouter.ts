@@ -23,6 +23,11 @@ export class ExecutionRouter implements IRouterModule {
     this.executionRouter.get("/", async (req, res) => {
       await ResponseModel.manageResponse(this.executionUseCase.getExecutions(), res, HttpStatusCode.OK, Message.EXECUTIONS_OBTAINED_SUCCESSFULLY);
     });
+    
+    this.executionRouter.get("/:id", async (req, res) => {
+      await ResponseModel.manageResponse(this.executionUseCase.getExecution(Number(req.params.id)), res, HttpStatusCode.OK, Message.EXECUTION_CREATED_SUCCESSFULLY);
+    });
+
   }
 
   getRouter(): Router {

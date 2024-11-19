@@ -19,4 +19,12 @@ export class ExecutionUseCase implements IExecutionUseCase {
       throw error;
     }
   }
+
+  async getExecution(id: number): Promise<IExecution | null> {
+    try {
+      return await this.executionService.getExecution(id);
+    } catch (error) {
+      throw error;
+    }
+  }
 }
