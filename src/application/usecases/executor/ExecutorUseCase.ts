@@ -1,4 +1,4 @@
-import { ICreateExecutor, IExecutor } from "../../../domain/entities/executor/IExecutor";
+import { ICreateExecutor, IExecutor, IUpdateExecutor } from "../../../domain/entities/executor/IExecutor";
 import { IExecutorUseCase } from "../../../domain/entities/executor/IExecutorUseCase";
 import { ExecutorService } from "../../../infrastructure/services/executor/ExecutorService";
 
@@ -40,6 +40,14 @@ export class ExecutorUseCase implements IExecutorUseCase {
   async getExecutorsByExecution(executionId: number): Promise<IExecutor[]> {
     try {
       return await this.executorService.getExecutorsByExecution(executionId);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateExecutor(id: number, executor: IUpdateExecutor): Promise<void> {
+    try {
+      await this.executorService.updateExecutor(id, executor);
     } catch (error) {
       throw error;
     }

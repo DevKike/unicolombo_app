@@ -1,6 +1,5 @@
 import Joi from "joi";
 import { ExecutorStatus } from "../../../../domain/enums/executors/ExecutorStatus";
-import { ICreateExecutor } from "../../../../domain/entities/executor/IExecutor";
 
 const status = Joi.valid(
   ExecutorStatus.ASSIGNED,
@@ -21,4 +20,11 @@ export const createExecutorSchema = Joi.object({
   comments: comments,
   actor: actorId.required(),
   execution: executionId.required(),
+});
+
+export const updateExecutorSchema = Joi.object({
+  status: status,
+  comments: comments,
+  actor: actorId,
+  execution: executionId,
 });

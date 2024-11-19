@@ -13,3 +13,5 @@ export interface IExecutor {
 }
 
 export interface ICreateExecutor extends Omit<IExecutor, "id" | "assignedAt" | "updatedAt"> {}
+
+export interface IUpdateExecutor extends Partial<Omit<IExecutor, "id" | "assignedAt" | "updatedAt">> {}

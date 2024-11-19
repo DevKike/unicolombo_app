@@ -5,7 +5,7 @@ import { ResponseModel } from "../../response/ResponseModel";
 import { HttpStatusCode } from "../../../../domain/enums/http/HttpStatusCode";
 import { Message } from "../../../../domain/enums/message/Message";
 import { schemaValidator } from "../../../joi/middleware/schemaValidator";
-import { createExecutorSchema } from "../../../joi/schemas/executor/executorSchema";
+import { createExecutorSchema, updateExecutorSchema } from "../../../joi/schemas/executor/executorSchema";
 
 export class ExecutorRouter implements IRouterModule {
   private readonly executorRouter: Router;
@@ -34,6 +34,10 @@ export class ExecutorRouter implements IRouterModule {
 
     this.executorRouter.get("/by-execution/:id", async (req, res) => {
       await ResponseModel.manageResponse(this.executorUseCase.getExecutorsByExecution(Number(req.params.id)), res, HttpStatusCode.OK, Message.EXECUTORS_OBTAINED_SUCCESSFULLY);
+    });
+
+    this.executorRouter.patch("/:id", schemaValidator(updateExecutorSchema), async (req, res) => {
+      await ResponseModel.manageResponse(this.executorUseCase.updateExecutor(Number(req.params.id), req.body), res, HttpStatusCode.OK, Message.EXECUTOR_UPDATED_SUCCESSFULLY);
     });
   }
 

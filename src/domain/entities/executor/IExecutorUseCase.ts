@@ -1,4 +1,4 @@
-import { ICreateExecutor, IExecutor } from "./IExecutor";
+import { ICreateExecutor, IExecutor, IUpdateExecutor } from "./IExecutor";
 
 export interface IExecutorUseCase {
   createExecutor(executor: ICreateExecutor): Promise<void>;
@@ -6,4 +6,5 @@ export interface IExecutorUseCase {
   getExecutorById(id: number): Promise<IExecutor | null>;
   getExecutorsByActor(actorId: number): Promise<IExecutor[]>;
   getExecutorsByExecution(executionId: number): Promise<IExecutor[]>;
+  updateExecutor(id: number, executor: IUpdateExecutor): Promise<void>;
 }

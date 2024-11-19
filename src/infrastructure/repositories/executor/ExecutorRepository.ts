@@ -1,7 +1,7 @@
 import { DataSource, Repository } from "typeorm";
 import { IExecutorRepository } from "../../../domain/entities/executor/IExecutorRepository";
 import { Executor } from "../../database/entities/Executor";
-import { ICreateExecutor, IExecutor } from "../../../domain/entities/executor/IExecutor";
+import { ICreateExecutor, IExecutor, IUpdateExecutor } from "../../../domain/entities/executor/IExecutor";
 
 export class ExecutorRepository implements IExecutorRepository {
   private readonly executorRepository: Repository<Executor>;
@@ -56,6 +56,14 @@ export class ExecutorRepository implements IExecutorRepository {
         where: { execution: { id: executionId } },
         relations: ["actor", "execution"],
       });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateById(id: number, executor: IUpdateExecutor): Promise<void> {
+    try {
+      await this.executorRepository.update(id, executor);
     } catch (error) {
       throw error;
     }
