@@ -16,4 +16,5 @@ export const updateCompletedFormSchema = Joi.object({
   description: description,
   filePath: filePath,
   templateForm: templateFormId,
+  execution: executionId,
 });
