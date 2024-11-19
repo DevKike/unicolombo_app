@@ -1,7 +1,7 @@
 import Joi from "joi";
-import { ActorStatus } from "../../../domain/enums/actor/ActorStatus";
-import { DocumentType } from "../../../domain/enums/actor/DocumentType";
-import { RoleId } from "../../../domain/enums/role/Role";
+import { RoleId } from "../../../../domain/enums/role/Role";
+import { ActorStatus } from "../../../../domain/enums/actor/ActorStatus";
+import { DocumentType } from "../../../../domain/enums/actor/DocumentType";
 
 const name = Joi.string().max(40);
 const lastName = Joi.string().max(40);

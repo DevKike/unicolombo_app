@@ -4,8 +4,8 @@ import { ITemplateFormUseCase } from "../../../../domain/entities/templateForm/I
 import { ResponseModel } from "../../response/ResponseModel";
 import { HttpStatusCode } from "../../../../domain/enums/http/HttpStatusCode";
 import { Message } from "../../../../domain/enums/message/Message";
-import { schemaValidator } from "../../../schemas/middleware/schemaValidator";
-import { saveTemplateFormSchema, updateTemplateFormSchema } from "../../../schemas/templateForm/templateFormSchema";
+import { schemaValidator } from "../../../joi/middleware/schemaValidator";
+import { saveTemplateFormSchema, updateTemplateFormSchema } from "../../../joi/schemas/templateForm/templateFormSchema";
 
 export class TemplateFormRouter implements IRouterModule {
   private readonly templateFormRouter: Router;

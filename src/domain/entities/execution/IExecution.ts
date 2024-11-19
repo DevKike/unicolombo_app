@@ -1,5 +1,6 @@
 import { ExecutionStatus } from "../../enums/execution/ExecutionStatus";
 import { ICompletedForm } from "../completedForm/ICompletedForm";
+import { IExecutor } from "../executor/IExecutor";
 import { IMaintenance } from "../maintenance/IMaintenance";
 import { IStage } from "../stage/IStage";
 
@@ -13,6 +14,7 @@ export interface IExecution {
   maintenance: IMaintenance;
   stage: IStage;
   completedForms: ICompletedForm[];
+  executors: IExecutor[];
 }
 
 export interface ICreateExecution extends Omit<IExecution, "id" | "startedAt" | "updatedAt" | "endedAt" | "completedForms">  {};

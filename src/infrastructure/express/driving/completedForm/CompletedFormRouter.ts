@@ -4,8 +4,8 @@ import { ICompletedFormUseCase } from "../../../../domain/entities/completedForm
 import { ResponseModel } from "../../response/ResponseModel";
 import { HttpStatusCode } from "../../../../domain/enums/http/HttpStatusCode";
 import { Message } from "../../../../domain/enums/message/Message";
-import { schemaValidator } from "../../../schemas/middleware/schemaValidator";
-import { createCompletedFormSchema, updateCompletedFormSchema } from "../../../schemas/completedForm/completedFormSchema";
+import { schemaValidator } from "../../../joi/middleware/schemaValidator";
+import { createCompletedFormSchema, updateCompletedFormSchema } from "../../../joi/schemas/completedForm/completedFormSchema";
 
 export class CompletedFormRouter implements IRouterModule {
   private readonly completedFormRouter: Router;

@@ -4,8 +4,8 @@ import { ResponseModel } from "../../response/ResponseModel";
 import { DeptMaintTypeAssignmentUseCase } from "../../../../application/usecases/deptMaintTypeAssignment/DeptMaintTypeAssignmentUseCase";
 import { HttpStatusCode } from "../../../../domain/enums/http/HttpStatusCode";
 import { Message } from "../../../../domain/enums/message/Message";
-import { schemaValidator } from "../../../schemas/middleware/schemaValidator";
-import { createDeptMaintTypeAssignmentSchema, updateDeptMaintTypeAssignmentSchema } from "../../../schemas/deptMaintTypeAssignment/deptMaintTypeAssignmentSchema";
+import { schemaValidator } from "../../../joi/middleware/schemaValidator";
+import { createDeptMaintTypeAssignmentSchema, updateDeptMaintTypeAssignmentSchema } from "../../../joi/schemas/deptMaintTypeAssignment/deptMaintTypeAssignmentSchema";
 
 export class DeptMaintTypeAssignmentRouter implements IRouterModule {
   private readonly deptMaintTypeAssignmentRouter: Router;

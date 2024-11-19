@@ -1,9 +1,10 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { IActor } from "../../../domain/entities/actor/IActor";
 import { DocumentType } from "../../../domain/enums/actor/DocumentType";
 import { Role } from "./Role";
 import { Department } from "./Department";
 import { ActorStatus } from "../../../domain/enums/actor/ActorStatus";
+import { Executor } from "./Executor";
 
 @Entity()
 export class Actor implements IActor {
@@ -44,5 +45,8 @@ export class Actor implements IActor {
   @ManyToOne(() => Role, (role) => role.actors)
   @JoinColumn({ name: "role_id" })
   role: Role;
+
+  @OneToMany(() => Executor, (executor) => executor.actor)
+  executors: Executor[];
 }
 
