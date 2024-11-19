@@ -49,6 +49,10 @@ import { ExecutionRepository } from "../repositories/execution/ExecutionReposito
 import { ExecutionService } from "../services/execution/ExecutionService";
 import { ExecutionUseCase } from "../../application/usecases/execution/ExecutionUseCase";
 import { ExecutionRouter } from "./driving/execution/ExecutionRouter";
+import { ExecutorRouter } from "./driving/executor/ExecutorRouter";
+import { ExecutorUseCase } from "../../application/usecases/executor/ExecutorUseCase";
+import { ExecutorService } from "../services/executor/ExecutorService";
+import { ExecutorRepository } from "../repositories/executor/ExecutorRepository";
 
 export class Application {
   public app: App;
@@ -122,6 +126,11 @@ export class Application {
     const executionUseCase = new ExecutionUseCase(executionService);
     const executionRouter = new ExecutionRouter(executionUseCase);
 
+    const executorRepository = new ExecutorRepository(AppDataSource);
+    const executorService = new ExecutorService(executorRepository);
+    const executorUseCase = new ExecutorUseCase(executorService);
+    const executorRouter = new ExecutorRouter(executorUseCase);
+
     this.routerManager = new RouterManager(
       this.app,
       roleRouter,
@@ -135,6 +144,7 @@ export class Application {
       templateFormRouter,
       completedFormRouter,
       executionRouter,
+      executorRouter
     );
     this.routerManager.manageRoutes();
   }

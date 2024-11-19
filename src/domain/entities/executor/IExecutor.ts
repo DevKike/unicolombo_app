@@ -11,3 +11,5 @@ export interface IExecutor {
   actor: IActor;
   execution: IExecution;
 }
+
+export interface ICreateExecutor extends Omit<IExecutor, "id" | "assignedAt" | "updatedAt"> {}

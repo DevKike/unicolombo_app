@@ -16,6 +16,7 @@ export class RouterManager implements IRouterManager {
     private readonly templateFormRouter: IRouterModule,
     private readonly completedFormRouter: IRouterModule,
     private readonly executionFormRouter: IRouterModule,
+    private readonly executorRouter: IRouterModule,
   ) {}
 
   manageRoutes(): void {
@@ -30,5 +31,6 @@ export class RouterManager implements IRouterManager {
     this.app.use("/api/template-form", this.templateFormRouter.getRouter());
     this.app.use("/api/completed-form", this.completedFormRouter.getRouter());
     this.app.use("/api/execution", this.executionFormRouter.getRouter());
+    this.app.use("/api/executor", this.executorRouter.getRouter());
   }
 }
