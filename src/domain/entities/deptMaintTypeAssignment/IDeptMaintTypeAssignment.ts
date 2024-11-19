@@ -1,5 +1,5 @@
 
-import { DeptMaintTypeAssignmentStatus } from "../../enums/DeptMaintTypeAssignmentStatus/DeptMaintTypeAssignmentStatus";
+import { DeptMaintTypeAssignmentStatus } from "../../enums/DeptMaintTypeAssignment/DeptMaintTypeAssignmentStatus";
 import { IDepartment } from "../department/IDepartment";
 import { IMaintenance } from "../maintenance/IMaintenance";
 import { IMaintenanceType } from "../maintenanceType/IMaintenanceType";

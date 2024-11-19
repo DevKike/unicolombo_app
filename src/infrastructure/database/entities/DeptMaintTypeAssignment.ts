@@ -3,7 +3,7 @@ import { Department } from "./Department";
 import { MaintenanceType } from "./MaintenanceType";
 import { Maintenance } from "./Maintenance";
 import { IDeptMaintTypeAssignment } from "../../../domain/entities/deptMaintTypeAssignment/IDeptMaintTypeAssignment";
-import { DeptMaintTypeAssignmentStatus } from "../../../domain/enums/DeptMaintTypeAssignmentStatus/DeptMaintTypeAssignmentStatus";
+import { DeptMaintTypeAssignmentStatus } from "../../../domain/enums/DeptMaintTypeAssignment/DeptMaintTypeAssignmentStatus";
 import { Stage } from "./Stage";
 
 @Entity()

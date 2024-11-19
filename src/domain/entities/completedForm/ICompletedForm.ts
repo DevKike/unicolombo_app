@@ -1,3 +1,4 @@
+import { IExecution } from "../execution/IExecution";
 import { ITemplateForm } from "../templateForm/ITemplateForm";
 
 export interface ICompletedForm {
@@ -9,6 +10,7 @@ export interface ICompletedForm {
   fileExtension: string;
   uploadAt: Date;
   templateForm: ITemplateForm;
+  execution: IExecution;
 }
 
 export interface ICreateCompletedForm extends Omit<ICompletedForm, "id" | "uploadAt"> {}

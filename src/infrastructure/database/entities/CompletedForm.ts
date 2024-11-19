@@ -1,6 +1,7 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { ICompletedForm } from "../../../domain/entities/completedForm/ICompletedForm";
 import { TemplateForm } from "./TemplateForm";
+import { Execution } from "./Execution";
 
 @Entity()
 export class CompletedForm implements ICompletedForm {
@@ -28,4 +29,8 @@ export class CompletedForm implements ICompletedForm {
   @ManyToOne(() => TemplateForm, (templateForm) => templateForm.completedForms)
   @JoinColumn({ name: "template_form_id" })
   templateForm: TemplateForm;
+
+  @ManyToOne(() => Execution, (execution) => execution.completedForms)
+  @JoinColumn({ name: "execution_id" })
+  execution: Execution;
 }
