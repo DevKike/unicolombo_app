@@ -29,6 +29,14 @@ export class ExecutionService implements IExecutionService {
     }
   }
 
+  async getExecutionsByStage(stageId: number): Promise<IExecution[]> {
+    try {
+      return await this.executionRepository.getAllByStage(stageId);
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async updateExecution(id: number, execution: IUpdateExecution): Promise<void> {
     try {
       await this.executionRepository.updateById(id, execution);

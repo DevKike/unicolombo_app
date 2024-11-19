@@ -39,6 +39,17 @@ export class ExecutionRepository implements IExecutionRepository {
     }
   }
 
+  async getAllByStage(stageId: number): Promise<IExecution[]> {
+    try {
+      return await this.executionRepository.find({
+        where: { stage: { id: stageId } },
+        relations: ["maintenance", "stage"],
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async updateById(id: number, execution: IUpdateExecution): Promise<void> {
     try {
       await this.executionRepository.update(id, execution);

@@ -28,6 +28,14 @@ export class ExecutionUseCase implements IExecutionUseCase {
     }
   }
 
+  async getExecutionsByStage(stageId: number): Promise<IExecution[]> {
+    try {
+      return await this.executionService.getExecutionsByStage(stageId);
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async updateExecution(id: number, execution: IUpdateExecution): Promise<void> {
     try {
       await this.executionService.updateExecution(id, execution);
