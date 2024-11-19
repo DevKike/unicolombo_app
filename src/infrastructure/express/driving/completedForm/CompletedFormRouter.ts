@@ -32,6 +32,10 @@ export class CompletedFormRouter implements IRouterModule {
       ResponseModel.manageResponse(this.completedFormUseCase.getCompletedFormsByTemplateForm(Number(req.params.id)), res, HttpStatusCode.OK, Message.COMPLETED_FORMS_OBTAINED_SUCCESSFULLY);
     });
 
+    this.completedFormRouter.get("/by-execution/:id", async (req, res) => {
+      ResponseModel.manageResponse(this.completedFormUseCase.getCompletedFormsByExecution(Number(req.params.id)), res, HttpStatusCode.OK, Message.COMPLETED_FORMS_OBTAINED_SUCCESSFULLY);
+    });
+
     this.completedFormRouter.patch("/:id", schemaValidator(updateCompletedFormSchema), async (req, res) => {
       ResponseModel.manageResponse(this.completedFormUseCase.updateCompletedFormById(Number(req.params.id), req.body), res, HttpStatusCode.OK, Message.COMPLETED_FORM_UPDATED_SUCCESSFULLY);
     });

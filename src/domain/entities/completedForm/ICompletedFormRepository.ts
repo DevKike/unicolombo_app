@@ -5,5 +5,6 @@ export interface ICompletedFormRepository {
   getAll(): Promise<ICompletedForm[]>;
   getOneById(id: number): Promise<ICompletedForm | null>;
   getAllByTemplateForm(stageId: number): Promise<ICompletedForm[]>;
+  getAllByExecution(executionId: number): Promise<ICompletedForm[]>;
   updateById(id: number, updateTemplateForm: IUpdateCompletedForm): Promise<void>;
 }

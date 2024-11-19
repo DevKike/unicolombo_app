@@ -43,7 +43,7 @@ export class CompletedFormRepository implements ICompletedFormRepository {
     try {
       return await this.completedFormRepository.find({
         where: { templateForm: { id: templateFormId } },
-        relations: ["templateForm"],
+        relations: ["templateForm", "execution"],
       });
     } catch (error) {
       throw error;
@@ -54,8 +54,8 @@ export class CompletedFormRepository implements ICompletedFormRepository {
     try {
       return await this.completedFormRepository.find({
         where: { execution: { id: executionId } },
-        relations: ["templateForm", "execution"]
-      })
+        relations: ["templateForm", "execution"],
+      });
     } catch (error) {
       throw error;
     }
