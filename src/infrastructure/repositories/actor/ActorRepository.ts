@@ -10,9 +10,9 @@ export class ActorRepository implements IActorRepository {
     this.actorRepository = this.dataSource.getRepository(Actor);
   }
 
-  async save(actor: ICreateActor): Promise<void> {
+  async save(actorData: ICreateActor): Promise<void> {
     try {
-      await this.actorRepository.save(actor);
+      await this.actorRepository.save(actorData);
     } catch (error) {
       throw error;
     }
@@ -41,10 +41,9 @@ export class ActorRepository implements IActorRepository {
     }
   }
 
-  async updateById(id: number, actor: IUpdateActor): Promise<void> {
+  async updateById(id: number, actorData: IUpdateActor): Promise<void> {
     try {
-      const data = { id, actor };
-      await this.actorRepository.update(id, actor);
+      await this.actorRepository.update(id, actorData);
     } catch (error) {
       throw error;
     }

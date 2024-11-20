@@ -5,9 +5,9 @@ import { IActorService } from "../../../domain/entities/actor/IActorService";
 export class ActorService implements IActorService {
   constructor(private readonly actorRepository: IActorRepository) {}
 
-  async createActor(actor: ICreateActor): Promise<void> {
+  async createActor(actorData: ICreateActor): Promise<void> {
     try {
-      await this.actorRepository.save(actor);
+      await this.actorRepository.save(actorData);
     } catch (error) {
       throw error;
     }
@@ -30,9 +30,9 @@ export class ActorService implements IActorService {
     }
   }
 
-  async updateActorById(id: number, actor: IUpdateActor): Promise<void> {
+  async updateActorById(id: number, actorData: IUpdateActor): Promise<void> {
     try {
-      await this.actorRepository.updateById(id, actor);
+      await this.actorRepository.updateById(id, actorData);
     } catch (error) {
       throw error;
     }

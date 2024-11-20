@@ -53,6 +53,9 @@ import { ExecutorRouter } from "./driving/executor/ExecutorRouter";
 import { ExecutorUseCase } from "../../application/usecases/executor/ExecutorUseCase";
 import { ExecutorService } from "../services/executor/ExecutorService";
 import { ExecutorRepository } from "../repositories/executor/ExecutorRepository";
+import { AuthService } from "../services/auth/AuthService";
+import { AuthRepository } from "../repositories/auth/AuthRepository";
+import { JwtService } from "../services/jwt/JwtService";
 
 export class Application {
   public app: App;
@@ -77,9 +80,14 @@ export class Application {
     const roleUseCase = new RoleUseCase(roleService);
     const roleRouter = new RoleRouter(roleUseCase);
 
+    const jwtService = new JwtService();
+
+    const authRepository = new AuthRepository(AppDataSource);
+    const authService = new AuthService(authRepository, jwtService);
+
     const actorRepository = new ActorRepository(AppDataSource);
     const actorService = new ActorService(actorRepository);
-    const actorUseCase = new ActorUseCase(actorService, roleService);
+    const actorUseCase = new ActorUseCase(actorService, authService);
     const actorRouter = new ActorRouter(actorUseCase);
 
     const departmentRepository = new DepartmentRepository(AppDataSource);

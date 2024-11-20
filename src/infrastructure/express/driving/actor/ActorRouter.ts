@@ -16,8 +16,9 @@ export class ActorRouter implements IRouterModule {
   }
 
   initRoutes(): void {
-    this.actorRouter.post("/", schemaValidator(createActorSchema), async (req, res) => {
-      await ResponseModel.manageResponse(this.actorUseCase.createActor(req.body), res, HttpStatusCode.CREATED, Message.ACTOR_CREATED_SUCCESSFULLY);
+    this.actorRouter.post("/", /* schemaValidator(createActorSchema), */ async (req, res) => {
+      const { actor, auth } = req.body;
+      await ResponseModel.manageResponse(this.actorUseCase.createActor(actor, auth), res, HttpStatusCode.CREATED, Message.ACTOR_CREATED_SUCCESSFULLY);
     });
     
     this.actorRouter.get("/", async (req, res) => {

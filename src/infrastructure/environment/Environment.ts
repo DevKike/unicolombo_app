@@ -9,4 +9,6 @@ export class Environment {
   static readonly DB_USERNAME = process?.env?.DB_USERNAME;
   static readonly DB_PASSWORD = process?.env?.DB_PASSWORD;
   static readonly DB_NAME = process?.env?.DB_NAME;
+  static readonly JWT_SECRET_KEY = process?.env?.JWT_SECRET_KEY || "default_secret";
+  static readonly JWT_EXPIRES_IN = process?.env?.JWT_EXPIRES_IN || "24h";
 }
