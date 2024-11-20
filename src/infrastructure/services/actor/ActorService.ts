@@ -5,9 +5,9 @@ import { IActorService } from "../../../domain/entities/actor/IActorService";
 export class ActorService implements IActorService {
   constructor(private readonly actorRepository: IActorRepository) {}
 
-  async createActor(actorData: ICreateActor): Promise<void> {
+  async createActor(actorData: ICreateActor): Promise<IActor> {
     try {
-      await this.actorRepository.save(actorData);
+      return await this.actorRepository.save(actorData);
     } catch (error) {
       throw error;
     }

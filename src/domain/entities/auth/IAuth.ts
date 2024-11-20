@@ -8,3 +8,5 @@ export interface IAuth {
 }
 
 export interface ICreateAuth extends Omit<IAuth, "id"> {}
+
+export interface IAuthCredentials extends Pick<IAuth, "email" | "password"> {}

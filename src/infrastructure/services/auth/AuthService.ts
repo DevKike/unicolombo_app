@@ -1,6 +1,7 @@
-import { IAuth, ICreateAuth } from "../../../domain/entities/auth/IAuth";
+import { IAuth, IAuthCredentials, ICreateAuth } from "../../../domain/entities/auth/IAuth";
 import { IAuthRepository } from "../../../domain/entities/auth/IAuthRepository";
 import { IAuthService } from "../../../domain/entities/auth/IAuthService";
+import { InvalidCredentialsException } from "../../../domain/exceptions/InvalidCredentialsException";
 import { compare, hash } from "../../helpers/bcrypt";
 import { IJwtService } from "../../jwt/IJwtService";
 
@@ -16,6 +17,22 @@ export class AuthService implements IAuthService {
     const newAuthData: ICreateAuth = { ...authData, password: hashedPassword };
 
     await this.authRepository.save(newAuthData);
+  }
+
+  async login(credentials: IAuthCredentials): Promise<string> {
+    const auth = await this.authRepository.getByEmail(credentials.email);
+
+    if (!auth) {
+      throw new InvalidCredentialsException("Email or password is incorrect");
+    }
+
+    const isPasswordValid = await this.validatePassword(credentials.password, auth.password);
+
+    if (!isPasswordValid) {
+      throw new InvalidCredentialsException("Email or password is incorrect");
+    }
+
+    return this.generateToken(auth);
   }
 
   generateToken(auth: IAuth) {

@@ -10,9 +10,9 @@ export class ActorRepository implements IActorRepository {
     this.actorRepository = this.dataSource.getRepository(Actor);
   }
 
-  async save(actorData: ICreateActor): Promise<void> {
+  async save(actorData: ICreateActor): Promise<IActor> {
     try {
-      await this.actorRepository.save(actorData);
+      return await this.actorRepository.save(actorData);
     } catch (error) {
       throw error;
     }

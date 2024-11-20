@@ -56,6 +56,8 @@ import { ExecutorRepository } from "../repositories/executor/ExecutorRepository"
 import { AuthService } from "../services/auth/AuthService";
 import { AuthRepository } from "../repositories/auth/AuthRepository";
 import { JwtService } from "../services/jwt/JwtService";
+import { AuthUseCase } from "../../application/usecases/auth/AuthUseCase";
+import { AuthRouter } from "./driving/auth/AuthRouter";
 
 export class Application {
   public app: App;
@@ -84,6 +86,8 @@ export class Application {
 
     const authRepository = new AuthRepository(AppDataSource);
     const authService = new AuthService(authRepository, jwtService);
+    const authUseCase = new AuthUseCase(authService);
+    const authRouter = new AuthRouter(authUseCase);
 
     const actorRepository = new ActorRepository(AppDataSource);
     const actorService = new ActorService(actorRepository);
@@ -142,6 +146,7 @@ export class Application {
     this.routerManager = new RouterManager(
       this.app,
       roleRouter,
+      authRouter,
       actorRouter,
       departmentRouter,
       maintenanceTypeRouter,

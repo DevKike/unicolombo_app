@@ -13,8 +13,10 @@ export class ActorUseCase implements IActorUseCase {
   ) {}
 
   async createActor(actorData: ICreateActor, authData: ICreateAuth): Promise<void> {
-    await this.authService.createAuth(authData);
-    await this.actorService.createActor(actorData);
+    const actor = await this.actorService.createActor(actorData);
+    
+    const newAuthData = { ...authData, actor };
+    await this.authService.createAuth(newAuthData);
   }
 
 
