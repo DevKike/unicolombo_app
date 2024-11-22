@@ -1,7 +1,7 @@
-import { IJwtService } from "../../jwt/IJwtService";
 import jwt from "jsonwebtoken";
 import { Environment } from "../../environment/Environment";
-import { IJwtPayload } from "../../jwt/IJwtPayload";
+import { IJwtPayload } from "../../jwt/interfaces/IJwtPayload";
+import { IJwtService } from "../../jwt/interfaces/IJwtService";
 
 export class JwtService implements IJwtService {
   private secretKey: string;

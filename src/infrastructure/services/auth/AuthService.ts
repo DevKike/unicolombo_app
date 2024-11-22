@@ -3,7 +3,7 @@ import { IAuthRepository } from "../../../domain/entities/auth/IAuthRepository";
 import { IAuthService } from "../../../domain/entities/auth/IAuthService";
 import { InvalidCredentialsException } from "../../../domain/exceptions/InvalidCredentialsException";
 import { compare, hash } from "../../helpers/bcrypt";
-import { IJwtService } from "../../jwt/IJwtService";
+import { IJwtService } from "../../jwt/interfaces/IJwtService";
 
 export class AuthService implements IAuthService {
   constructor(

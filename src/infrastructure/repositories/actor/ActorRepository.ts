@@ -23,7 +23,7 @@ export class ActorRepository implements IActorRepository {
       return await this.actorRepository.find({
         take: limit,
         skip,
-        relations: ["department", "role"],
+        relations: ["department", "role", "auth"],
       });
     } catch (error) {
       throw error;
@@ -34,7 +34,7 @@ export class ActorRepository implements IActorRepository {
     try {
       return await this.actorRepository.find({
         where: params,
-        relations: ["department", "role"],
+        relations: ["department", "role",  "auth"],
       });
     } catch (error) {
       throw error;
