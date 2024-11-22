@@ -6,6 +6,8 @@ import { Message } from "../../../../domain/enums/message/Message";
 import { ResponseModel } from "../../response/ResponseModel";
 import { schemaValidator } from "../../../joi/middleware/schemaValidator";
 import { createActorSchema, updateActorSchema } from "../../../joi/schemas/actor/actorSchema";
+import { authMiddleware } from "../../middlewares/authMiddleware";
+import { IAuthRequest } from "../../interfaces/IAuthRequest";
 
 export class ActorRouter implements IRouterModule {
   private readonly actorRouter: Router;
@@ -16,9 +18,9 @@ export class ActorRouter implements IRouterModule {
   }
 
   initRoutes(): void {
-    this.actorRouter.post("/", /* schemaValidator(createActorSchema), */ async (req, res) => {
-      const { actor, auth } = req.body;
-      await ResponseModel.manageResponse(this.actorUseCase.createActor(actor, auth), res, HttpStatusCode.CREATED, Message.ACTOR_CREATED_SUCCESSFULLY);
+    this.actorRouter.post("/", authMiddleware(), /* schemaValidator(createActorSchema), */ async (req, res) => {
+      /* const { actor, auth } = req.body;
+      await ResponseModel.manageResponse(this.actorUseCase.createActor(actor, auth), res, HttpStatusCode.CREATED, Message.ACTOR_CREATED_SUCCESSFULLY); */
     });
     
     this.actorRouter.get("/", async (req, res) => {

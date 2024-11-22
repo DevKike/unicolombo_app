@@ -35,8 +35,8 @@ export class AuthService implements IAuthService {
     return this.generateToken(auth);
   }
 
-  generateToken(auth: IAuth) {
-    return this.jwtService.generateToken({ id: auth.id, email: auth.email });
+  generateToken(payload: IAuth) {
+    return this.jwtService.generateToken({ id: payload.id, email: payload.email });
   }
 
   async validatePassword(plainPassword: string, hashedPassword: string): Promise<boolean> {
