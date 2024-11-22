@@ -1,12 +1,12 @@
-import { NextFunction, Request, Response } from "express";
+import { NextFunction, Response } from "express";
 import { UnauthorizedException } from "../../../domain/exceptions/UnauthorizedException";
-import { IAuthRequest } from "../interfaces/IAuthRequest";
 import { JwtService } from "../../services/jwt/JwtService";
+import { IRequest } from "../interfaces/IRequest";
 
 export const authMiddleware = () => {
   const jwtService = JwtService.getInstance();
 
-  return (req: Request, res: Response, next: NextFunction) => {
+  return (req: IRequest, res: Response, next: NextFunction) => {
     try {
       const token = req.headers.authorization?.split(" ")[1];
 
@@ -15,9 +15,8 @@ export const authMiddleware = () => {
       }
 
       const decoded = jwtService.verifyToken(token);
-      const authReq = req as IAuthRequest;
-
-      authReq.actor = decoded;
+      
+      req.actor = decoded;
       next();
     } catch (error) {
       next(error);
