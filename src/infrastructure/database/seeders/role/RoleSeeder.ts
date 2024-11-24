@@ -2,10 +2,13 @@ import { ISeeder } from "../interfaces/ISeeder";
 import { AlreadySeededException } from "../../../../domain/exceptions/AlreadySeededException";
 import { RoleEnum } from "../../../../domain/enums/role/RoleEnum";
 import { ICreateRole } from "../../../../domain/entities/role/IRole";
-import { IRoleRepository } from "../../../../domain/entities/role/IRoleRepository";
 import { SeederException } from "../../../../domain/exceptions/SeederException";
+import { DataSource, Repository } from "typeorm";
+import { Role } from "../../entities/Role";
 
 export class RoleSeeder implements ISeeder {
+  private readonly roleRepository: Repository<Role>;
+
   private readonly roles: ICreateRole[] = [
     {
       name: RoleEnum.ADMINISTRATOR,
@@ -33,7 +36,9 @@ export class RoleSeeder implements ISeeder {
     },
   ];
 
-  constructor(private readonly roleRepository: IRoleRepository) {}
+  constructor(private readonly dataSource: DataSource) {
+    this.roleRepository = dataSource.getRepository(Role);
+  }
 
   async count(): Promise<number> {
     try {

@@ -1,10 +1,13 @@
+import { DataSource, Repository } from "typeorm";
 import { ICreateDepartment } from "../../../../domain/entities/department/IDepartment";
 import { IDepartmentRepository } from "../../../../domain/entities/department/IDepartmentRepository";
 import { AlreadySeededException } from "../../../../domain/exceptions/AlreadySeededException";
 import { SeederException } from "../../../../domain/exceptions/SeederException";
 import { ISeeder } from "../interfaces/ISeeder";
+import { Department } from "../../entities/Department";
 
 export class DepartmentSeeder implements ISeeder {
+  private readonly departmentRepository: Repository<Department>;
   private readonly department: ICreateDepartment = {
     name: "System department",
     description: "Department in charge of system maintenances",
@@ -12,7 +15,9 @@ export class DepartmentSeeder implements ISeeder {
     coordinator: null,
   };
 
-  constructor(private readonly departmentRepository: IDepartmentRepository) {}
+  constructor(private readonly dataSource: DataSource) {
+    this.departmentRepository = dataSource.getRepository(Department);
+  }
 
   async count(): Promise<number> {
     try {

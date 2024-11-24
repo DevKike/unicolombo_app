@@ -6,3 +6,12 @@ export enum RoleEnum {
   MAINTENANCE_COORDINATOR = "maintenance_coordinator",
   MAINTENANCE_AUXILIARY = "maintenance_auxiliary",
 }
+
+export enum RoleId {
+  ADMINISTRATOR = 1,
+  SYSTEM_COORDINATOR = 2,
+  SYSTEM_ASSISTANT = 3,
+  SYSTEM_AUXILIARY = 4,
+  MAINTENANCE_COORDINATOR = 5,
+  MAINTENANCE_AUXILIARY = 6,
+}

@@ -1,6 +1,5 @@
-import { DepartmentRepository } from "../../repositories/department/DepartmentRepository";
-import { RoleRepository } from "../../repositories/role/RoleRepository";
 import { AppDataSource } from "../config/typeorm";
+import { ActorSeeder } from "./actor/ActorSeeder";
 import { DepartmentSeeder } from "./department/DepartmentSeeder";
 import { RoleSeeder } from "./role/RoleSeeder";
 
@@ -9,11 +8,15 @@ export const runSeeders = async () => {
     const seeders = [
       {
         name: "Role Seeder",
-        instance: new RoleSeeder(new RoleRepository(AppDataSource)),
+        instance: new RoleSeeder(AppDataSource),
       },
       {
         name: "Department Seeder",
-        instance: new DepartmentSeeder(new DepartmentRepository(AppDataSource)),
+        instance: new DepartmentSeeder(AppDataSource),
+      },
+      {
+        name: "Actor Seeder",
+        instance: new ActorSeeder(AppDataSource),
       },
     ];
 
