@@ -1,5 +1,5 @@
 import Joi from "joi";
-import { RoleId } from "../../../../domain/enums/role/Role";
+import { RoleId } from "../../../../domain/enums/role/RoleEnum";
 import { ActorStatus } from "../../../../domain/enums/actor/ActorStatus";
 import { DocumentType } from "../../../../domain/enums/actor/DocumentType";
 

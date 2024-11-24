@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "ts-node-dev src/server.ts",
     "typeorm": "typeorm-ts-node-commonjs",
-    "migration:run": "npm run typeorm migration:run -- -d ./src/infrastructure/database/config/typeorm.ts",
+    "seed": "ts-node-dev src/infrastructure/database/seeders/scripts/seed.ts",
+    "migration:run": "npm run typeorm migration:run -- -d ./src/infrastructure/database/config/typeorm.ts && npm run seed",
     "migration:generate": "npm run typeorm -- migration:generate ./src/infrastructure/database/migrations/InitMigration -d ./src/infrastructure/database/config/typeorm.ts",
     "migration:create": "npm run typeorm -- migration:create ./src/infrastructure/database/migrations/%npm_config_name%",
     "migration:revert": "npm run typeorm migration:revert -- -d ./src/infrastructure/database/config/typeorm.ts"

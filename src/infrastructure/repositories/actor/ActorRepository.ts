@@ -55,4 +55,12 @@ export class ActorRepository implements IActorRepository {
       throw error;
     }
   }
+
+  async count(): Promise<number> {
+    try {
+      return this.actorRepository.count();
+    } catch (error) {
+      throw error;
+    }
+  }
 }

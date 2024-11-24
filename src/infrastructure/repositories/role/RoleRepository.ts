@@ -1,5 +1,5 @@
 import { DataSource, Repository } from "typeorm";
-import { IRole } from "../../../domain/entities/role/IRole";
+import { ICreateRole, IRole } from "../../../domain/entities/role/IRole";
 import { Role } from "../../database/entities/Role";
 import { IRoleRepository } from "../../../domain/entities/role/IRoleRepository";
 
@@ -10,17 +10,33 @@ export class RoleRepository implements IRoleRepository {
     this.roleRepository = this.dataSource.getRepository(Role);
   }
 
-  async getAll(): Promise<IRole[]> {
+  async save(roles: ICreateRole[]): Promise<void> {
     try {
-      return await this.roleRepository.find();  
+      await this.roleRepository.save(roles);
     } catch (error) {
       throw error;
-    } 
+    }
+  }
+
+  async getAll(): Promise<IRole[]> {
+    try {
+      return await this.roleRepository.find();
+    } catch (error) {
+      throw error;
+    }
   }
 
   async getOneById(id: number): Promise<IRole | null> {
     try {
       return await this.roleRepository.findOneBy({ id: id });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async count(): Promise<number> {
+    try {
+      return await this.roleRepository.count();
     } catch (error) {
       throw error;
     }
