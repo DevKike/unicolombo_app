@@ -1,4 +1,4 @@
-import { ISeeder } from "../interfaces/ISeederModel";
+import { ISeeder } from "../interfaces/ISeeder";
 import { ICreateActor } from "../../../../domain/entities/actor/IActor";
 import { IActorRepository } from "../../../../domain/entities/actor/IActorRepository";
 import { DocumentType } from "../../../../domain/enums/actor/DocumentType";

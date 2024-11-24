@@ -35,4 +35,12 @@ export class DepartmentRepository implements IDepartmentRepository {
       throw error;
     }
   }
+
+  async count(): Promise<number> {
+    try {
+      return await this.departmentRepository.count();
+    } catch (error) {
+      throw error;
+    }
+  }
 }

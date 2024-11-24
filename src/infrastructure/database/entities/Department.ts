@@ -27,9 +27,9 @@ export class Department implements IDepartment {
   @Column({ type:"enum", enum: DepartmentStatus, default: DepartmentStatus.ACTIVE })
   status: DepartmentStatus;
   
-  @OneToOne(() => Actor)
+  @OneToOne(() => Actor, { nullable: true })
   @JoinColumn({ name: "coordinator_id" })
-  coordinator: Actor;
+  coordinator: Actor | null;
   
   @OneToMany(() => Actor, (actor) => actor.department)
   actors: Actor[];

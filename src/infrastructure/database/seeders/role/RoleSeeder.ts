@@ -1,4 +1,4 @@
-import { ISeeder } from "../interfaces/ISeederModel";
+import { ISeeder } from "../interfaces/ISeeder";
 import { AlreadySeededException } from "../../../../domain/exceptions/AlreadySeededException";
 import { RoleEnum } from "../../../../domain/enums/role/RoleEnum";
 import { ICreateRole } from "../../../../domain/entities/role/IRole";
