@@ -7,6 +7,7 @@ import { UploadedFile } from "express-fileupload";
 import { IFileUploadUseCase } from "../../../../domain/entities/fileUpload/IFileUploadUseCase";
 import { buildFileUrl } from "../../handlers/buildFileUrl";
 import { FileType } from "../../../../domain/enums/file/FileType";
+import { authMiddleware } from "../../middlewares/authMiddleware";
 
 export class FileUploadRouter implements IRouterModule {
   private readonly fileUploadRouter: Router;
@@ -17,7 +18,7 @@ export class FileUploadRouter implements IRouterModule {
   }
 
   initRoutes(): void {
-    this.fileUploadRouter.post("/upload", async (req, res) => {
+    this.fileUploadRouter.post("/upload", authMiddleware(), async (req, res) => {
       await ResponseModel.manageResponse(
         this.fileUploadedUseCase
           .uploadFile(
