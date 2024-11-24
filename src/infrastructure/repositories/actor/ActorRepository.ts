@@ -2,6 +2,7 @@ import { DataSource, Repository } from "typeorm";
 import { Actor } from "../../database/entities/Actor";
 import { IActorRepository } from "../../../domain/entities/actor/IActorRepository";
 import { IActor, ICreateActor, IUpdateActor } from "../../../domain/entities/actor/IActor";
+import { applyFilter } from "../../helpers/applyFilters";
 
 export class ActorRepository implements IActorRepository {
   private readonly actorRepository: Repository<Actor>;
@@ -10,9 +11,9 @@ export class ActorRepository implements IActorRepository {
     this.actorRepository = this.dataSource.getRepository(Actor);
   }
 
-  async save(actor: ICreateActor): Promise<void> {
+  async save(actorData: ICreateActor): Promise<IActor> {
     try {
-      await this.actorRepository.save(actor);
+      return await this.actorRepository.save(actorData);
     } catch (error) {
       throw error;
     }
@@ -23,7 +24,7 @@ export class ActorRepository implements IActorRepository {
       return await this.actorRepository.find({
         take: limit,
         skip,
-        relations: ["department", "role"],
+        relations: ["department", "role", "auth"],
       });
     } catch (error) {
       throw error;
@@ -32,19 +33,32 @@ export class ActorRepository implements IActorRepository {
 
   async getByQueryParams(params: Partial<IActor>): Promise<IActor[]> {
     try {
-      return await this.actorRepository.find({
-        where: params,
-        relations: ["department", "role"],
-      });
+      const queryBuilder = this.actorRepository.createQueryBuilder("actor");
+
+      queryBuilder
+        .leftJoinAndSelect("actor.role", "role")
+        .leftJoinAndSelect("actor.department", "department")
+        .leftJoinAndSelect("actor.auth", "auth");
+
+      applyFilter(params, queryBuilder);
+
+      return await queryBuilder.getMany();
     } catch (error) {
       throw error;
     }
   }
 
-  async updateById(id: number, actor: IUpdateActor): Promise<void> {
+  async updateById(id: number, actorData: IUpdateActor): Promise<void> {
     try {
-      const data = { id, actor };
-      await this.actorRepository.update(id, actor);
+      await this.actorRepository.update(id, actorData);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async count(): Promise<number> {
+    try {
+      return this.actorRepository.count();
     } catch (error) {
       throw error;
     }

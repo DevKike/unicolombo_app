@@ -10,7 +10,7 @@ export interface IDepartment {
   createdAt: Date;
   updatedAt: Date;
   status?: DepartmentStatus;
-  coordinator: IActor;
+  coordinator: IActor | null;
   actors: IActor[];
   deptMaintTypeAssignments: IDeptMaintTypeAssignment[];
 }

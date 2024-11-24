@@ -6,6 +6,7 @@ export class RouterManager implements IRouterManager {
   constructor(
     private readonly app: Application,
     private readonly roleRouter: IRouterModule,
+    private readonly authRouter: IRouterModule,
     private readonly actorRouter: IRouterModule,
     private readonly departmentRouter: IRouterModule,
     private readonly maintenanceTypeRouter: IRouterModule,
@@ -21,6 +22,7 @@ export class RouterManager implements IRouterManager {
 
   manageRoutes(): void {
     this.app.use("/api/roles", this.roleRouter.getRouter());
+    this.app.use("/api/auth", this.authRouter.getRouter());
     this.app.use("/api/actors", this.actorRouter.getRouter());
     this.app.use("/api/departments", this.departmentRouter.getRouter());
     this.app.use("/api/maintenances-types", this.maintenanceTypeRouter.getRouter());

@@ -1,10 +1,11 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { IActor } from "../../../domain/entities/actor/IActor";
 import { DocumentType } from "../../../domain/enums/actor/DocumentType";
 import { Role } from "./Role";
 import { Department } from "./Department";
 import { ActorStatus } from "../../../domain/enums/actor/ActorStatus";
 import { Executor } from "./Executor";
+import { Auth } from "./Auth";
 
 @Entity()
 export class Actor implements IActor {
@@ -19,9 +20,6 @@ export class Actor implements IActor {
 
   @Column({ name: "phone_number", unique: true, nullable: true })
   phoneNumber: string;
-
-  @Column({ unique: true })
-  email: string;
 
   @Column({ name: "document_number", unique: true })
   documentNumber: number;
@@ -48,5 +46,8 @@ export class Actor implements IActor {
 
   @OneToMany(() => Executor, (executor) => executor.actor)
   executors: Executor[];
+
+  @OneToOne(() => Auth, (auth) => auth.actor)
+  auth: Auth;
 }
 

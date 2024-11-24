@@ -6,6 +6,7 @@ import { Message } from "../../../../domain/enums/message/Message";
 import { IDepartmentUseCase } from "../../../../domain/entities/department/IDepartmentUseCase";
 import { schemaValidator } from "../../../joi/middleware/schemaValidator";
 import { createDepartmentSchema, updateDepartmentSchema } from "../../../joi/schemas/department/departmentSchema";
+import { authMiddleware } from "../../middlewares/authMiddleware";
 
 export class DepartmentRouter implements IRouterModule {
   private readonly departmentRouter: Router;
@@ -16,15 +17,15 @@ export class DepartmentRouter implements IRouterModule {
   }
 
   initRoutes(): void {
-    this.departmentRouter.post("/", schemaValidator(createDepartmentSchema), async (req, res) => {
+    this.departmentRouter.post("/", authMiddleware(), schemaValidator(createDepartmentSchema), async (req, res) => {
       await ResponseModel.manageResponse(this.departmentUseCase.createDepartment(req.body), res, HttpStatusCode.CREATED, Message.DEPARTMENT_CREATED_SUCCESSFULLY);
     });
 
-    this.departmentRouter.get("/", async (req, res) => {
+    this.departmentRouter.get("/", authMiddleware(), async (req, res) => {
       await ResponseModel.manageResponse(this.departmentUseCase.getDepartments(), res, HttpStatusCode.OK, Message.DEPARTMENTS_OBTAINED_SUCCESSFULLY);
     });
 
-    this.departmentRouter.patch("/:id", schemaValidator(updateDepartmentSchema), async (req, res) => {
+    this.departmentRouter.patch("/:id", authMiddleware(), schemaValidator(updateDepartmentSchema), async (req, res) => {
        await ResponseModel.manageResponse(this.departmentUseCase.updateDepartment(Number(req.params.id), req.body), res, HttpStatusCode.OK, Message.DEPARTMENT_UPDATED_SUCCESSFULLY);
     });
   }

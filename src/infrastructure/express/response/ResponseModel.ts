@@ -8,6 +8,8 @@ import { InvalidFileTypeException } from "../../../domain/exceptions/InvalidFile
 import { FileType } from "../../../domain/enums/file/FileType";
 import { NotFileExtensionAllowed } from "../../../domain/exceptions/NotFileExtensionAllowed";
 import { AllowedFileExtensions } from "../../../domain/enums/file/AllowedFileExtensions";
+import { InvalidCredentialsException } from "../../../domain/exceptions/InvalidCredentialsException";
+import { UnauthorizedException } from "../../../domain/exceptions/UnauthorizedException";
 
 export class ResponseModel {
   static async manageResponse(
@@ -36,6 +38,10 @@ export class ResponseModel {
           error: error.message,
           message: `Valid extensions: ['${AllowedFileExtensions.PDF}', '${AllowedFileExtensions.DOC}' and '${AllowedFileExtensions.DOCX}']`,
         });
+      } else if (error instanceof InvalidCredentialsException) {
+        res.status(HttpStatusCode.UNAUTHORIZED).json({ error: error.message });
+      } else if (error instanceof UnauthorizedException) {
+        res.status(HttpStatusCode.UNAUTHORIZED).json({ error: error.message });
       } else {
         console.log(error);
         res

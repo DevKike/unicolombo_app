@@ -21,7 +21,7 @@ export class DepartmentRepository implements IDepartmentRepository {
   async getAll(): Promise<IDepartment[]> {
     try {
       return await this.departmentRepository.find({
-        relations: ["coordinator"],
+        relations: ["coordinator.auth"],
       });
     } catch (error) {
       throw error;
@@ -31,6 +31,14 @@ export class DepartmentRepository implements IDepartmentRepository {
   async update(id: number, department: IUpdateDepartment): Promise<void> {
     try {
       await this.departmentRepository.update(id, department);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async count(): Promise<number> {
+    try {
+      return await this.departmentRepository.count();
     } catch (error) {
       throw error;
     }
