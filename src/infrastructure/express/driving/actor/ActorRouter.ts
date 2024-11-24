@@ -18,7 +18,7 @@ export class ActorRouter implements IRouterModule {
   }
 
   initRoutes(): void {
-    this.actorRouter.post("/", schemaValidator(createActorSchema), async (req: IRequest, res: Response) => {
+    this.actorRouter.post("/", authMiddleware(), schemaValidator(createActorSchema), async (req: IRequest, res: Response) => {
       const { actor, auth } = req.body;
       await ResponseModel.manageResponse(this.actorUseCase.createActor(actor, auth), res, HttpStatusCode.CREATED, Message.ACTOR_CREATED_SUCCESSFULLY);
     }); 
@@ -29,11 +29,11 @@ export class ActorRouter implements IRouterModule {
       await ResponseModel.manageResponse(this.actorUseCase.getActors(page, limit), res, HttpStatusCode.OK, Message.ACTORS_OBTAINED_SUCCESSFULLY);
     });
 
-    this.actorRouter.get("/by", async (req: IRequest, res: Response) => {
+    this.actorRouter.get("/by", authMiddleware(), async (req: IRequest, res: Response) => {
       await ResponseModel.manageResponse(this.actorUseCase.getActorsByQueryParams(req.query), res, HttpStatusCode.OK, Message.ACTOR_OBTAINED_SUCCESSFULLY);
     })
 
-    this.actorRouter.patch("/:id", schemaValidator(updateActorSchema), async (req: IRequest, res: Response) => {
+    this.actorRouter.patch("/:id", authMiddleware(), schemaValidator(updateActorSchema), async (req: IRequest, res: Response) => {
       await ResponseModel.manageResponse(this.actorUseCase.updateActorById(Number(req.params.id), req.body), res, HttpStatusCode.OK, Message.ACTOR_UPDATED_SUCCESSFULLY);
     }) 
   }
