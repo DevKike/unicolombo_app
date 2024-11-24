@@ -2,6 +2,7 @@ import { DataSource, Repository } from "typeorm";
 import { Actor } from "../../database/entities/Actor";
 import { IActorRepository } from "../../../domain/entities/actor/IActorRepository";
 import { IActor, ICreateActor, IUpdateActor } from "../../../domain/entities/actor/IActor";
+import { applyFilter } from "../../helpers/applyFilters";
 
 export class ActorRepository implements IActorRepository {
   private readonly actorRepository: Repository<Actor>;
@@ -32,10 +33,16 @@ export class ActorRepository implements IActorRepository {
 
   async getByQueryParams(params: Partial<IActor>): Promise<IActor[]> {
     try {
-      return await this.actorRepository.find({
-        where: params,
-        relations: ["department", "role", "auth"],
-      });
+      const queryBuilder = this.actorRepository.createQueryBuilder("actor");
+
+      queryBuilder
+        .leftJoinAndSelect("actor.role", "role")
+        .leftJoinAndSelect("actor.department", "department")
+        .leftJoinAndSelect("actor.auth", "auth");
+
+      applyFilter(params, queryBuilder);
+
+      return await queryBuilder.getMany();
     } catch (error) {
       throw error;
     }
