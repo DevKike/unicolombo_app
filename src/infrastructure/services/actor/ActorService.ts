@@ -16,7 +16,13 @@ export class ActorService implements IActorService {
   async getActors(page: number, limit: number): Promise<IActor[]> {
     try {
       const skip = (page - 1) * limit;
-      return await this.actorRepository.getAll(limit, skip);
+      const actors = await this.actorRepository.getAll(limit, skip);
+
+      return actors.map((actor) => {
+        const actors = { ...actor } as any;
+        delete actors.auth.password;
+        return actors;
+      });
     } catch (error) {
       throw error;
     }
@@ -24,7 +30,13 @@ export class ActorService implements IActorService {
 
   async getActorsByQueryParams(params: Partial<IActor>): Promise<IActor[]> {
     try {
-      return await this.actorRepository.getByQueryParams(params);
+      const actors = await this.actorRepository.getByQueryParams(params);
+
+      return actors.map((actor) => {
+        const actors = { ...actor } as any;
+        delete actors.auth.password;
+        return actors;
+      });
     } catch (error) {
       throw error;
     }
