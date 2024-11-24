@@ -21,7 +21,7 @@ export class DepartmentRepository implements IDepartmentRepository {
   async getAll(): Promise<IDepartment[]> {
     try {
       return await this.departmentRepository.find({
-        relations: ["coordinator"],
+        relations: ["coordinator", "coordinator.auth"],
       });
     } catch (error) {
       throw error;
