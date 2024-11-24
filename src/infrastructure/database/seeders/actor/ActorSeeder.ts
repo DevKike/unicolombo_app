@@ -10,6 +10,8 @@ import { Auth } from "../../entities/Auth";
 import { ICreateActor } from "../../../../domain/entities/actor/IActor";
 import { ActorStatus } from "../../../../domain/enums/actor/ActorStatus";
 import { IAuthCredentials, ICreateAuth } from "../../../../domain/entities/auth/IAuth";
+import { Environment } from "../../../environment/Environment";
+import { hash } from "../../../helpers/bcrypt";
 
 export class ActorSeeder implements ISeeder {
   private readonly actorRepository: Repository<Actor>;
@@ -18,8 +20,8 @@ export class ActorSeeder implements ISeeder {
   private readonly authRepository: Repository<Auth>;
 
   private readonly authCredentials: IAuthCredentials = {
-    email: "admin@unicolombo.edu.co",
-    password: "admin123",
+    email: Environment.AUTH_EMAIL,
+    password: Environment.AUTH_PASSWORD,
   };
 
   constructor(private readonly dataSource: DataSource) {
@@ -27,33 +29,6 @@ export class ActorSeeder implements ISeeder {
     this.roleRepository = dataSource.getRepository(Role);
     this.departmentRepository = dataSource.getRepository(Department);
     this.authRepository = dataSource.getRepository(Auth);
-  }
-
-  private async createActorData(): Promise<ICreateActor> {
-    const role = await this.roleRepository.findOneOrFail({
-      where: { id: 1 },
-    });
-
-    const department = await this.departmentRepository.findOneOrFail({
-      where: { id: 1 },
-    });
-
-    return {
-      name: "John",
-      lastName: "Doe",
-      phoneNumber: "123456789",
-      documentNumber: 123456789,
-      documentType: DocumentType.CC,
-      status: ActorStatus.ACTIVE,
-      department,
-      role,
-      auth: {
-        id: undefined as any,
-        email: this.authCredentials.email,
-        password: this.authCredentials.password,
-        actor: null as any,
-      },
-    };
   }
 
   async count(): Promise<number> {
@@ -67,9 +42,12 @@ export class ActorSeeder implements ISeeder {
   async save(actorData: ICreateActor): Promise<void> {
     try {
       await this.dataSource.transaction(async (transactionalEntityManager) => {
+
+        const hashedPassword = await this.hashPassword(actorData.auth.password);
+
         const authToCreate: ICreateAuth = {
           email: actorData.auth.email,
-          password: actorData.auth.password,
+          password: hashedPassword,
           actor: null as any,
         };
 
@@ -107,5 +85,36 @@ export class ActorSeeder implements ISeeder {
       }
       throw new SeederException("Error running actor seeder");
     }
+  }
+
+  private async createActorData(): Promise<ICreateActor> {
+    const role = await this.roleRepository.findOneOrFail({
+      where: { id: 1 },
+    });
+
+    const department = await this.departmentRepository.findOneOrFail({
+      where: { id: 1 },
+    });
+
+    return {
+      name: "John",
+      lastName: "Doe",
+      phoneNumber: "123456789",
+      documentNumber: 123456789,
+      documentType: DocumentType.CC,
+      status: ActorStatus.ACTIVE,
+      department,
+      role,
+      auth: {
+        id: undefined as any,
+        email: this.authCredentials.email,
+        password: this.authCredentials.password,
+        actor: null as any,
+      },
+    };
+  }
+
+  private async hashPassword(password: string): Promise<string> {
+    return await hash(password)
   }
 }
