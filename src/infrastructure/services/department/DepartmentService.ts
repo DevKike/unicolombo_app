@@ -19,7 +19,8 @@ export class DepartmentService implements IDepartmentService {
 
       return departments.map((department) => {
         const departments = { ...department } as any;
-        delete departments.coordinator.auth.password;
+        if (departments.coordinator) 
+          delete departments.coordinator.auth.password;
         return departments;
       });
     } catch (error) {
