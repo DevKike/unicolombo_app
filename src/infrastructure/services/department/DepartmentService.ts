@@ -15,7 +15,13 @@ export class DepartmentService implements IDepartmentService {
 
   async getDepartments(): Promise<IDepartment[]> {
     try {
-      return await this.departmentRepository.getAll();
+      const departments = await this.departmentRepository.getAll();
+
+      return departments.map((department) => {
+        const departments = { ...department } as any;
+        delete departments.coordinator.auth.password;
+        return departments;
+      });
     } catch (error) {
       throw error;
     }
