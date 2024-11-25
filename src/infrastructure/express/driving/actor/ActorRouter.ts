@@ -24,6 +24,7 @@ export class ActorRouter implements IRouterModule {
     }); 
     
     this.actorRouter.get("/", authMiddleware(), async (req: IRequest, res: Response) => {
+      console.log(req.actor);
       const page = Number(req.query.page as string) || 1;
       const limit = Number(req.query.limit as string) || 10;
       await ResponseModel.manageResponse(this.actorUseCase.getActors(page, limit), res, HttpStatusCode.OK, Message.ACTORS_OBTAINED_SUCCESSFULLY);
