@@ -10,9 +10,9 @@ export class DeptMaintTypeAssignmentRepository implements IDeptMaintTypeAssignme
     this.deptMaintTypeAssignmentRepository = this.dataSource.getRepository(DeptMaintTypeAssignment);
   }
 
-  async save(deptMaintTypeAssignment: ICreateDeptMaintTypeAssignment): Promise<void> {
+  async save(deptMaintTypeAssignment: ICreateDeptMaintTypeAssignment): Promise<IDeptMaintTypeAssignment> {
     try {
-      await this.deptMaintTypeAssignmentRepository.save(deptMaintTypeAssignment);
+      return await this.deptMaintTypeAssignmentRepository.save(deptMaintTypeAssignment);
     } catch (error) {
       throw error;
     }

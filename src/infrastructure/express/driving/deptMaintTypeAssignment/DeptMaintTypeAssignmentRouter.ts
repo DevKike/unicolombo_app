@@ -1,17 +1,17 @@
 import { Router } from "express";
 import { IRouterModule } from "../../interfaces/IRouterModule";
 import { ResponseModel } from "../../response/ResponseModel";
-import { DeptMaintTypeAssignmentUseCase } from "../../../../application/usecases/deptMaintTypeAssignment/DeptMaintTypeAssignmentUseCase";
 import { HttpStatusCode } from "../../../../domain/enums/http/HttpStatusCode";
 import { Message } from "../../../../domain/enums/message/Message";
 import { schemaValidator } from "../../../joi/middleware/schemaValidator";
 import { createDeptMaintTypeAssignmentSchema, updateDeptMaintTypeAssignmentSchema } from "../../../joi/schemas/deptMaintTypeAssignment/deptMaintTypeAssignmentSchema";
 import { authMiddleware } from "../../middlewares/authMiddleware";
+import { IDeptMaintTypeAssignmentUseCase } from "../../../../domain/entities/deptMaintTypeAssignment/IDeptMaintTypeAssignmentUseCase";
 
 export class DeptMaintTypeAssignmentRouter implements IRouterModule {
   private readonly deptMaintTypeAssignmentRouter: Router;
 
-  constructor(private readonly deptMaintTypeAssignmentUseCase: DeptMaintTypeAssignmentUseCase) {
+  constructor(private readonly deptMaintTypeAssignmentUseCase: IDeptMaintTypeAssignmentUseCase) {
     this.deptMaintTypeAssignmentRouter = Router();
     this.initRoutes();
   }

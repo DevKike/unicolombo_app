@@ -6,9 +6,10 @@ import { IDeptMaintTypeAssignmentService } from "../../../domain/entities/deptMa
 export class DeptMaintTypeAssignmentService implements IDeptMaintTypeAssignmentService {
   constructor(private readonly deptMaintTypeAssignmentRepository: IDeptMaintTypeAssignmentRepository) {}
 
-  async createDeptMaintTypeAssignment(deptMaintTypeAssignment: ICreateDeptMaintTypeAssignment): Promise<void> {
+  async createDeptMaintTypeAssignment(deptMaintTypeAssignment: ICreateDeptMaintTypeAssignment): Promise<IDeptMaintTypeAssignment> {
     try {
-      await this.deptMaintTypeAssignmentRepository.save(deptMaintTypeAssignment);
+      const assignment = await this.deptMaintTypeAssignmentRepository.save(deptMaintTypeAssignment);
+      return assignment;
     } catch (error) {
       throw error;
     }
