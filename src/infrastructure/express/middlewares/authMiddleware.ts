@@ -21,6 +21,8 @@ export const authMiddleware = () => {
       try {
         const decoded = jwtService.verifyToken(token);
         req.actor = decoded;
+
+        
         next();
       } catch (error) {
         if (error instanceof TokenExpiredError) {

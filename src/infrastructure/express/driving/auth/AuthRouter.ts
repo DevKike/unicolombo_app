@@ -1,9 +1,11 @@
-import { Router } from "express";
+import { Response, Router } from "express";
 import { IRouterModule } from "../../interfaces/IRouterModule";
 import { IAuthUseCase } from "../../../../domain/entities/auth/IAuthUseCase";
 import { ResponseModel } from "../../response/ResponseModel";
 import { HttpStatusCode } from "../../../../domain/enums/http/HttpStatusCode";
 import { Message } from "../../../../domain/enums/message/Message";
+import { IRequest } from "../../interfaces/IRequest";
+import { authMiddleware } from "../../middlewares/authMiddleware";
 
 export class AuthRouter implements IRouterModule {
   private readonly authRouter: Router;
@@ -14,8 +16,12 @@ export class AuthRouter implements IRouterModule {
   }
 
   initRoutes(): void {
-    this.authRouter.post("/login", async (req, res) => {
-      await ResponseModel.manageResponse(this.authUseCase.login(req.body), res, HttpStatusCode.OK, Message.ACTOR_CREATED_SUCCESSFULLY);
+    this.authRouter.post("/login", async (req: IRequest, res: Response) => {
+      await ResponseModel.manageResponse(this.authUseCase.login(req.body), res, HttpStatusCode.OK, Message.SIGNED_WITH_SUCCESS);
+    });
+
+    this.authRouter.get("/data", authMiddleware(), async (req: IRequest, res: Response) => {
+      await ResponseModel.manageResponse(this.authUseCase.getAuthDataById(req.actor!.id), res, HttpStatusCode.OK, Message.AUTH_DATA_OBTAINED_SUCCESSFULLY);
     });
   }
 

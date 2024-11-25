@@ -18,6 +18,17 @@ export class AuthRepository implements IAuthRepository {
     }
   }
 
+  async getById(id: number): Promise<IAuth | null> {
+    try {
+      return await this.authRepository.findOne({
+        where: { id: id },
+        relations: ["actor.role", "actor.department"],
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async getByEmail(email: string): Promise<IAuth | null> {
     try {
       return await this.authRepository.findOne({

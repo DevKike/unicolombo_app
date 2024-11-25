@@ -35,11 +35,19 @@ export class AuthService implements IAuthService {
     return this.generateToken(auth);
   }
 
-  generateToken(payload: IAuth) {
-    return this.jwtService.generateToken({ id: payload.id, email: payload.email });
+  async getAuthDataById(id: number): Promise<IAuth | null> {
+    try {
+      return await this.authRepository.getById(id);
+    } catch (error) {
+      throw error;
+    }
   }
 
   async validatePassword(plainPassword: string, hashedPassword: string): Promise<boolean> {
     return await compare(plainPassword, hashedPassword);
+  }
+
+  private generateToken(payload: IAuth) {
+    return this.jwtService.generateToken({ id: payload.id, email: payload.email });
   }
 }
