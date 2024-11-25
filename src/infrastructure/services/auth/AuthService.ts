@@ -37,7 +37,13 @@ export class AuthService implements IAuthService {
 
   async getAuthDataById(id: number): Promise<IAuth | null> {
     try {
-      return await this.authRepository.getById(id);
+      const authData = await this.authRepository.getById(id);
+      
+      const authDataCopy = { ...authData } as any;
+
+      delete authDataCopy.password;
+
+      return authDataCopy;
     } catch (error) {
       throw error;
     }
