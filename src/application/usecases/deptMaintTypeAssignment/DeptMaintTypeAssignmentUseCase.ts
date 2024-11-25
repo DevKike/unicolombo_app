@@ -5,9 +5,9 @@ import { IDeptMaintTypeAssignmentUseCase } from "../../../domain/entities/deptMa
 export class DeptMaintTypeAssignmentUseCase implements IDeptMaintTypeAssignmentUseCase {
   constructor(private readonly deptMaintTypeAssignment: IDeptMaintTypeAssignmentService) {}
 
-  async createDeptMaintTypeAssignment(deptMaintTypeAssignment: ICreateDeptMaintTypeAssignment): Promise<void> {
+  async createDeptMaintTypeAssignment(deptMaintTypeAssignment: ICreateDeptMaintTypeAssignment): Promise<IDeptMaintTypeAssignment> {
     try {
-      await this.deptMaintTypeAssignment.createDeptMaintTypeAssignment(deptMaintTypeAssignment);
+      return await this.deptMaintTypeAssignment.createDeptMaintTypeAssignment(deptMaintTypeAssignment);
     } catch (error) {
       throw error;
     }
