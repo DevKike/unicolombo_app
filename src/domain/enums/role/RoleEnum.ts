@@ -1,10 +1,10 @@
 export enum RoleEnum {
-  ADMINISTRATOR = "administrator",
-  SYSTEM_COORDINATOR = "system_coordinator",
-  SYSTEM_ASSISTANT = "system_assistant",
-  SYSTEM_AUXILIARY = "system_auxiliary",
-  MAINTENANCE_COORDINATOR = "maintenance_coordinator",
-  MAINTENANCE_AUXILIARY = "maintenance_auxiliary",
+  ADMINISTRATOR = "Administrator",
+  SYSTEM_COORDINATOR = "System coordinator",
+  SYSTEM_ASSISTANT = "System assistant",
+  SYSTEM_AUXILIARY = "System auxiliary",
+  MAINTENANCE_COORDINATOR = "Maintenance coordinator",
+  MAINTENANCE_AUXILIARY = "Maintenance auxiliary",
 }
 
 export enum RoleId {
