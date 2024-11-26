@@ -14,6 +14,6 @@ export interface IStage {
   executions: IExecution[];
 }
 
-export interface ICreateStage extends Omit<IStage, "id" | "createdAt" | "updatedAt" | "templateForms"> {}
+export interface ICreateStage extends Omit<IStage, "id" | "createdAt" | "updatedAt" | "templateForms" | "executions"> {}
 
-export interface IUpdateStage extends Partial<Omit<IStage, "id" | "createdAt" | "updatedAt" | "templateForms">> {}
+export interface IUpdateStage extends Partial<Omit<IStage, "id" | "createdAt" | "updatedAt" | "templateForms" | "executions">> {}

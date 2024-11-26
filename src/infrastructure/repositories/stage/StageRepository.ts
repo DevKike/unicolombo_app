@@ -23,7 +23,10 @@ export class StageRepository implements IStageRepository {
     try {
       return await this.stageRepository.findOne({
         where: { id: id },
-        relations: ["deptMaintTypeAssignment"],
+        relations: [
+          "deptMaintTypeAssignment.department",
+          "deptMaintTypeAssignment.maintenanceType",
+        ],
       });
     } catch (error) {
       throw error;
@@ -33,7 +36,10 @@ export class StageRepository implements IStageRepository {
   async getAll(): Promise<IStage[]> {
     try {
       return await this.stageRepository.find({
-        relations: ["deptMaintTypeAssignment"],
+        relations: [
+          "deptMaintTypeAssignment.department",
+          "deptMaintTypeAssignment.maintenanceType",
+        ],
       });
     } catch (error) {
       throw error;
@@ -43,7 +49,10 @@ export class StageRepository implements IStageRepository {
   async getAllByOrder(direction: SortDirection): Promise<IStage[]> {
     try {
       return await this.stageRepository.find({
-        relations: ["deptMaintTypeAssignment"],
+        relations: [
+          "deptMaintTypeAssignment.department",
+          "deptMaintTypeAssignment.maintenanceType",
+        ],
         order: {
           order: direction,
         },
@@ -60,7 +69,10 @@ export class StageRepository implements IStageRepository {
     try {
       return await this.stageRepository.find({
         where: { deptMaintTypeAssignment: { id: id } },
-        relations: ["deptMaintTypeAssignment"],
+        relations: [
+          "deptMaintTypeAssignment.department",
+          "deptMaintTypeAssignment.maintenanceType",
+        ],
         order: {
           order: direction,
         },
