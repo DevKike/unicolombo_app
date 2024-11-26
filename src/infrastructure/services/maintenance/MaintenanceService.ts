@@ -1,6 +1,7 @@
 import { ICreateMaintenance, IMaintenance, IUpdateMaintenance } from "../../../domain/entities/maintenance/IMaintenance";
 import { IMaintenanceRepository } from "../../../domain/entities/maintenance/IMaintenanceRepository";
 import { IMaintenanceService } from "../../../domain/entities/maintenance/IMaintenanceService";
+import { MaintenanceTypeEnum } from "../../../domain/enums/maintenanceType/MaintenanceType";
 
 export class MaintenanceService implements IMaintenanceService {
   constructor(private readonly maintenanceRepository: IMaintenanceRepository) {}
@@ -23,7 +24,7 @@ export class MaintenanceService implements IMaintenanceService {
 
   async getPreventiveMaintenancesByDepartment(departmentId: number): Promise<IMaintenance[]> {
     try {
-      return await this.maintenanceRepository.getByDepartmentId(departmentId);
+      return await this.maintenanceRepository.getByDepartmentAndMaintenanceType(departmentId, MaintenanceTypeEnum.PREVENTIVE);
     } catch (error) {
       throw error;
     }

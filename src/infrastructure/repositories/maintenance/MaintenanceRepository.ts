@@ -32,14 +32,19 @@ export class MaintenanceRepository implements IMaintenanceRepository {
     }
   }
 
-  async getByDepartmentId(departmentId: number): Promise<IMaintenance[]> {
+  async getByDepartmentAndMaintenanceType(departmentId: number, maintenanceType: string): Promise<IMaintenance[]> {
     try {
       return await this.maintenanceRepository.find({
-        where: { deptMaintTypeAssignment: { department: { id: departmentId } } },
+        where: {
+          deptMaintTypeAssignment: {
+            department: { id: departmentId },
+            maintenanceType: { name: maintenanceType },
+          },
+        },
         relations: [
           "deptMaintTypeAssignment",
-          "deptMaintTypeAssignment.department",  
-          "deptMaintTypeAssignment.maintenanceType",  
+          "deptMaintTypeAssignment.department",
+          "deptMaintTypeAssignment.maintenanceType",
         ],
       });
     } catch (error) {
