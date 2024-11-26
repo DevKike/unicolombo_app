@@ -2,6 +2,7 @@ import { AppDataSource } from "../config/typeorm";
 import { ActorSeeder } from "./actor/ActorSeeder";
 import { AssignmentSeeder } from "./assignment/AssignmentSeeder";
 import { DepartmentSeeder } from "./department/DepartmentSeeder";
+import { MaintenanceTypeSeeder } from "./maintenanceType/MaintenanceTypeSeeder";
 import { RoleSeeder } from "./role/RoleSeeder";
 
 export const runSeeders = async () => {
@@ -18,6 +19,10 @@ export const runSeeders = async () => {
       {
         name: "Actor Seeder",
         instance: new ActorSeeder(AppDataSource),
+      },
+      {
+        name: "Maintenance types Seeder",
+        instance: new MaintenanceTypeSeeder(AppDataSource),
       },
       {
         name: "Assignment Seeder",

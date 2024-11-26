@@ -1,5 +1,4 @@
-
-export enum MaintenanceType {
-  CORRECTIVE = "corrective",
-  PREVENTIVE = "preventive",
+export enum MaintenanceTypeEnum {
+  CORRECTIVE = "Corrective",
+  PREVENTIVE = "Preventive",
 }
