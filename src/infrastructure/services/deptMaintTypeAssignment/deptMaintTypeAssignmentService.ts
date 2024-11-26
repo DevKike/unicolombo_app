@@ -31,6 +31,14 @@ export class DeptMaintTypeAssignmentService implements IDeptMaintTypeAssignmentS
     }
   }
 
+  async getAllDeptMaintTypeAssignmentByDepartmentId(departmentId: number): Promise<IDeptMaintTypeAssignment[]> {
+    try {
+      return await this.deptMaintTypeAssignmentRepository.getByDepartmentId(departmentId);
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async updateDeptMaintTypeAssignmentById(id: number, deptMaintTypeAssignment: IUpdateDeptMaintTypeAssignment): Promise<void> {
     try {
       await this.deptMaintTypeAssignmentRepository.updateById(id, deptMaintTypeAssignment);

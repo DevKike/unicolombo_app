@@ -39,6 +39,17 @@ export class DeptMaintTypeAssignmentRepository implements IDeptMaintTypeAssignme
     }
   }
 
+  async getByDepartmentId(departmentId: number): Promise<IDeptMaintTypeAssignment[]> {
+    try {
+      return await this.deptMaintTypeAssignmentRepository.find({
+        where: { department: { id: departmentId } },
+        relations: ["department", "maintenanceType"],
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async updateById(id: number, deptMaintTypeAssignment: IUpdateDeptMaintTypeAssignment): Promise<void> {
     try {
       await this.deptMaintTypeAssignmentRepository.update(id, deptMaintTypeAssignment);

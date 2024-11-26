@@ -29,6 +29,10 @@ export class DeptMaintTypeAssignmentRouter implements IRouterModule {
       await ResponseModel.manageResponse(this.deptMaintTypeAssignmentUseCase.getDeptMaintTypeAssignmentById(Number(req.params.id)), res, HttpStatusCode.OK, Message.DEPT_MAINT_TYPE_ASSIGNMENT_OBTAINED_SUCCESSFULLY)
     });
 
+    this.deptMaintTypeAssignmentRouter.get("/by-department/:id", authMiddleware(), async (req, res) => {
+      await ResponseModel.manageResponse(this.deptMaintTypeAssignmentUseCase.getAllDeptMaintTypeAssignmentByDepartmentId(Number(req.params.id)), res, HttpStatusCode.OK, Message.DEPT_MAINT_TYPE_ASSIGNMENT_OBTAINED_SUCCESSFULLY)
+    });
+
     this.deptMaintTypeAssignmentRouter.patch("/:id", authMiddleware(), schemaValidator(updateDeptMaintTypeAssignmentSchema), async (req, res) => {
       await ResponseModel.manageResponse(this.deptMaintTypeAssignmentUseCase.updateDeptMaintTypeAssignmentById(Number(req.params.id), req.body), res, HttpStatusCode.OK, Message.DEPT_MAINT_TYPE_ASSIGNMENT_UPDATED_SUCCESSFULLY);
     })

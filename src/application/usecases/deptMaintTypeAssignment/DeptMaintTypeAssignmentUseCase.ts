@@ -3,11 +3,11 @@ import { IDeptMaintTypeAssignmentService } from "../../../domain/entities/deptMa
 import { IDeptMaintTypeAssignmentUseCase } from "../../../domain/entities/deptMaintTypeAssignment/IDeptMaintTypeAssignmentUseCase";
 
 export class DeptMaintTypeAssignmentUseCase implements IDeptMaintTypeAssignmentUseCase {
-  constructor(private readonly deptMaintTypeAssignment: IDeptMaintTypeAssignmentService) {}
+  constructor(private readonly deptMaintTypeAssignmentService: IDeptMaintTypeAssignmentService) {}
 
   async createDeptMaintTypeAssignment(deptMaintTypeAssignment: ICreateDeptMaintTypeAssignment): Promise<IDeptMaintTypeAssignment> {
     try {
-      return await this.deptMaintTypeAssignment.createDeptMaintTypeAssignment(deptMaintTypeAssignment);
+      return await this.deptMaintTypeAssignmentService.createDeptMaintTypeAssignment(deptMaintTypeAssignment);
     } catch (error) {
       throw error;
     }
@@ -15,7 +15,7 @@ export class DeptMaintTypeAssignmentUseCase implements IDeptMaintTypeAssignmentU
 
   async getAllDeptMaintTypeAssignment(): Promise<IDeptMaintTypeAssignment[]> {
     try {
-      return await this.deptMaintTypeAssignment.getAllDeptMaintTypeAssignment();
+      return await this.deptMaintTypeAssignmentService.getAllDeptMaintTypeAssignment();
     } catch (error) {
       throw error;
     }
@@ -23,7 +23,15 @@ export class DeptMaintTypeAssignmentUseCase implements IDeptMaintTypeAssignmentU
 
   async getDeptMaintTypeAssignmentById(id: number): Promise<IDeptMaintTypeAssignment | null> {
     try {
-      return await this.deptMaintTypeAssignment.getDeptMaintTypeAssignmentById(id);
+      return await this.deptMaintTypeAssignmentService.getDeptMaintTypeAssignmentById(id);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getAllDeptMaintTypeAssignmentByDepartmentId(departmentId: number): Promise<IDeptMaintTypeAssignment[]> {
+    try {
+      return await this.deptMaintTypeAssignmentService.getAllDeptMaintTypeAssignmentByDepartmentId(departmentId);
     } catch (error) {
       throw error;
     }
@@ -31,7 +39,7 @@ export class DeptMaintTypeAssignmentUseCase implements IDeptMaintTypeAssignmentU
 
   async updateDeptMaintTypeAssignmentById(id: number, deptMaintTypeAssignment: IUpdateDeptMaintTypeAssignment): Promise<void> {
     try {
-      await this.deptMaintTypeAssignment.updateDeptMaintTypeAssignmentById(id, deptMaintTypeAssignment);
+      await this.deptMaintTypeAssignmentService.updateDeptMaintTypeAssignmentById(id, deptMaintTypeAssignment);
     } catch (error) {
       throw error;
     }
