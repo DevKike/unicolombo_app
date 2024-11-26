@@ -4,6 +4,7 @@ import { AssignmentSeeder } from "./assignment/AssignmentSeeder";
 import { DepartmentSeeder } from "./department/DepartmentSeeder";
 import { MaintenanceTypeSeeder } from "./maintenanceType/MaintenanceTypeSeeder";
 import { RoleSeeder } from "./role/RoleSeeder";
+import { StageSeeder } from "./stage/StageSeeder";
 
 export const runSeeders = async () => {
   try {
@@ -27,6 +28,10 @@ export const runSeeders = async () => {
       {
         name: "Assignment Seeder",
         instance: new AssignmentSeeder(AppDataSource),
+      },
+      {
+        name: "Stage Seeder",
+        instance: new StageSeeder(AppDataSource),
       },
     ];
 
