@@ -32,6 +32,21 @@ export class MaintenanceRepository implements IMaintenanceRepository {
     }
   }
 
+  async getByDepartmentId(departmentId: number): Promise<IMaintenance[]> {
+    try {
+      return await this.maintenanceRepository.find({
+        where: { deptMaintTypeAssignment: { department: { id: departmentId } } },
+        relations: [
+          "deptMaintTypeAssignment",
+          "deptMaintTypeAssignment.department",  
+          "deptMaintTypeAssignment.maintenanceType",  
+        ],
+      });
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async getOneById(id: number): Promise<IMaintenance | null> {
     try {
       return await this.maintenanceRepository.findOne({

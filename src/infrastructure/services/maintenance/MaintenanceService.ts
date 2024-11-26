@@ -21,6 +21,14 @@ export class MaintenanceService implements IMaintenanceService {
     }
   }
 
+  async getPreventiveMaintenancesByDepartment(departmentId: number): Promise<IMaintenance[]> {
+    try {
+      return await this.maintenanceRepository.getByDepartmentId(departmentId);
+    } catch (error) {
+      throw error;
+    }
+  }
+
   async getMaintenanceById(id: number): Promise<IMaintenance | null> {
     try {
       return await this.maintenanceRepository.getOneById(id);
