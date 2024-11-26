@@ -10,9 +10,9 @@ export class ExecutionRepository implements IExecutionRepository {
     this.executionRepository = this.dataSource.getRepository(Execution);
   }
 
-  async save(execution: ICreateExecution): Promise<void> {
+  async save(execution: ICreateExecution): Promise<IExecution> {
     try {
-      await this.executionRepository.save(execution);
+      return await this.executionRepository.save(execution);
     } catch (error) {
       throw error;
     }

@@ -21,13 +21,13 @@ export class RouterManager implements IRouterManager {
   ) {}
 
   manageRoutes(): void {
-    this.app.use("/api/roles", this.roleRouter.getRouter());
+    this.app.use("/api/role", this.roleRouter.getRouter());
     this.app.use("/api/auth", this.authRouter.getRouter());
-    this.app.use("/api/actors", this.actorRouter.getRouter());
-    this.app.use("/api/departments", this.departmentRouter.getRouter());
-    this.app.use("/api/maintenances-types", this.maintenanceTypeRouter.getRouter());
+    this.app.use("/api/actor", this.actorRouter.getRouter());
+    this.app.use("/api/department", this.departmentRouter.getRouter());
+    this.app.use("/api/maintenances-type", this.maintenanceTypeRouter.getRouter());
     this.app.use("/api/dept-maint-type-assignment", this.deptMaintTypeAssignmentRouter.getRouter());
-    this.app.use("/api/maintenances", this.maintenanceRouter.getRouter());
+    this.app.use("/api/maintenance", this.maintenanceRouter.getRouter());
     this.app.use("/api/stage", this.stageRouter.getRouter());
     this.app.use("/api/file", this.fileUploadRouter.getRouter());
     this.app.use("/api/template-form", this.templateFormRouter.getRouter());

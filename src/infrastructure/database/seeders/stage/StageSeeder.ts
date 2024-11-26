@@ -44,42 +44,66 @@ export class StageSeeder implements ISeeder {
         if (assignment.maintenanceType.name === "Corrective") {
           allStages.push(
             {
+              name: "Request",
+              description: "Maintenance request submission",
+              order: 1,
+              deptMaintTypeAssignment: assignment,
+            },
+            {
               name: "Diagnostic",
               description: "Identify the failure",
-              order: 1,
+              order: 2,
               deptMaintTypeAssignment: assignment,
             },
             {
               name: "Repair",
               description: "Fix the failure",
-              order: 2,
+              order: 3,
               deptMaintTypeAssignment: assignment,
             },
             {
               name: "Testing",
               description: "Verify the repair",
-              order: 3,
+              order: 4,
+              deptMaintTypeAssignment: assignment,
+            },
+            {
+              name: "Completion",
+              description: "Maintenance completion and sign-off",
+              order: 5,
               deptMaintTypeAssignment: assignment,
             }
           );
         } else if (assignment.maintenanceType.name === "Preventive") {
           allStages.push(
             {
+              name: "Schedule",
+              description: "Schedule maintenance activity",
+              order: 1,
+              deptMaintTypeAssignment: assignment,
+            },
+            {
               name: "Inspection",
               description: "General review",
-              order: 1,
+              order: 2,
               deptMaintTypeAssignment: assignment,
             },
             {
               name: "Maintenance",
               description: "Perform preventive maintenance",
-              order: 2,
+              order: 3,
               deptMaintTypeAssignment: assignment,
             },
             {
               name: "Documentation",
               description: "Record activities performed",
-              order: 3,
+              order: 4,
+              deptMaintTypeAssignment: assignment,
+            },
+            {
+              name: "Close",
+              description: "Close maintenance cycle",
+              order: 5,
               deptMaintTypeAssignment: assignment,
             }
           );

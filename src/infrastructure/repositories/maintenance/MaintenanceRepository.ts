@@ -10,9 +10,9 @@ export class MaintenanceRepository implements IMaintenanceRepository {
     this.maintenanceRepository = this.dataSource.getRepository(Maintenance);
   }
 
-  async save(maintenance: ICreateMaintenance): Promise<void> {
+  async save(maintenance: ICreateMaintenance): Promise<IMaintenance> {
     try {
-      await this.maintenanceRepository.save(maintenance);
+      return await this.maintenanceRepository.save(maintenance);
     } catch (error) {
       throw error;
     }

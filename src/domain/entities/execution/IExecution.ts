@@ -17,6 +17,6 @@ export interface IExecution {
   executors: IExecutor[];
 }
 
-export interface ICreateExecution extends Omit<IExecution, "id" | "startedAt" | "updatedAt" | "endedAt" | "completedForms">  {};
+export interface ICreateExecution extends Omit<IExecution, "id" | "startedAt" | "updatedAt" | "endedAt" | "completedForms" | "executors">  {};
 
-export interface IUpdateExecution extends Partial<Omit<IExecution, "id" | "startedAt" | "updatedAt" | "completedForms">> {};
+export interface IUpdateExecution extends Partial<Omit<IExecution, "id" | "startedAt" | "updatedAt" | "completedForms" | "executors">> {};

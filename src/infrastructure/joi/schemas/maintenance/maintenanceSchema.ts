@@ -28,6 +28,16 @@ export const createMaintenanceSchema = Joi.object({
   deptMaintTypeAssignment: deptMaintTypeAssignmentId.required(),
 });
 
+export const createPreventiveMaintenanceSchema = Joi.object({
+  maintenance: Joi.object({
+    name: name.required(),
+    description: description.required(),
+  }).required(),
+  completedForm: Joi.object({
+    filePath: Joi.string().required(),
+  }).required(),
+});
+
 export const updateMaintenanceSchema = Joi.object({
   name: name,
   description: description,

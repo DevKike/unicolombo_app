@@ -19,7 +19,8 @@ export class FileUploadUseCase implements IFileUploadUseCase {
       if (
         fileExtension !== AllowedFileExtensions.PDF &&
         fileExtension !== AllowedFileExtensions.DOC &&
-        fileExtension !== AllowedFileExtensions.DOCX
+        fileExtension !== AllowedFileExtensions.DOCX &&
+        fileExtension !== AllowedFileExtensions.EXCEL
       ) {
         throw new NotFileExtensionAllowed(Message.NOT_FILE_EXTENSION_ALLOWED);
       }
@@ -27,7 +28,7 @@ export class FileUploadUseCase implements IFileUploadUseCase {
       if (fileType !== FileType.TEMPLATE && fileType !== FileType.COMPLETED) {
         throw new InvalidFileTypeException(Message.INVALID_FILE_TYPE);
       }
-      
+
       return await this.fileUploadService.uploadFile(file, fileType);
     } catch (error) {
       throw error;
