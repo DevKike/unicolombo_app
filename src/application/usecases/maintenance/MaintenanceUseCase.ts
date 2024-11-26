@@ -36,30 +36,6 @@ export class MaintenanceUseCase implements IMaintenanceUseCase {
     }
   }
 
-  async getAllMaintenances(): Promise<IMaintenance[]> {
-    try {
-      return await this.maintenanceService.getAllMaintenances();
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async getMaintenanceById(id: number): Promise<IMaintenance | null> {
-    try {
-      return await this.maintenanceService.getMaintenanceById(id);
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async updateMaintenanceById(id: number, maintenance: IUpdateMaintenance): Promise<void> {
-    try {
-      await this.maintenanceService.updateMaintenanceById(id, maintenance);
-    } catch (error) {
-      throw error;
-    }
-  }
-
   async createPreventiveMaintenance(authActor: IJwtPayload, maintenance: ICreateMaintenance, completedForm: ICreateCompletedForm): Promise<void> {
     try {
       const currentActor = await this.authService.getAuthDataById(authActor.id);
@@ -91,6 +67,30 @@ export class MaintenanceUseCase implements IMaintenanceUseCase {
         execution: execution,
         templateForm: templateForm[0],
       });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getAllMaintenances(): Promise<IMaintenance[]> {
+    try {
+      return await this.maintenanceService.getAllMaintenances();
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getMaintenanceById(id: number): Promise<IMaintenance | null> {
+    try {
+      return await this.maintenanceService.getMaintenanceById(id);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateMaintenanceById(id: number, maintenance: IUpdateMaintenance): Promise<void> {
+    try {
+      await this.maintenanceService.updateMaintenanceById(id, maintenance);
     } catch (error) {
       throw error;
     }

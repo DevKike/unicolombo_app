@@ -5,6 +5,7 @@ import { ICreateMaintenance, IMaintenance, IUpdateMaintenance } from "./IMainten
 export interface IMaintenanceUseCase {
   createMaintenance(maintenance: ICreateMaintenance): Promise<IMaintenance>;
   createPreventiveMaintenance(authActor: IJwtPayload, maintenance: ICreateMaintenance, completedForm: ICreateCompletedForm): Promise<void>;
+  getPreventiveMaintenances(): Promise<IMaintenance[]>;
   getAllMaintenances(): Promise<IMaintenance[]>;
   getMaintenanceById(id: number): Promise<IMaintenance | null>;
   updateMaintenanceById(id: number, maintenance: IUpdateMaintenance): Promise<void>;
