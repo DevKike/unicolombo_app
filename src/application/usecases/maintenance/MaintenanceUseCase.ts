@@ -1,21 +1,17 @@
-import { IAuthService } from "../../../domain/entities/auth/IAuthService";
 import { ICreateCompletedForm } from "../../../domain/entities/completedForm/ICompletedForm";
 import { ICompletedFormService } from "../../../domain/entities/completedForm/ICompletedFormService";
 import { IDeptMaintTypeAssignmentService } from "../../../domain/entities/deptMaintTypeAssignment/IDeptMaintTypeAssignmentService";
 import { IExecutionService } from "../../../domain/entities/execution/IExecutionService";
-import {
-  ICreateMaintenance,
-  IMaintenance,
-  IUpdateMaintenance,
-} from "../../../domain/entities/maintenance/IMaintenance";
+import { ICreateMaintenance, IMaintenance, IUpdateMaintenance, IUpdateMaintenanceWithStage } from "../../../domain/entities/maintenance/IMaintenance";
 import { IMaintenanceService } from "../../../domain/entities/maintenance/IMaintenanceService";
 import { IMaintenanceUseCase } from "../../../domain/entities/maintenance/IMaintenanceUseCase";
 import { IStageService } from "../../../domain/entities/stage/IStageService";
 import { ITemplateFormService } from "../../../domain/entities/templateForm/ITemplateFormService";
 import { ExecutionStatus } from "../../../domain/enums/execution/ExecutionStatus";
+import { MaintenanceStatus } from "../../../domain/enums/maintenance/MaintenanceStatus";
 import { MaintenanceTypeEnum } from "../../../domain/enums/maintenanceType/MaintenanceType";
 import { SortDirection } from "../../../domain/enums/sortOrder/SortOrder";
-import { IJwtPayload } from "../../../infrastructure/jwt/interfaces/IJwtPayload";
+import { NotFoundException } from "../../../domain/exceptions/NotFoundException";
 
 export class MaintenanceUseCase implements IMaintenanceUseCase {
   constructor(
@@ -35,15 +31,15 @@ export class MaintenanceUseCase implements IMaintenanceUseCase {
     }
   }
 
-  async createPreventiveMaintenance(authActor: IJwtPayload, maintenance: ICreateMaintenance, completedForm: ICreateCompletedForm): Promise<void> {
+  async createPreventiveMaintenance(departmentId: number, maintenance: ICreateMaintenance, completedForm: ICreateCompletedForm): Promise<void> {
     try {
-      const assignment = await this.assignmentService.getAssignmentByDeptIdAndMaintTypeId(authActor.department, MaintenanceTypeEnum.PREVENTIVE);
+      const assignment = await this.assignmentService.getAssignmentByDeptIdAndMaintTypeId(departmentId, MaintenanceTypeEnum.PREVENTIVE);
 
       const stages = await this.stageService.getStagesByAssignment(assignment!.id, SortDirection.ASC);
 
       const scheduleStage = stages.find((stage) => stage.order === 1);
 
-      const assignedMaintenance: ICreateMaintenance = {...maintenance, deptMaintTypeAssignment: assignment!};
+      const assignedMaintenance: ICreateMaintenance = { ...maintenance, deptMaintTypeAssignment: assignment!, status: MaintenanceStatus.IN_PROGRESS  };
 
       const createdMaintenance = await this.createMaintenance(assignedMaintenance);
 
@@ -56,11 +52,7 @@ export class MaintenanceUseCase implements IMaintenanceUseCase {
       const templateForm = await this.templateFormService.getTemplateFormByStage(scheduleStage!.id);
 
       await this.completedFormService.saveCompletedForm({
-        name: completedForm.name,
-        code: completedForm.code,
-        description: completedForm.description,
-        fileExtension: completedForm.fileExtension,
-        filePath: completedForm.filePath,
+        ...completedForm,
         execution: execution,
         templateForm: templateForm[0],
       });
@@ -97,6 +89,47 @@ export class MaintenanceUseCase implements IMaintenanceUseCase {
     try {
       await this.maintenanceService.updateMaintenanceById(id, maintenance);
     } catch (error) {
+      throw error;
+    }
+  }
+
+  async updatePreventiveMaintenanceWithStage(departmentId: number, maintenanceId: number, data: IUpdateMaintenanceWithStage): Promise<void> {
+    try {
+      const maintenance = await this.maintenanceService.getMaintenanceById(maintenanceId);
+
+      if (!maintenance || maintenance.deptMaintTypeAssignment.department.id !== departmentId) {
+        throw new NotFoundException("Maintenance not found");
+      }
+
+      const latestExecution = maintenance.executions[maintenance.executions.length - 1];
+
+      if (!latestExecution) {
+        throw new NotFoundException("No execution found for this maintenance");
+      }
+
+      const newStage = await this.stageService.getStageById(data.stageId);
+      if (!newStage) {
+        throw new NotFoundException("Stage not found");
+      }
+
+      await this.maintenanceService.updateMaintenanceById(maintenanceId, data.maintenance);
+      await this.executionService.updateExecution(latestExecution.id, { stage: newStage });
+
+      const templateForm = await this.templateFormService.getTemplateFormByStage(data.stageId);
+      console.log("🚀 ~ MaintenanceUseCase ~ updatePreventiveMaintenanceWithStage ~ templateForm:", templateForm)
+
+      if (!templateForm || !templateForm[0]) {
+        throw new NotFoundException("Template form not found for this stage");
+      }
+
+      console.log(data.completedForm);
+      
+     /*  await this.completedFormService.saveCompletedForm({
+        ...data.completedForm,
+        execution: latestExecution,
+        templateForm: templateForm[0],
+      }); */
+    } catch (error) { 
       throw error;
     }
   }

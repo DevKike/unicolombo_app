@@ -5,7 +5,10 @@ import { HttpStatusCode } from "../../../../domain/enums/http/HttpStatusCode";
 import { Message } from "../../../../domain/enums/message/Message";
 import { IMaintenanceUseCase } from "../../../../domain/entities/maintenance/IMaintenanceUseCase";
 import { schemaValidator } from "../../../joi/middleware/schemaValidator";
-import { createMaintenanceSchema, createPreventiveMaintenanceSchema, updateMaintenanceSchema,
+import {
+  createMaintenanceSchema,
+  createPreventiveMaintenanceSchema,
+  updateMaintenanceSchema,
 } from "../../../joi/schemas/maintenance/maintenanceSchema";
 import { authMiddleware } from "../../middlewares/authMiddleware";
 import { IRequest } from "../../interfaces/IRequest";
@@ -42,7 +45,7 @@ export class MaintenanceRouter implements IRouterModule {
         const { maintenance, completedForm } = req.body;
         await ResponseModel.manageResponse(
           this.maintenanceUseCase.createPreventiveMaintenance(
-            req.actor!,
+            req.actor?.department!,
             maintenance,
             completedForm
           ),
@@ -71,7 +74,9 @@ export class MaintenanceRouter implements IRouterModule {
       authMiddleware(),
       async (req: IRequest, res: Response) => {
         await ResponseModel.manageResponse(
-          this.maintenanceUseCase.getPreventiveMaintenancesByDepartment(req.actor?.department!),
+          this.maintenanceUseCase.getPreventiveMaintenancesByDepartment(
+            req.actor?.department!
+          ),
           res,
           HttpStatusCode.OK,
           Message.MAINTENANCES_OBTAINED_SUCCESSFULLY
@@ -99,6 +104,24 @@ export class MaintenanceRouter implements IRouterModule {
       async (req: IRequest, res: Response) => {
         await ResponseModel.manageResponse(
           this.maintenanceUseCase.updateMaintenanceById(
+            Number(req.params.id),
+            req.body
+          ),
+          res,
+          HttpStatusCode.OK,
+          Message.MAINTENANCE_UPDATED_SUCCESSFULLY
+        );
+      }
+    );
+
+    this.maintenanceRouter.patch(
+      "/preventive/:id",
+      authMiddleware(),
+      async (req: IRequest, res: Response) => {
+        const { maintenance, executionId, stageId, completedForm } = req.body;
+        await ResponseModel.manageResponse(
+          this.maintenanceUseCase.updatePreventiveMaintenanceWithStage(
+            req.actor?.department!,
             Number(req.params.id),
             req.body
           ),

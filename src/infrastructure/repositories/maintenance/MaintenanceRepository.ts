@@ -24,7 +24,9 @@ export class MaintenanceRepository implements IMaintenanceRepository {
         relations: [
           "deptMaintTypeAssignment",
           "deptMaintTypeAssignment.department",  
-          "deptMaintTypeAssignment.maintenanceType",  
+          "deptMaintTypeAssignment.maintenanceType",
+          "executions",
+          "executions.stage"
         ],
       });
     } catch (error) {
@@ -45,6 +47,8 @@ export class MaintenanceRepository implements IMaintenanceRepository {
           "deptMaintTypeAssignment",
           "deptMaintTypeAssignment.department",
           "deptMaintTypeAssignment.maintenanceType",
+          "executions",
+          "executions.stage"
         ],
       });
     } catch (error) {
@@ -59,7 +63,9 @@ export class MaintenanceRepository implements IMaintenanceRepository {
         relations: [
           "deptMaintTypeAssignment",
           "deptMaintTypeAssignment.department",  
-          "deptMaintTypeAssignment.maintenanceType",  
+          "deptMaintTypeAssignment.maintenanceType", 
+          "executions",
+          "executions.stage" 
         ],
       });
     } catch (error) {

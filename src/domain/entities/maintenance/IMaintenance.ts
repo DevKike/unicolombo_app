@@ -1,4 +1,5 @@
 import { MaintenanceStatus } from "../../enums/maintenance/MaintenanceStatus";
+import { ICreateCompletedForm } from "../completedForm/ICompletedForm";
 import { IDeptMaintTypeAssignment } from "../deptMaintTypeAssignment/IDeptMaintTypeAssignment";
 import { IExecution } from "../execution/IExecution";
 
@@ -16,3 +17,9 @@ export interface IMaintenance {
 export interface ICreateMaintenance extends Omit<IMaintenance, "id" | "createdAt" | "updatedAt" | "executions"> {}
 
 export interface IUpdateMaintenance extends Partial<Omit<IMaintenance, "id" | "createdAt" | "updatedAt" | "executions">> {}
+
+export interface IUpdateMaintenanceWithStage {
+  maintenance: IUpdateMaintenance;
+  stageId: number;
+  completedForm: ICreateCompletedForm;
+}
