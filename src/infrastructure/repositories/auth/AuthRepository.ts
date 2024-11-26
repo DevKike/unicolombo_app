@@ -33,6 +33,7 @@ export class AuthRepository implements IAuthRepository {
     try {
       return await this.authRepository.findOne({
         where: { email: email },
+        relations: ["actor.role", "actor.department"],
       });
     } catch (error) {
       throw error;

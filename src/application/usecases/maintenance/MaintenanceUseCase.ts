@@ -20,7 +20,6 @@ import { IJwtPayload } from "../../../infrastructure/jwt/interfaces/IJwtPayload"
 export class MaintenanceUseCase implements IMaintenanceUseCase {
   constructor(
     private readonly maintenanceService: IMaintenanceService,
-    private readonly authService: IAuthService,
     private readonly stageService: IStageService,
     private readonly assignmentService: IDeptMaintTypeAssignmentService,
     private readonly executionService: IExecutionService,
@@ -38,9 +37,7 @@ export class MaintenanceUseCase implements IMaintenanceUseCase {
 
   async createPreventiveMaintenance(authActor: IJwtPayload, maintenance: ICreateMaintenance, completedForm: ICreateCompletedForm): Promise<void> {
     try {
-      const currentActor = await this.authService.getAuthDataById(authActor.id);
-
-      const assignment = await this.assignmentService.getAssignmentByDeptIdAndMaintTypeId(currentActor?.actor.department.id!, MaintenanceTypeEnum.PREVENTIVE);
+      const assignment = await this.assignmentService.getAssignmentByDeptIdAndMaintTypeId(authActor.department, MaintenanceTypeEnum.PREVENTIVE);
 
       const stages = await this.stageService.getStagesByAssignment(assignment!.id, SortDirection.ASC);
 

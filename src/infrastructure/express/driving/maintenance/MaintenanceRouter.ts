@@ -5,10 +5,7 @@ import { HttpStatusCode } from "../../../../domain/enums/http/HttpStatusCode";
 import { Message } from "../../../../domain/enums/message/Message";
 import { IMaintenanceUseCase } from "../../../../domain/entities/maintenance/IMaintenanceUseCase";
 import { schemaValidator } from "../../../joi/middleware/schemaValidator";
-import {
-  createMaintenanceSchema,
-  createPreventiveMaintenanceSchema,
-  updateMaintenanceSchema,
+import { createMaintenanceSchema, createPreventiveMaintenanceSchema, updateMaintenanceSchema,
 } from "../../../joi/schemas/maintenance/maintenanceSchema";
 import { authMiddleware } from "../../middlewares/authMiddleware";
 import { IRequest } from "../../interfaces/IRequest";
@@ -71,9 +68,10 @@ export class MaintenanceRouter implements IRouterModule {
 
     this.maintenanceRouter.get(
       "/preventive/by-department",
+      authMiddleware(),
       async (req: IRequest, res: Response) => {
         await ResponseModel.manageResponse(
-          this.maintenanceUseCase.getPreventiveMaintenancesByDepartment(),
+          this.maintenanceUseCase.getPreventiveMaintenancesByDepartment(req.actor?.department!),
           res,
           HttpStatusCode.OK,
           Message.MAINTENANCES_OBTAINED_SUCCESSFULLY
