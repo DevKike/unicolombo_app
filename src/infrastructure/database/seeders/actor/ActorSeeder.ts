@@ -12,6 +12,7 @@ import { ActorStatus } from "../../../../domain/enums/actor/ActorStatus";
 import { IAuthCredentials, ICreateAuth } from "../../../../domain/entities/auth/IAuth";
 import { Environment } from "../../../environment/Environment";
 import { hash } from "../../../helpers/bcrypt";
+import { RoleId } from "../../../../domain/enums/role/RoleEnum";
 
 export class ActorSeeder implements ISeeder {
   private readonly actorRepository: Repository<Actor>;
@@ -89,7 +90,7 @@ export class ActorSeeder implements ISeeder {
 
   private async createActorData(): Promise<ICreateActor> {
     const role = await this.roleRepository.findOneOrFail({
-      where: { id: 1 },
+      where: { id: RoleId.SYSTEM_COORDINATOR },
     });
 
     const department = await this.departmentRepository.findOneOrFail({
