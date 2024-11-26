@@ -54,6 +54,11 @@ export class AuthService implements IAuthService {
   }
 
   private generateToken(payload: IAuth) {
-    return this.jwtService.generateToken({ id: payload.id, email: payload.email });
+    return this.jwtService.generateToken({
+      id: payload.id,
+      email: payload.email,
+      role: payload.actor.role.id,
+      department: payload.actor.department.id,
+    });
   }
 }

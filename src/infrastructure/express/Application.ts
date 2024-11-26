@@ -162,7 +162,6 @@ export class Application {
     const maintenanceService = new MaintenanceService(maintenanceRepository);
     const maintenanceUseCase = new MaintenanceUseCase(
       maintenanceService,
-      authService,
       stageService,
       deptMaintTypeAssignmentService,
       executionService,

@@ -20,7 +20,6 @@ import { IJwtPayload } from "../../../infrastructure/jwt/interfaces/IJwtPayload"
 export class MaintenanceUseCase implements IMaintenanceUseCase {
   constructor(
     private readonly maintenanceService: IMaintenanceService,
-    private readonly authService: IAuthService,
     private readonly stageService: IStageService,
     private readonly assignmentService: IDeptMaintTypeAssignmentService,
     private readonly executionService: IExecutionService,
@@ -36,35 +35,9 @@ export class MaintenanceUseCase implements IMaintenanceUseCase {
     }
   }
 
-  async getAllMaintenances(): Promise<IMaintenance[]> {
-    try {
-      return await this.maintenanceService.getAllMaintenances();
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async getMaintenanceById(id: number): Promise<IMaintenance | null> {
-    try {
-      return await this.maintenanceService.getMaintenanceById(id);
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  async updateMaintenanceById(id: number, maintenance: IUpdateMaintenance): Promise<void> {
-    try {
-      await this.maintenanceService.updateMaintenanceById(id, maintenance);
-    } catch (error) {
-      throw error;
-    }
-  }
-
   async createPreventiveMaintenance(authActor: IJwtPayload, maintenance: ICreateMaintenance, completedForm: ICreateCompletedForm): Promise<void> {
     try {
-      const currentActor = await this.authService.getAuthDataById(authActor.id);
-
-      const assignment = await this.assignmentService.getAssignmentByDeptIdAndMaintTypeId(currentActor?.actor.department.id!, MaintenanceTypeEnum.PREVENTIVE);
+      const assignment = await this.assignmentService.getAssignmentByDeptIdAndMaintTypeId(authActor.department, MaintenanceTypeEnum.PREVENTIVE);
 
       const stages = await this.stageService.getStagesByAssignment(assignment!.id, SortDirection.ASC);
 
@@ -91,6 +64,38 @@ export class MaintenanceUseCase implements IMaintenanceUseCase {
         execution: execution,
         templateForm: templateForm[0],
       });
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getAllMaintenances(): Promise<IMaintenance[]> {
+    try {
+      return await this.maintenanceService.getAllMaintenances();
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getPreventiveMaintenancesByDepartment(departmentId: number): Promise<IMaintenance[]> {
+    try {
+      return await this.maintenanceService.getPreventiveMaintenancesByDepartment(departmentId);
+    } catch(error) {
+      throw error;
+    }
+  }
+
+  async getMaintenanceById(id: number): Promise<IMaintenance | null> {
+    try {
+      return await this.maintenanceService.getMaintenanceById(id);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateMaintenanceById(id: number, maintenance: IUpdateMaintenance): Promise<void> {
+    try {
+      await this.maintenanceService.updateMaintenanceById(id, maintenance);
     } catch (error) {
       throw error;
     }
