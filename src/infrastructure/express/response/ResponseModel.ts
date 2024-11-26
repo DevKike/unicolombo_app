@@ -36,7 +36,7 @@ export class ResponseModel {
       } else if (error instanceof NotFileExtensionAllowed) {
         res.status(HttpStatusCode.BAD_REQUEST).json({
           error: error.message,
-          message: `Valid extensions: ['${AllowedFileExtensions.PDF}', '${AllowedFileExtensions.DOC}' and '${AllowedFileExtensions.DOCX}']`,
+          message: `Valid extensions: ['${AllowedFileExtensions.PDF}', '${AllowedFileExtensions.DOC}', '${AllowedFileExtensions.DOCX}' and '${AllowedFileExtensions.EXCEL}']`,
         });
       } else if (error instanceof InvalidCredentialsException) {
         res.status(HttpStatusCode.UNAUTHORIZED).json({ error: error.message });

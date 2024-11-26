@@ -5,5 +5,6 @@ export interface IDeptMaintTypeAssignmentService {
   getAllDeptMaintTypeAssignment(): Promise<IDeptMaintTypeAssignment[]>;
   getDeptMaintTypeAssignmentById(id: number): Promise<IDeptMaintTypeAssignment | null>;
   getAllDeptMaintTypeAssignmentByDepartmentId(departmentId: number): Promise<IDeptMaintTypeAssignment[]>;
+  getAssignmentByDeptIdAndMaintTypeId(departId: number, maintType: string): Promise<IDeptMaintTypeAssignment | null>;
   updateDeptMaintTypeAssignmentById(id: number, deptMaintTypeAssignment: IUpdateDeptMaintTypeAssignment): Promise<void>;
 }

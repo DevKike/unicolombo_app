@@ -5,9 +5,9 @@ import { IExecutionService } from "../../../domain/entities/execution/IExecution
 export class ExecutionService implements IExecutionService {
   constructor(private readonly executionRepository: IExecutionRepository) {}
 
-  async createExecution(execution: ICreateExecution): Promise<void> {
+  async createExecution(execution: ICreateExecution): Promise<IExecution> {
     try {
-      await this.executionRepository.save(execution);
+      return await this.executionRepository.save(execution);
     } catch (error) {
       throw error;
     }

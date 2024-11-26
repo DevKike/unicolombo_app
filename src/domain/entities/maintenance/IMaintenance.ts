@@ -13,6 +13,6 @@ export interface IMaintenance {
   executions: IExecution[];
 }
 
-export interface ICreateMaintenance extends Omit<IMaintenance, "id" | "createdAt" | "updatedAt"> {}
+export interface ICreateMaintenance extends Omit<IMaintenance, "id" | "createdAt" | "updatedAt" | "executions"> {}
 
-export interface IUpdateMaintenance extends Partial<Omit<IMaintenance, "id" | "createdAt" | "updatedAt">> {}
+export interface IUpdateMaintenance extends Partial<Omit<IMaintenance, "id" | "createdAt" | "updatedAt" | "executions">> {}

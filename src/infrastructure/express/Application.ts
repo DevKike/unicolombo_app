@@ -73,7 +73,10 @@ export class Application {
     this.app.use(cors());
     this.app.use(express.json());
     this.app.use(fileUpload());
-    this.app.use("/public/uploads", express.static(path.join(__dirname, "../uploads")));
+    this.app.use(
+      "/public/uploads",
+      express.static(path.join(__dirname, "../uploads"))
+    );
   }
 
   private initRoutes(): void {
@@ -98,21 +101,31 @@ export class Application {
     const departmentService = new DepartmentService(departmentRepository);
     const departmentUseCase = new DepartmentUseCase(departmentService);
     const departmentRouter = new DepartmentRouter(departmentUseCase);
-    
-    const maintenanceTypeRepository = new MaintenanceTypeRepository(AppDataSource);
-    const maintenanceTypeService = new MaintenanceTypeService(maintenanceTypeRepository)
-    const maintenanceTypeUseCase = new MaintenanceTypeUseCase(maintenanceTypeService);
-    const maintenanceTypeRouter = new MaintenanceTypeRouter(maintenanceTypeUseCase);
 
-    const deptMaintTypeAssignmentRepository = new DeptMaintTypeAssignmentRepository(AppDataSource);
-    const deptMaintTypeAssignmentService = new DeptMaintTypeAssignmentService(deptMaintTypeAssignmentRepository);
-    const deptMaintTypeAssignmentUseCase = new DeptMaintTypeAssignmentUseCase(deptMaintTypeAssignmentService);
-    const deptMaintTypeAssignmentRouter = new DeptMaintTypeAssignmentRouter(deptMaintTypeAssignmentUseCase);
+    const maintenanceTypeRepository = new MaintenanceTypeRepository(
+      AppDataSource
+    );
+    const maintenanceTypeService = new MaintenanceTypeService(
+      maintenanceTypeRepository
+    );
+    const maintenanceTypeUseCase = new MaintenanceTypeUseCase(
+      maintenanceTypeService
+    );
+    const maintenanceTypeRouter = new MaintenanceTypeRouter(
+      maintenanceTypeUseCase
+    );
 
-    const maintenanceRepository = new MaintenanceRepository(AppDataSource);
-    const maintenanceService = new MaintenanceService(maintenanceRepository);
-    const maintenanceUseCase = new MaintenanceUseCase(maintenanceService);
-    const maintenanceRouter = new MaintenanceRouter(maintenanceUseCase);
+    const deptMaintTypeAssignmentRepository =
+      new DeptMaintTypeAssignmentRepository(AppDataSource);
+    const deptMaintTypeAssignmentService = new DeptMaintTypeAssignmentService(
+      deptMaintTypeAssignmentRepository
+    );
+    const deptMaintTypeAssignmentUseCase = new DeptMaintTypeAssignmentUseCase(
+      deptMaintTypeAssignmentService
+    );
+    const deptMaintTypeAssignmentRouter = new DeptMaintTypeAssignmentRouter(
+      deptMaintTypeAssignmentUseCase
+    );
 
     const stageRepository = new StageRepository(AppDataSource);
     const stageService = new StageService(stageRepository);
@@ -127,9 +140,11 @@ export class Application {
     const templateFormService = new TemplateFormService(templateFormRepository);
     const templateFormUseCase = new TemplateFormUseCase(templateFormService);
     const templateFormRouter = new TemplateFormRouter(templateFormUseCase);
-    
+
     const completedFormRepository = new CompletedFormRepository(AppDataSource);
-    const completedFormService = new CompletedFormService(completedFormRepository);
+    const completedFormService = new CompletedFormService(
+      completedFormRepository
+    );
     const completedFormUseCase = new CompletedFormUseCase(completedFormService);
     const completedFormRouter = new CompletedFormRouter(completedFormUseCase);
 
@@ -142,6 +157,19 @@ export class Application {
     const executorService = new ExecutorService(executorRepository);
     const executorUseCase = new ExecutorUseCase(executorService);
     const executorRouter = new ExecutorRouter(executorUseCase);
+
+    const maintenanceRepository = new MaintenanceRepository(AppDataSource);
+    const maintenanceService = new MaintenanceService(maintenanceRepository);
+    const maintenanceUseCase = new MaintenanceUseCase(
+      maintenanceService,
+      authService,
+      stageService,
+      deptMaintTypeAssignmentService,
+      executionService,
+      templateFormService,
+      completedFormService
+    );
+    const maintenanceRouter = new MaintenanceRouter(maintenanceUseCase);
 
     this.routerManager = new RouterManager(
       this.app,

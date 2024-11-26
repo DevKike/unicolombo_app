@@ -4,9 +4,9 @@ import { IExecutionUseCase } from "../../../domain/entities/execution/IExecution
 export class ExecutionUseCase implements IExecutionUseCase {
   constructor(private readonly executionService: IExecutionUseCase) {}
 
-  async createExecution(execution: ICreateExecution): Promise<void> {
+  async createExecution(execution: ICreateExecution): Promise<IExecution> {
     try {
-      await this.executionService.createExecution(execution);
+      return await this.executionService.createExecution(execution);
     } catch (error) {
       throw error;
     }
