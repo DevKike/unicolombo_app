@@ -18,6 +18,6 @@ export interface IDeptMaintTypeAssignment {
   stages: IStage[];
 }
 
-export interface ICreateDeptMaintTypeAssignment extends Omit<IDeptMaintTypeAssignment, "id" | "assignedAt" | "updatedAt" | "maintenances"> {}
+export interface ICreateDeptMaintTypeAssignment extends Omit<IDeptMaintTypeAssignment, "id" | "assignedAt" | "updatedAt" | "maintenances" | "stages"> {}
 
-export interface IUpdateDeptMaintTypeAssignment extends Partial<Omit<IDeptMaintTypeAssignment, "id" | "assignedAt" | "updatedAt" | "maintenances">> {}
+export interface IUpdateDeptMaintTypeAssignment extends Partial<Omit<IDeptMaintTypeAssignment, "id" | "assignedAt" | "updatedAt" | "maintenances" | "stages">> {}
