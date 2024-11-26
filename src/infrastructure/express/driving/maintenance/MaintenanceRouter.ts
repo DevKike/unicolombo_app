@@ -67,7 +67,7 @@ export class MaintenanceRouter implements IRouterModule {
     );
 
     this.maintenanceRouter.get(
-      "/preventive/by-department",
+      "/preventive",
       authMiddleware(),
       async (req: IRequest, res: Response) => {
         await ResponseModel.manageResponse(
