@@ -2,9 +2,15 @@ import { Message } from "../../domain/enums/message/Message";
 import { InvalidFileFormatException } from "../../domain/exceptions/InvalidFileFormatException";
 
 export const parseFileName = (filePath: string) => {
+  if(!filePath) {
+    throw new InvalidFileFormatException(Message.INVALID_FILE_FORMAT);
+  }
+
   const encodedFileName = filePath.split("/").pop();
 
-  if (!encodedFileName) return null;
+  if (!encodedFileName) {
+    throw new InvalidFileFormatException(Message.INVALID_FILE_FORMAT);
+  }
 
   const fileName = decodeURIComponent(encodedFileName);
   const regex = /^([\w-]+)\s(.+)(\.\w+)$/;

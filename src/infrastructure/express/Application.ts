@@ -166,7 +166,9 @@ export class Application {
       deptMaintTypeAssignmentService,
       executionService,
       templateFormService,
-      completedFormService
+      completedFormService,
+      executorService,
+      actorService,
     );
     const maintenanceRouter = new MaintenanceRouter(maintenanceUseCase);
 
@@ -176,6 +178,7 @@ export class Application {
       authRouter,
       actorRouter,
       departmentRouter,
+      
       maintenanceTypeRouter,
       deptMaintTypeAssignmentRouter,
       maintenanceRouter,

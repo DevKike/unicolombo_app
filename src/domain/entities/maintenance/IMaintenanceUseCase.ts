@@ -1,6 +1,6 @@
 import { IJwtPayload } from "../../../infrastructure/jwt/interfaces/IJwtPayload";
 import { ICreateCompletedForm } from "../completedForm/ICompletedForm";
-import { ICreateMaintenance, IMaintenance, IUpdateMaintenance } from "./IMaintenance";
+import { ICreateMaintenance, IMaintenance, IUpdateMaintenance, IUpdateMaintenanceWithStage } from "./IMaintenance";
 
 export interface IMaintenanceUseCase {
   createMaintenance(maintenance: ICreateMaintenance): Promise<IMaintenance>;
@@ -8,5 +8,6 @@ export interface IMaintenanceUseCase {
   getAllMaintenances(): Promise<IMaintenance[]>;
   getPreventiveMaintenancesByDepartment(departmentId: number): Promise<IMaintenance[]>;
   getMaintenanceById(id: number): Promise<IMaintenance | null>;
+  updatePreventiveMaintenanceWithStage(maintenanceId: number, authActor: IJwtPayload, data: IUpdateMaintenanceWithStage): Promise<void>;
   updateMaintenanceById(id: number, maintenance: IUpdateMaintenance): Promise<void>;
 }

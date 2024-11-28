@@ -1,6 +1,8 @@
 import { ICompletedForm, ICreateCompletedForm, IUpdateCompletedForm } from "../../../domain/entities/completedForm/ICompletedForm";
 import { ICompletedFormRepository } from "../../../domain/entities/completedForm/ICompletedFormRepository";
 import { ICompletedFormService } from "../../../domain/entities/completedForm/ICompletedFormService";
+import { Message } from "../../../domain/enums/message/Message";
+import { InvalidFileFormatException } from "../../../domain/exceptions/InvalidFileFormatException";
 import { parseFileName } from "../../helpers/parseFileName";
 
 export class CompletedFormService implements ICompletedFormService {
@@ -8,7 +10,15 @@ export class CompletedFormService implements ICompletedFormService {
 
   async saveCompletedForm(completedForm: ICreateCompletedForm): Promise<void> {
     try {
+      if (!completedForm.filePath) {
+        throw new InvalidFileFormatException(Message.INVALID_FILE_FORMAT);
+      }
+
       const parsedFile = parseFileName(completedForm.filePath);
+
+      if (!parsedFile) {
+        throw new InvalidFileFormatException(Message.INVALID_FILE_FORMAT);
+      }
 
       if (parsedFile) {
         const newCompletedForm: ICreateCompletedForm = {

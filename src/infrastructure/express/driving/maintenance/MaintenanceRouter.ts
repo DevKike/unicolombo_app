@@ -5,7 +5,10 @@ import { HttpStatusCode } from "../../../../domain/enums/http/HttpStatusCode";
 import { Message } from "../../../../domain/enums/message/Message";
 import { IMaintenanceUseCase } from "../../../../domain/entities/maintenance/IMaintenanceUseCase";
 import { schemaValidator } from "../../../joi/middleware/schemaValidator";
-import { createMaintenanceSchema, createPreventiveMaintenanceSchema, updateMaintenanceSchema,
+import {
+  createMaintenanceSchema,
+  createPreventiveMaintenanceSchema,
+  updateMaintenanceSchema,
 } from "../../../joi/schemas/maintenance/maintenanceSchema";
 import { authMiddleware } from "../../middlewares/authMiddleware";
 import { IRequest } from "../../interfaces/IRequest";
@@ -71,7 +74,9 @@ export class MaintenanceRouter implements IRouterModule {
       authMiddleware(),
       async (req: IRequest, res: Response) => {
         await ResponseModel.manageResponse(
-          this.maintenanceUseCase.getPreventiveMaintenancesByDepartment(req.actor?.department!),
+          this.maintenanceUseCase.getPreventiveMaintenancesByDepartment(
+            req.actor?.department!
+          ),
           res,
           HttpStatusCode.OK,
           Message.MAINTENANCES_OBTAINED_SUCCESSFULLY
@@ -101,6 +106,23 @@ export class MaintenanceRouter implements IRouterModule {
           this.maintenanceUseCase.updateMaintenanceById(
             Number(req.params.id),
             req.body
+          ),
+          res,
+          HttpStatusCode.OK,
+          Message.MAINTENANCE_UPDATED_SUCCESSFULLY
+        );
+      }
+    );
+
+    this.maintenanceRouter.patch(
+      "/preventive/:id",
+      authMiddleware(),
+      async (req: IRequest, res: Response) => {
+        await ResponseModel.manageResponse(
+          this.maintenanceUseCase.updatePreventiveMaintenanceWithStage(
+            Number(req.params.id),
+            req.actor!,
+            req.body,
           ),
           res,
           HttpStatusCode.OK,
