@@ -45,7 +45,7 @@ export class MaintenanceRouter implements IRouterModule {
         const { maintenance, completedForm } = req.body;
         await ResponseModel.manageResponse(
           this.maintenanceUseCase.createPreventiveMaintenance(
-            req.actor?.department!,
+            req.actor!,
             maintenance,
             completedForm
           ),
@@ -118,12 +118,11 @@ export class MaintenanceRouter implements IRouterModule {
       "/preventive/:id",
       authMiddleware(),
       async (req: IRequest, res: Response) => {
-        const { maintenance, executionId, stageId, completedForm } = req.body;
         await ResponseModel.manageResponse(
           this.maintenanceUseCase.updatePreventiveMaintenanceWithStage(
-            req.actor?.department!,
             Number(req.params.id),
-            req.body
+            req.actor!,
+            req.body,
           ),
           res,
           HttpStatusCode.OK,

@@ -20,6 +20,6 @@ export interface IUpdateMaintenance extends Partial<Omit<IMaintenance, "id" | "c
 
 export interface IUpdateMaintenanceWithStage {
   maintenance: IUpdateMaintenance;
-  stageId: number;
+  stage: number;
   completedForm: ICreateCompletedForm;
 }
