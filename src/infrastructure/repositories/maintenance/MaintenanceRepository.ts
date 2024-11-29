@@ -48,7 +48,9 @@ export class MaintenanceRepository implements IMaintenanceRepository {
           "deptMaintTypeAssignment.department",
           "deptMaintTypeAssignment.maintenanceType",
           "executions",
-          "executions.stage"
+          "executions.stage",
+          "executions.executors",
+          "executions.executors.actor",
         ],
       });
     } catch (error) {
