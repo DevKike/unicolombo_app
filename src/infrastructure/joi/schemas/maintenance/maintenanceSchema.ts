@@ -44,3 +44,14 @@ export const updateMaintenanceSchema = Joi.object({
   status: status,
   department: deptMaintTypeAssignmentId,
 });
+
+export const updateMaintenanceWithStage = Joi.object({
+  maintenance: Joi.object({
+    name: name,
+    description: description,
+    status: status.optional(),
+  }).required(),
+  execution: Joi.number().required(),
+  stage: Joi.number().required(),
+  completedForm: Joi.string().required(),
+});

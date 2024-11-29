@@ -9,6 +9,7 @@ import {
   createMaintenanceSchema,
   createPreventiveMaintenanceSchema,
   updateMaintenanceSchema,
+  updateMaintenanceWithStage,
 } from "../../../joi/schemas/maintenance/maintenanceSchema";
 import { authMiddleware } from "../../middlewares/authMiddleware";
 import { IRequest } from "../../interfaces/IRequest";
@@ -117,6 +118,7 @@ export class MaintenanceRouter implements IRouterModule {
     this.maintenanceRouter.patch(
       "/preventive/:id",
       authMiddleware(),
+      schemaValidator(updateMaintenanceWithStage),
       async (req: IRequest, res: Response) => {
         await ResponseModel.manageResponse(
           this.maintenanceUseCase.updatePreventiveMaintenanceWithStage(
