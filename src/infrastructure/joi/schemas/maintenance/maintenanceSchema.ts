@@ -50,8 +50,9 @@ export const updateMaintenanceWithStage = Joi.object({
     name: name,
     description: description,
     status: status.optional(),
-  }).required(),
-  execution: Joi.number().required(),
+  }).required(),  
   stage: Joi.number().required(),
-  completedForm: Joi.string().required(),
+  completedForm: Joi.object({
+    filePath: Joi.string().required(),
+  })
 });
